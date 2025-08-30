@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptiTurn</title>
+    <link rel="stylesheet" href="style_main.css">
+</head>
+
+
+<body>
+    <section class="cabeçalho">
+
+        <div class="info_cabeçalho">
+            Olá gestor: ... , do Turno: ...
+        </div> 
+
+        <img class="icone_menu_configuracoes" src="ICONS/menu.png" alt="barras_menu">       
+    </section>
+
+<!-- =================================================================================================================== -->
+
+    <section class="meun_configuracoes">
+
+        <div class="cabeçalho_menu_configuracoes">
+            <img src="ICONS/close.png" alt="icone_fechar_janela" class="fechar_janela">
+            <h2>MENU PRINCIPAL</h2>
+            </div>
+
+        <div class="opcoes_menu_configuracoes">    
+            <br>
+            <input type="button" value="PASSAGENS DE TURNO">
+            <br>
+            <input type="button" value="ALTERAR ACESSO DE USUÁRIOS">
+            <br>
+            <input type="button" value="ALTERAR INFORMAÇÕES DE USUÁRIOS">
+            <br>
+        </div>
+        <input class="deslogar_sistema" type="button" value="deslogar">
+    </section>
+
+<!-- =================================================================================================================== -->
+
+    <section class="menu_interativo">
+        <div class="botoes_menu" id="buttons_menu">
+            
+            <br>
+            <button class="botao_cadastro" id="register_button">
+                <img src="ICONS/registered.png" alt="icone_registro">
+                <br>
+                CADASTROS
+            </button>
+
+            <button class="botao_atividades" id="activity_button">
+                <img src="ICONS/cube.png" alt="icone_atividades">
+                <br>
+                ATIVIDADES
+            </button>
+
+            <button class="botao_produção" id="production_button">
+                <img src="ICONS/report.png" alt="icone_produçao">
+                <br>
+                PRODUÇÃO
+            </button>
+
+            <button class="botao_mapa" id="map_button">
+                <img src="ICONS/map.png" alt="icone_mapa">
+                <br>
+                MAPA
+            </button>
+
+            <button class="botao_passagem_de_turno" id="shift_change">
+                <img src="ICONS/report 2.png" alt="icone_relatorio">
+                <br>
+                TURNO
+            </button>
+
+        </div>
+
+    </section>
+
+<!-- =================================================================================================================== -->
+
+    <section class="menu_cadastros" id="menu_register">
+
+        <div class="info_cadastros">
+
+            <div class="titulo_cadastros">
+                <br>
+                <p>Cadastros</p>
+                <img src="ICONS/close.png" alt="icone_fechar_janela" class="fechar_janela" >
+            </div>
+
+            <br>
+
+            <Label>Nome:</Label>
+            <br>
+            <input type="text">
+            <br>
+            <br>
+
+            <label>Função:</label>
+            <br>
+                Gestor:<input id="opt_register_worker01" type="radio" name="cadastro_usuario">
+                Operador:<input id="opt_register_worker02" type="radio" name="cadastro_usuario"> 
+            <br>
+
+                <div class="cadastro_gestor_informacoes">
+
+                    <label>Usuário:</label>
+                    <br>
+                    <input type="text">
+                    <br>
+                    <label>Turno:</label>
+                    <br>
+                    <input type="text">
+                    <br>
+                    <label>Senha</label>
+                    <br>
+                    <input type="password">
+
+                </div>
+
+                <div class="cadastro_operario_informacoes">
+                    <label>Tempórario: <input type="radio" name="cadastro_usuario_tempo"></label>
+                    <label>Fixo: <input type="radio" name="cadastro_usuario_tempo"></label>
+                </div>
+                
+        </div>
+
+        <input type="button" value="Cadastrar" id="confirmation_button">
+
+    </section>
+<!-- =================================================================================================================== -->
+
+        <div class="mensagem_de_sucesso">
+            <img src="ICONS/check-mark.png" alt="icone_de_sucesso">
+            Cadastro realizado!
+        </div>
+<!-- =================================================================================================================== -->
+
+
+    <section class="menu_atividades" id="menu_activities">
+
+        <div class="cabeçalho_menu_atividades">
+            <p>ATIVIDADES</p>
+            <img src="ICONS/close.png" alt="icone_fechar_janela" class="fechar_janela">
+        </div>
+
+        <div class="info_menu_atividades">
+            <label>TÍTULO:</label>
+            <br>
+            <input type="text">
+
+            <br>
+
+            <label>DESCRIÇÃO:</label>
+            <br>
+            <textarea placeholder=" descrição da atividade"></textarea>
+
+        </div>
+
+
+        <div>
+            <label>IMPORTÂNCIA:</label>
+            <br>
+            <input type="radio" name="prioridade">PRIORIDADE MÁXIMA |
+            <input type="radio" name="prioridade">SEGUNDO PLANO |
+            <input type="radio" name="prioridade">PRIORIDADE BAIXA
+        </div>
+
+        <input type="button" value="REGISTRAR"  id="confirmation_button_activity">
+    </section>
+
+<!-- =================================================================================================================== -->
+
+    <section class="menu_producao" id="menu_production">
+        <div class="cabeçalho_menu_producao">
+            <P>PRODUÇÃO</P>
+            <img src="ICONS/close.png" alt="icone_fechar_janela" class="fechar_janela">
+        </div>
+
+        <div>
+            <input type="button" value="Direcionamento Aleatório" id="random_direction">
+            <input type="button" value="Direcionamento por Operador" id="specific_direction">
+        </div>
+
+        <div class="tarefas_definidas">
+            <div class="direcionamento_aleatorio">
+
+                
+                <div class="quadro_de_tarefas_direcionadas">
+                    <input type="text" value="Nome">
+                    <br>
+                    <input type="text" value="Funcao">
+                    <br>
+
+                    <div class="tarefas_direcionadas">
+                        <p class="tarefa_direcionada" value="tarefa01">"tarefa acrescentada"
+                            <hr>
+                        </p>
+                    </div>
+                    
+                    
+                </div>  
+            </div>
+
+        </div>
+
+                <div class="confirmacao_redirecionamento">
+                    <input type="button" value="REDIRECIONAR" id="refresh_task">
+                     <input type="button" value="CONFIRMAR" id="confirmation_random_direction">
+                </div>
+
+        <div class="direcionamento_por_operador">
+
+            <div class="tarefa_para_direcionamento">
+                <table class="tabela_de_tarefa">
+                    <tr>
+                        <th class="titulo_tarefa">Tarefa</th>
+                        <th class="titulo_importancia">IMPORTÂNCIA</th>
+                    </tr>
+                    <tr>
+                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis maxime porro quasi, quidem asperiores ducimus. Possimus qui, iusto necessitatibus culpa eveniet facilis officia voluptate provident, accusamus hic error commodi dignissimos.</td>
+                        <td>grau de IMPORTÂNCIA</td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="operadores_disponiveis">
+            <input type="checkbox" class="selecao_operador" name="" id=""> Teste nome
+        </div>
+
+        <div class="confirmacao_direcionamento">
+            <input type="button" value="CONFIRMAR" id="confirmation_button_direction">
+        </div>
+
+    </section>
+
+<!-- =================================================================================================================== -->
+
+    <section class="menu_mapa" id="map_menu" >
+
+        <div class="cabeçalho_menu_mapa">
+            <h1>MAPA</h1>
+            <img src="ICONS/close.png" alt="icone_fechar_janela" class="fechar_janela">
+            <br>
+        
+        </div>
+        
+        <div class="quadros_de_operadores_em_producao">
+
+            <div class="operador01">
+                <input type="text" class="nome_operador01">
+                <br>
+                <input type="text" class="funcao_operador01">
+                
+                <div class="tarefas_associadas">
+
+                    <h2>TAREFAS:</h2>
+                        <br>   
+                        
+                        <div class="tarefa_titulo"> Titulo da tarefa</div>
+
+                        <div class="descricao_tarefa"> 
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae magnam reiciendis nemo officiis odio molestiae. Dolorum explicabo aspernatur perspiciatis impedit neque. Maiores id hic a, temporibus dicta neque asperiores quisquam.
+
+                                <div class="opcoes_em_mapa">
+                                    <hr>
+                                    <input type="button" id="pause_task" value="PAUSAR"> 
+                                    <input type="button" id="redirection_this_task" value="REALOCAR">
+                                    <input type="button" id="complete_this_task" value="CONCLUIR">
+                                </div>
+                        </div>
+
+                </div>
+            
+            </div>
+            
+        </div>
+        
+                        <div class="opcoes_de_reatribuicao" id="options_reatribued">
+
+                            <input type="radio" name="options_operator">operador
+                            <br>
+                            <input type="button" value="confirmar" id="confirm_realocation">
+
+                        </div>
+    </section>
+
+<!-- =================================================================================================================== -->
+
+    <section class="menu_turno" id="turn_menu">
+        <div class="cabeçalho_menu_turno">
+            <h1> PASSAGEM DE TURNO </h1>
+            <img src="ICONS/close.png" alt="icone_fechar_janela" class="fechar_janela">
+        </div>
+
+        <div class="tabela_relatorio">
+            <table class="relatorio_de_turno">
+                <tr>
+                    <th>ATIVIDADE</th>
+                    <th>DESCRIÇÃO</th>
+                    <th>STATUS</th>
+                </tr>
+
+                <tr>
+                    <td>contagem de manga-pallet</td>
+                    <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta, magnam. Corrupti ex qui, a, placeat praesentium dignissimos aut, nemo amet sit explicabo eos magnam ratione aperiam soluta sequi non mollitia.</td>
+                    <td>PENDENTE</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="responsaveis_pela_passagem">
+            <p>Gestor:</p>
+            <p>Turno:</p>
+        </div>
+        
+
+    </section>
+
+<!-- =================================================================================================================== -->
+
+
+<!--efeito de blur-->
+    <div id="blur-overlay"></div> 
+
+
+    <script src="/Front-end/interection_menu.js" defer></script>
+
+</body>
+</html>
