@@ -617,7 +617,7 @@ body{
 
 
 .menu_turno{
-    display: block; /*mudar para block*/
+    display: none; /*mudar para block*/
     margin: 1em;
     height: 100%;
 
