@@ -3,7 +3,8 @@ function register_user(){
     let button_register = document.getElementById("register_button")
     let menu_register = document.getElementById("menu_register")
 
-    let option_register01 = document.getElementById("opt_register_worker01")
+    let option_register01 = document.getElementById("opt_register_worker01")  
+        
     let opt_register02 = document.getElementById("opt_register_worker02") 
 
     let infor_gestor = document.querySelector(".cadastro_gestor_informacoes")
@@ -21,30 +22,48 @@ function register_user(){
     close_window_icon.forEach(element => {
         element.addEventListener("click", function(){
             menu_register.style.display = "none";
+            history.replaceState({},"","/")
             buttons_menu.style.display = "grid";
         })
     });
 
     button_register.addEventListener("click",function(){
+        history.replaceState({},"","/register_user")
         menu_register.style.display = "grid";
         buttons_menu.style.display = "none";
     })
 
     option_register01.addEventListener("click",function(){
             infor_gestor.style.display = "flex";
-            infor_operator.style.display = "none"
-    })
-
-    opt_register02.addEventListener("click",function(){
-        infor_operator.style.display = "flex"
-        infor_gestor.style.display = "none"
-    })
+            history.replaceState({},"","/register_user/register_gestor")
 
 
-                                                                                        /* acima temos as interações básicas de clique: ao clicar no botão de registro, ele cadastra ou um operador ou um gestor. Ele impede que as opções se "misturem" caso ambas sejam clicadas uma seguida da outra. */
+        confirmation_register_button.addEventListener("click", function(){
+            const name = document.getElementById("name_new_user").value
+            const user = document.getElementById("user_gestor").value
+            const turn = document.getElementById("shift_gestor").value
+            const password= document.getElementById("password_gestor").value
 
 
-    confirmation_register_button.addEventListener("click", function(){
+            fetch("/register_gestor",{
+                method:"POST",
+                headers:{
+                    'Content-type': 'application/json',
+                },
+                body:JSON.stringify({
+                    name: name,
+                    user: user,
+                    turn: turn,
+                    password: password
+
+                })
+            })
+
+            .then(response => response.json())
+            .then(data =>
+                console.log("resposta do servidor:",data)
+            )
+
         setTimeout(function(){
             menu_register.style.display = "none"
             buttons_menu.style.display = "grid"  
@@ -55,7 +74,20 @@ function register_user(){
             buttons_menu.style.display = "none"  
             interface_confirmation.style.display = "flex"
             console.log("mensagem de sucesso. Cadastro realizado")
+        })
+
+            infor_operator.style.display = "none"
     })
+
+    opt_register02.addEventListener("click",function(){
+        infor_operator.style.display = "flex"
+        history.replaceState({},"","/register_user/register_operator")
+        infor_gestor.style.display = "none"
+    })
+
+
+                                                                                        /* acima temos as interações básicas de clique: ao clicar no botão de registro, ele cadastra ou um operador ou um gestor. Ele impede que as opções se "misturem" caso ambas sejam clicadas uma seguida da outra. */
+
 
 }
 
