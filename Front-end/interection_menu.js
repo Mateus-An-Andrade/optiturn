@@ -44,7 +44,7 @@ function register_user(){
             const turn = document.getElementById("shift_gestor").value
             const password= document.getElementById("password_gestor").value
 
-
+                                                                                /* acima temos a mudança da url ao entrar no menu e a captura dos valores quando o botão de "cadastrar" é clicado.*/
             fetch("/register_gestor",{
                 method:"POST",
                 headers:{
@@ -63,7 +63,7 @@ function register_user(){
             .then(data =>
                 console.log("resposta do servidor:",data)
             )
-
+                                                                        /*acima temos a conexão com o backend, ele pega as informações que estão no front e foram capturadas pelas variaveis que armazena os inputs, cria um arquivo JSON, e envia para o back end para a rota do gestor */
         setTimeout(function(){
             menu_register.style.display = "none"
             buttons_menu.style.display = "grid"  
@@ -80,15 +80,50 @@ function register_user(){
     })
 
     opt_register02.addEventListener("click",function(){
-        infor_operator.style.display = "flex"
+        infor_operator.style.display = "grid"
         history.replaceState({},"","/register_user/register_operator")
         infor_gestor.style.display = "none"
+
+        confirmation_register_button.addEventListener("click",function(){
+            const name_operator = document.getElementById("name_new_operator").value
+            const fixed_op = document.getElementById("fixed_operator").value
+            const temp_op = document.getElementById("temporary_operator").value
+
+            fetch("/register_operator",{
+                method: "POST",
+                headers:{
+                    'content-type': 'application/json',
+                },
+                body:JSON.stringify({
+                    name_operator:name_operator,
+                    fixed_op:fixed_op,
+                    temp_op:temp_op
+                })
+
+            })
+
+            .then(response => response.json())
+            .then(data =>
+                console.log("resposta do servidor:",data)
+            )
+
+                                                    
+                                                                        /*acima temos a conexão com o backend, ele pega as informações que estão no front e foram capturadas pelas variaveis que armazena os inputs, cria um arquivo JSON, e envia para o back end para a rota do operador */
+
+            setTimeout(function(){
+                menu_register.style.display = "none"
+                buttons_menu.style.display = "grid"  
+                interface_confirmation.style.display = "none"
+                console.log("Menu principal reativado")
+            },3000)
+                menu_register.style.display = "none"
+                buttons_menu.style.display = "none"  
+                interface_confirmation.style.display = "flex"
+                console.log("mensagem de sucesso. Cadastro realizado")
+
+        })
+
     })
-
-
-                                                                                        /* acima temos as interações básicas de clique: ao clicar no botão de registro, ele cadastra ou um operador ou um gestor. Ele impede que as opções se "misturem" caso ambas sejam clicadas uma seguida da outra. */
-
-
 }
 
                                                                                     /* acima temos a animação mais básica para o evento de confirmação! */
@@ -104,6 +139,7 @@ function activities(){
 
     let confirmation_register_button = document.getElementById("confirmation_button_activity")
     let interface_confirmation = document.querySelector(".mensagem_de_sucesso")
+    const text_confirmation = document.getElementById("text_confirmation").innerText = "Tarefa criada!"
 
     const close_window_icon = document.querySelectorAll(".fechar_janela")
 
@@ -119,30 +155,55 @@ function activities(){
 
     button_activity.addEventListener("click",function(){
         buttons_menu.style.display = "none";
+        history.replaceState({},"","/create_activity")
         menu_activity.style.display = "grid";
     })
 
-                                                                                    //acima temos as interações basicas do menu que permite que ele seja aberto para a interação do usuário.
+                                                                                    //acima temos as interações basicas do menu que permite que ele seja aberto para a interação do usuário e a mudança da url do menu.
 
 
     confirmation_register_button.addEventListener("click",function(){
+        const title_task_created = document.getElementById("title_task_created").value
+        const descreption_task_text = document.getElementById("descreption_task_text").value
+        const importance_task = document.querySelector('input[name="prioridade"]:checked')?.value;
+
+
+
+                                                                                    /*acima temos as variaveis que recebem os campos referentes as informações que o gestor vai imputar referente as tarefas criadas, para enviar para o backend*/
+
+        fetch("/create_activity",{
+            method: "POST",
+            headers:{
+                'content-type': 'application/json',
+            },
+            body:JSON.stringify({
+                title_task_created:title_task_created,
+                descreption_task_text: descreption_task_text,
+                importance_task: importance_task
+            })
+        })
+            .then(response => response.json())
+            .then(data =>
+                console.log("resposta do servidor:",data)
+            )
+
+
         setTimeout(function(){
             menu_activity.style.display = "none"
-            buttons_menu.style.display = "grid"  
-            interface_confirmation.style.display = "none"
-            console.log("Menu principal reativado")
-        },3000)
-            menu_activity.style.display = "none"
-            buttons_menu.style.display = "none"  
-            interface_confirmation.style.display = "flex"
-            interface_confirmation.innerHTML = `  
-                                <img src="ICONS/check-mark.png" alt="icone_de_sucesso">
-                                    Tarefa registrada!`
+                buttons_menu.style.display = "grid"  
+                interface_confirmation.style.display = "none"
+                text_confirmation.style.display = "none"
+                console.log("Menu principal reativado")
+            },3000)
+                menu_activity.style.display = "none"
+                buttons_menu.style.display = "none"  
+                interface_confirmation.style.display = "flex"
+                text_confirmation.style.display = "flex"
             console.log("mensagem de sucesso. Atividade criada!")
     })
 
 
-                                                                                //acima temos a interação do usuário que mostra a mensagem de sucesso quando a tarefa é registrada.
+                                                                                    //acima temos a interação do usuário que mostra a mensagem de sucesso quando a tarefa é registrada.
 }
 
 

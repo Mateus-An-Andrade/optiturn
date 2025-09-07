@@ -126,8 +126,8 @@
                     <Label>Nome:</Label>
                     <br>
                     <input type="text" id="name_new_operator">
-                    <label>Fixo: <input type="radio" name="cadastro_usuario_tempo"></label>
-                    <label>Tempórario: <input type="radio" name="cadastro_usuario_tempo"></label>
+                    <label>Fixo: <input type="radio" name="cadastro_usuario_tempo" id="fixed_operator"></label>
+                    <label>Tempórario: <input type="radio" name="cadastro_usuario_tempo" id="temporary_operator"></label>
                 </div>
                 
         </div>
@@ -139,7 +139,7 @@
 
         <div class="mensagem_de_sucesso">
             <img src="{{url_for('static', filename='ICONS/check-mark.png')}}" alt="icone_de_sucesso">
-            Cadastro realizado!
+            <span id="text_confirmation">Cadastro realizado!</span>
         </div>
 <!-- =================================================================================================================== -->
 
@@ -154,13 +154,13 @@
         <div class="info_menu_atividades">
             <label>TÍTULO:</label>
             <br>
-            <input type="text">
+            <input type="text" id="title_task_created">
 
             <br>
 
             <label>DESCRIÇÃO:</label>
             <br>
-            <textarea placeholder=" descrição da atividade"></textarea>
+            <textarea placeholder=" descrição da atividade" id="descreption_task_text"></textarea>
 
         </div>
 
@@ -168,9 +168,9 @@
         <div>
             <label>IMPORTÂNCIA:</label>
             <br>
-            <input type="radio" name="prioridade">PRIORIDADE MÁXIMA |
-            <input type="radio" name="prioridade">SEGUNDO PLANO |
-            <input type="radio" name="prioridade">PRIORIDADE BAIXA
+            <input type="radio" name="prioridade" value="1">PRIORIDADE MÁXIMA |
+            <input type="radio" name="prioridade" value="2">SEGUNDO PLANO |
+            <input type="radio" name="prioridade" value="3">PRIORIDADE BAIXA
         </div>
 
         <input type="button" value="REGISTRAR"  id="confirmation_button_activity">

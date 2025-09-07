@@ -216,7 +216,7 @@ body{
 }
 
 .cadastro_operario_informacoes{
-    display: grid;  /*mudar para grid*/
+    display: none;  /*mudar para grid*/
     align-items: center;
     justify-content: space-around;
     width: 32em;
