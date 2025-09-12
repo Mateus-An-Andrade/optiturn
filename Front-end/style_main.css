@@ -384,7 +384,7 @@ body{
         cursor: pointer;
     }
     
-    .direcionamento_aleatorio{
+    .direcionamento_aleatorio_de_operadores{
         display: grid; /*mudar para grid*/
         justify-items: start;
         margin: 5px;
@@ -416,6 +416,7 @@ body{
         margin: 2%;
         border: 2px solid black;
         border-radius: 2em;
+        text-align: center;
     }
 
     .tarefas_direcionadas{

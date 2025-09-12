@@ -218,6 +218,9 @@ function production(){
 
     let random_direction = document.getElementById("random_direction")
         let tarefas_definidas = document.querySelector(".tarefas_definidas")
+        let quadro_de_tarefas_direcionadas = document.querySelector(".quadro_de_tarefas_direcionadas")
+        let Nome_operador_producao = document.querySelector(".Nome_operador_producao")
+        let tarefas_designadas = document.querySelector(".tarefas_direcionadas")
         let confirmation_redirection= document.querySelector(".confirmacao_redirecionamento")
         let refresh_task = document.getElementById("refresh_task")
         let confirmation_random_direction = document.getElementById("confirmation_random_direction")
@@ -245,16 +248,49 @@ function production(){
         buttons_menu.style.display = "none"
     })
 
-    random_direction.addEventListener("click", function(){
+   random_direction.addEventListener("click", function(){
         tarefas_definidas.style.display = "grid"
         random_direction.style.opacity = 1
         specific_direction.style.opacity = 0.5
+
+       fetch("/production_menu_random_direct",{
+           method: "POST",
+           headers: {
+               "Content-Type": "application/json"
+           }
+       })
+       .then(response => response.json())
+       .then(data =>{
+           console.log("tarefas enviadas pelo servidor:", data)
+           
+            
+
+           data.forEach(task =>{
+                quadro_de_tarefas_direcionadas.style.display = "block"
+                Nome_operador_producao.value = task.nome_operador
+                tarefas_designadas.style.display = "block"
+               let new_activity = document.createElement("p")
+               new_activity.classList.add("tarefa_direcionada")
+               new_activity.setAttribute("value", `tarefa${task.id}`)
+               tarefas_designadas.innerHTML = `
+                   ${task.title}
+                   <hr>
+               `
+               tarefas_definidas.appendChild(new_activity)
+           })
+       })
+       .catch(error => {
+           console.error("Erro ao buscar dados:", error);
+       })
+                                                                    /*acima temos o evento de direcionamento aleatório. Isso significa que o proprio sistema vai atribuir tarefas disponiveis para os operadores, as tarefas viram no fetch API */
+       
         confirmation_redirection.style.display = "flex"
         task_for_direction.style.display = "none"
         confirmation_direction.style.display = "none"
         operators.style.display = "none"
         refresh_task.style.display = "grid"
         confirmation_random_direction.display = "grid"
+
     })
 
     confirmation_random_direction.addEventListener("click",function(){
