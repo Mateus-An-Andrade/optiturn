@@ -4,6 +4,8 @@ from flask import Flask, render_template, request, redirect, session, url_for, j
 
 import psycopg2
 
+import random
+
 from flask_cors import CORS
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -127,7 +129,69 @@ def create_activity():
         cursor.close()
         conn.close()
 
-        return jsonify("Nova tarefa criada e pronta para ser direcionada    ")
+        return jsonify("Nova tarefa criada e pronta para ser direcionada")
+
+#====================================================================================================================================
+
+@app.route("/production_menu_random_direct", methods = ["POST"])
+def direction_activity():
+
+    if request.method == "POST":
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        cursor.execute(''' SELECT * FROM activities''')
+
+        data= cursor.fetchall()
+
+        tasks = []
+        operators = []
+        assigniments = []
+                                                                                    #lista de tarefas e operadores para enviar ao front
+        for activity in data:
+            id_task = activity[0]
+            title = activity[1]
+            descreption = activity[2]
+            importance = activity[3]
+
+            tasks.append ({'id':id_task, 'titulo': title, 'descrição': descreption, 'importancia': importance })
+
+                                                                                    #acima o algoritmo está pegando todas as tarefas criadas no banco de dados e criando um JSON
+        cursor.execute('''SELECT * FROM operador''')
+        op_data = cursor.fetchall()
+
+        for worker in op_data:
+            id_op= worker[0]
+            name_op = worker[1]
+
+            operators.append({'id':id_op, 'name': name_op})
+
+                                                                                    #acima temos o algoritmo pegado os operadores cadastrados no banco de dados e acrescentado a uma lista 
+
+
+        for tarefa in tasks:
+            operator_sorted = random.choice(operators)
+
+            assigniments.append({"id_task": tarefa['id'], "title":tarefa['titulo'], "id_operator": operator_sorted['id'],'nome_operador': operator_sorted['name'], 'importancia': importance,})
+
+                                                                                    #acima o algoritmo está pegando cada tarefa que foi criada, acrescentada a lista e escolhendo um operador de modo aleatório para realizar a tarefa.
+
+##
+    ##        cursor.execute('''INSERT INTO production (
+    ##                                            operator_id,
+    ##                                            activity_id, 
+    ##                                            status) values(
+    ##                                            %s,%s,%s)''', (operator_sorted['id'], tarefa['id'],'iniciada'))
+##
+##
+##
+    ##        conn.commit()
+        cursor.close()
+        conn.close()
+
+                                                                                        #acima o sistema está pegando cada informação do json e inserindo no banco de dados para consultas posteriores.
+
+        return jsonify(assigniments)
 
 
 if __name__ == '__main__':
