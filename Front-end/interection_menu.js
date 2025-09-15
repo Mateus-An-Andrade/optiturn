@@ -262,22 +262,65 @@ function production(){
        .then(response => response.json())
        .then(data =>{
            console.log("tarefas enviadas pelo servidor:", data)
-           
-            
 
-           data.forEach(task =>{
-                quadro_de_tarefas_direcionadas.style.display = "block"
-                Nome_operador_producao.value = task.nome_operador
-                tarefas_designadas.style.display = "block"
-               let new_activity = document.createElement("p")
-               new_activity.classList.add("tarefa_direcionada")
-               new_activity.setAttribute("value", `tarefa${task.id}`)
-               tarefas_designadas.innerHTML = `
-                   ${task.title}
-                   <hr>
-               `
-               tarefas_definidas.appendChild(new_activity)
-           })
+            let operator_name_task = []
+
+            data.forEach(task => {
+                if(!operator_name_task.includes(task.nome_operador)) {
+                    operator_name_task.push(task.nome_operador)
+                }
+            })
+            console.log(operator_name_task); 
+
+            operator_name_task.forEach(name =>{
+                let new_frame_op = document.createElement("div")
+                new_frame_op.classList.add("direcionamento_aleatorio_de_operadores")
+                new_frame_op.style.display="block"
+                                                                            //criação de quadro para operadores
+                let name_op_production = document.createElement("input")
+                name_op_production.classList.add("Nome_operador_producao")
+                name_op_production.type= "text"
+                name_op_production.value = name
+                name_op_production.readOnly = true
+                new_frame_op.appendChild(name_op_production)
+                                                                             //criação de inputs com nomes de operadores
+
+                let function_op = document.createElement("input")
+                function_op.type = "text"
+                function_op.value = "Operador de Insumos"
+                function_op.readOnly = true
+                new_frame_op.appendChild(function_op)   
+                                                                            //criação de inputs com a função de operadores
+
+                let frame_tasks = document.createElement("div")
+                frame_tasks.classList.add("tarefas_direcionadas")
+                frame_tasks.style.display = "block"
+                new_frame_op.appendChild(frame_tasks)
+
+                
+                                                                            //criação do quadro de tarefas
+                data.forEach(tasks => {
+                    if(tasks.nome_operador === name){
+                        let list_task = document.createElement("p")
+                        list_task.classList.add("tarefa_direcionada")
+                        let row_limit = document.createElement("hr")
+
+                        row_limit.style.display = "block"
+                        list_task.style.display = "block"
+                        list_task.innerText = tasks.title
+                        frame_tasks.appendChild(list_task)
+                        frame_tasks.appendChild(row_limit)
+
+                    }
+                })
+                                                                            //inserção de tarefas nos quadros criados
+                tarefas_definidas.appendChild(new_frame_op)
+            })
+
+
+                                                                    /*acima, o algoritmo pega o JSON retornado do back com as tarefas, pega os nomes dos operadores e salva em uma lista que servirá para filtrar as tarefas associadas a cada nome de operadores. Com isso ele cria um quadro para cada operador enviado e as tarefas associadas a ele exibindo de modo correto no front end. */
+
+
        })
        .catch(error => {
            console.error("Erro ao buscar dados:", error);
