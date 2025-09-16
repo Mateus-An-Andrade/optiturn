@@ -218,9 +218,6 @@ function production(){
 
     let random_direction = document.getElementById("random_direction")
         let tarefas_definidas = document.querySelector(".tarefas_definidas")
-        let quadro_de_tarefas_direcionadas = document.querySelector(".quadro_de_tarefas_direcionadas")
-        let Nome_operador_producao = document.querySelector(".Nome_operador_producao")
-        let tarefas_designadas = document.querySelector(".tarefas_direcionadas")
         let confirmation_redirection= document.querySelector(".confirmacao_redirecionamento")
         let refresh_task = document.getElementById("refresh_task")
         let confirmation_random_direction = document.getElementById("confirmation_random_direction")
@@ -232,6 +229,8 @@ function production(){
         let confirmation_button_direction = document.getElementById("confirmation_button_direction")
     
     let interface_confirmation = document.querySelector(".mensagem_de_sucesso")
+    let icon_sucess = document.querySelector(".icone_de_sucesso")
+    const text_confirmation = document.getElementById("text_confirmation").innerText = "Tarefa criada!"
 
     const close_window_icon = document.querySelectorAll(".fechar_janela")
 
@@ -246,18 +245,22 @@ function production(){
     button_production.addEventListener("click",function(){
         menu_production.style.display = "grid"
         buttons_menu.style.display = "none"
+        history.replaceState({},"","/production_menu")
     })
 
    random_direction.addEventListener("click", function(){
         tarefas_definidas.style.display = "grid"
         random_direction.style.opacity = 1
         specific_direction.style.opacity = 0.5
+        history.replaceState({},"","/production_menu/random_direction")
 
        fetch("/production_menu_random_direct",{
            method: "POST",
            headers: {
                "Content-Type": "application/json"
-           }
+           },
+           body: JSON.stringify({refresh: false })
+
        })
        .then(response => response.json())
        .then(data =>{
@@ -280,7 +283,7 @@ function production(){
                 let name_op_production = document.createElement("input")
                 name_op_production.classList.add("Nome_operador_producao")
                 name_op_production.type= "text"
-                name_op_production.value = name
+                name_op_production.value = name.toUpperCase()
                 name_op_production.readOnly = true
                 new_frame_op.appendChild(name_op_production)
                                                                              //criação de inputs com nomes de operadores
@@ -336,7 +339,121 @@ function production(){
 
     })
 
+    let last_sorted = []
+
+        refresh_task.addEventListener("click",function(){
+        tarefas_definidas.innerHTML = ""
+        
+        menu_production.style.display = "none" 
+        buttons_menu.style.display = "none" 
+        interface_confirmation.style.display = "flex" 
+        interface_confirmation.innerHTML = `Realizando novo direcionamento!`
+
+            console.log("mensagem de sucesso. tarefas redirecionadas")
+
+        
+        fetch("/production_menu_random_direct",{
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json"
+           },
+                body: JSON.stringify({refresh: true })
+
+            })
+            .then(response => response.json())
+            .then(data =>{ 
+                last_sorted = data
+                console.log("tarefas reenviadas pelo servidor:",data)
+                let operator_name_task = []
+                 
+                data.forEach(task => {
+                if(!operator_name_task.includes(task.nome_operador)) {
+                    operator_name_task.push(task.nome_operador)
+                }
+            })
+            console.log(operator_name_task)
+
+                console.log(operator_name_task)
+
+                operator_name_task.forEach(name =>{
+                let new_frame_op = document.createElement("div")
+                new_frame_op.classList.add("direcionamento_aleatorio_de_operadores")
+                new_frame_op.style.display="block"
+                                                                            //criação de quadro para operadores
+                let name_op_production = document.createElement("input")
+                name_op_production.classList.add("Nome_operador_producao")
+                name_op_production.type= "text"
+                name_op_production.value = name.toUpperCase()
+                name_op_production.readOnly = true
+                new_frame_op.appendChild(name_op_production)
+                                                                             //criação de inputs com nomes de operadores
+
+                let function_op = document.createElement("input")
+                function_op.type = "text"
+                function_op.value = "Operador de Insumos"
+                function_op.readOnly = true
+                new_frame_op.appendChild(function_op)   
+                                                                            //criação de inputs com a função de operadores
+
+                let frame_tasks = document.createElement("div")
+                frame_tasks.classList.add("tarefas_direcionadas")
+                frame_tasks.style.display = "block"
+                new_frame_op.appendChild(frame_tasks)
+
+                
+                                                                            //criação do quadro de tarefas
+                data.forEach(tasks => {
+                    if(tasks.nome_operador === name){
+                        let list_task = document.createElement("p")
+                        list_task.classList.add("tarefa_direcionada")
+                        let row_limit = document.createElement("hr")
+
+                        row_limit.style.display = "block"
+                        list_task.style.display = "block"
+                        list_task.innerText = tasks.title
+                        frame_tasks.appendChild(list_task)
+                        frame_tasks.appendChild(row_limit)
+
+                    }
+                })
+                                                                            //inserção de tarefas nos quadros criados
+                tarefas_definidas.appendChild(new_frame_op)
+            })
+
+
+                setTimeout(function(){
+                     menu_production.style.display = "grid" 
+                     buttons_menu.style.display = "none" 
+                     interface_confirmation.style.display = "none" 
+                     console.log("Menu principal reativado") 
+                    },3000) 
+                })
+             })
+     
+
+       
+
+                                                                        //acima temos o direcionamento aleatório das tarefas, aonde o proprio sistema escolhe quem faz o que das atividades criadas. Aonde ao ser escolhida essa opção, o sistema: libera a interface, faz conexão com o banco de dados, consultando as tarefas que foram criadas e associa de modo aleatório aos operadores
+
     confirmation_random_direction.addEventListener("click",function(){
+
+        fetch("/production_menu_random_direct",{
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json"
+           },
+                body: JSON.stringify({
+                    confirm_production: true,
+                    data: last_sorted
+                })
+
+            })
+            .then(response => response.json())
+            .then(msg =>{
+                console.log("confirmação do servidor:", msg)
+
+            })
+
         setTimeout(function(){
             menu_production.style.display = "none"
             buttons_menu.style.display = "grid"  
@@ -346,30 +463,11 @@ function production(){
             menu_production.style.display = "none"
             buttons_menu.style.display = "none"  
             interface_confirmation.style.display = "flex"
-            interface_confirmation.innerHTML = `  
-                                <img src="ICONS/check-mark.png" alt="icone_de_sucesso">
-                                    Tarefas direcionadas!`
-            console.log("mensagem de sucesso. tarefas direcionadas")
+            document.getElementById("text_confirmation").innerText = "TAREFAS DIRECIONADAS!"
         })
 
 
 
-    refresh_task.addEventListener("click",function(){
-        setTimeout(function(){
-            menu_production.style.display = "grid"
-            buttons_menu.style.display = "none"  
-            interface_confirmation.style.display = "none"
-            console.log("Menu principal reativado")
-        },3000)
-            menu_production.style.display = "none"
-            buttons_menu.style.display = "none"  
-            interface_confirmation.style.display = "flex"
-            interface_confirmation.innerHTML = `  
-                                    Realizando novo direcionamento!`
-            console.log("mensagem de sucesso. tarefas direcionadas")
-    })
-
-                                                                        //acima temos o direcionamento aleatório das tarefas, aonde o proprio sistema escolhe quem faz o que das atividades criadas. Aonde ao ser escolhida essa opção, o sistema: libera a interface, faz conexão com o banco de dados, consultando as tarefas que foram criadas e associa de modo aleatório aos operadores
 
     specific_direction.addEventListener("click",function(){
         random_direction.style.opacity = 0.5
@@ -391,9 +489,7 @@ function production(){
             menu_production.style.display = "none"
             buttons_menu.style.display = "none"  
             interface_confirmation.style.display = "flex"
-            interface_confirmation.innerHTML = `  
-                                <img src="ICONS/check-mark.png" alt="icone_de_sucesso">
-                                    Tarefas direcionadas!`
+            text_confirmation.innerText = "TAREFAS DIRECIONADAS"
             console.log("mensagem de sucesso. tarefas direcionadas")
         })
 
