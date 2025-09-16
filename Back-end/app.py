@@ -176,20 +176,37 @@ def direction_activity():
 
                                                                                     #acima o algoritmo está pegando cada tarefa que foi criada, acrescentada a lista e escolhendo um operador de modo aleatório para realizar a tarefa.
 
-##
-    ##        cursor.execute('''INSERT INTO production (
-    ##                                            operator_id,
-    ##                                            activity_id, 
-    ##                                            status) values(
-    ##                                            %s,%s,%s)''', (operator_sorted['id'], tarefa['id'],'iniciada'))
-##
-##
-##
-    ##        conn.commit()
-        cursor.close()
-        conn.close()
+        if request.method == "POST":
+            refresh_tasks = request.json.get('refresh')
+            confirmation_manager = request.json.get("confirm_production")
+            data_tasks = request.json.get("data")
 
-                                                                                        #acima o sistema está pegando cada informação do json e inserindo no banco de dados para consultas posteriores.
+            if refresh_tasks == True and confirmation_manager == False:
+                new_refresh = []
+                for tarefa in tasks:
+                    operator_sorted = random.choice(operators)
+
+                    new_refresh.append({"id_task": tarefa['id'], "title":tarefa['titulo'], "id_operator": operator_sorted['id'],'nome_operador': operator_sorted['name'], 'importancia': importance,})
+                
+                return jsonify(new_refresh)
+            
+
+            elif confirmation_manager and not refresh_tasks:
+                for line in data_tasks:
+                    cursor.execute('''
+                        INSERT INTO production (
+                            operator_id,
+                            activity_id,
+                            status
+                        ) VALUES (%s, %s, %s)
+                    ''', (line['id_operator'], line['id_task'], 'iniciada'))
+
+                conn.commit()
+                cursor.close()
+                conn.close()
+                return jsonify("Tarefas registradas na base de dados")
+
+                                                                                                    #acima o sistema está pegando cada informação do json e inserindo no banco de dados para consultas posteriores.
 
         return jsonify(assigniments)
 
