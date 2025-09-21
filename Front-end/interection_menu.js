@@ -472,28 +472,56 @@ function production(){
     specific_direction.addEventListener("click",function(){
         random_direction.style.opacity = 0.5
         specific_direction.style.opacity = 1
-        confirmation_redirection.style.display = "none"
+//        confirmation_redirection.style.display = "none"
         task_for_direction.style.display = "grid"
-        tarefas_definidas.style.display = "none"
-        operators.style.display = "flex"
-        confirmation_direction.style.display = "grid"
+//        tarefas_definidas.style.display = "none"
+//        operators.style.display = "flex"
+//        confirmation_direction.style.display = "grid"
+
+//    fetch("/production_menu_specific_direction",{
+//            method: "POST",
+//            headers: {
+//                "Content-type": "application/json"
+//            },
+//            body: JSON.stringify()
+//        })
+//        .then(response => response.json())
+//        .then(data_specific =>{
+//            console.log("confirmação de tarefas do servidor:", data_specific)
+//
+//            data_specific.forEach(task_specific =>{
+//                let table_structure = document.createElement("table")
+//                table_structure.style.display = "block"
+//                let table_title_task = document.createElement("thead")
+//                let
+//                let table_data_task = document.createElement("tdata")
+//                                                                                /*acima o algoritmo recebe o JSON das tarefas que deve ser direcionadas e cria dinamicamente os elementos necessários para exibir, começando pela tabela */
+//
+//                table_structure.classList.add("tabela_de_tarefa")
+//                table_title_task.classList.add("titulo_tarefa")
+//
+//
+//
+//            })
+//
+//        })
     })
-
-    confirmation_button_direction.addEventListener("click", function(){
-        setTimeout(function(){
-            menu_production.style.display = "none"
-            buttons_menu.style.display = "grid"  
-            interface_confirmation.style.display = "none"
-            console.log("Menu principal reativado")
-        },3000)
-            menu_production.style.display = "none"
-            buttons_menu.style.display = "none"  
-            interface_confirmation.style.display = "flex"
-            text_confirmation.innerText = "TAREFAS DIRECIONADAS"
-            console.log("mensagem de sucesso. tarefas direcionadas")
-        })
-
-                                                                        //acima temos o direcionamento especifico, aonde o próprio gestor direciona ao seu modo as tarefas.
+ 
+//    confirmation_button_direction.addEventListener("click", function(){
+//        setTimeout(function(){
+//            menu_production.style.display = "none"
+//            buttons_menu.style.display = "grid"  
+//            interface_confirmation.style.display = "none"
+//            console.log("Menu principal reativado")
+//        },3000)
+//            menu_production.style.display = "none"
+//            buttons_menu.style.display = "none"  
+//            interface_confirmation.style.display = "flex"
+//            text_confirmation.innerText = "TAREFAS DIRECIONADAS"
+//            console.log("mensagem de sucesso. tarefas direcionadas")
+//        })
+//
+//                                                                        //acima temos o direcionamento especifico, aonde o próprio gestor direciona ao seu modo as tarefas.
 }
 //==========================================================================================================================
 
@@ -530,6 +558,11 @@ function map(){
     map_button.addEventListener("click", function(){
         buttons_menu.style.display = "none"
         map_menu.style.display = "grid"
+        history.replaceState({},"","git")
+
+        let list_production_operation = []
+
+        fetch("/")
     })
 
     title_task.addEventListener("click", function(){
