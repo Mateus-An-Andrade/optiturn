@@ -206,9 +206,61 @@ def direction_activity():
                 conn.close()
                 return jsonify("Tarefas registradas na base de dados")
 
-                                                                                                    #acima o sistema está pegando cada informação do json e inserindo no banco de dados para consultas posteriores.
+                                                                                #acima o sistema está refazendo o sorteio de modo aleatório e enviando ao front end essa informação e se o gestor confirmar ele pega cada informação do json e insere no banco de dados para consultas posteriores e para o Map_Menu.
 
         return jsonify(assigniments)
+    
+#====================================================================================================================================
+
+@app.route("/production_menu_specific_direction", methods = ["POST"])
+def specific_direction():
+
+    if request.method == "POST":
+
+        activities_specifics = []
+
+        operators_in_production = []
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+                                                                                #acima temos a função de direcionamento especifico caso o gestor prefira ele mesmo direcionar qual operador deve realizar uma tarefa. A requisição sendo feita em POST, o algoritimo deverá estabelecer a conexão com a base de dados e selecionar todas as atividades para acrescentar a lista activities_specifics
+        cursor.execute('''SELECT * FROM activities''')
+        activities_data = cursor.fetchall()
+
+        for activity in activities_data:
+            id_task = activity[0]
+            title = activity[1]
+            description = activity[2]
+            importance = activity[3]
+
+            activities_specifics.append({"id": id_task,"title": title,"description": description,"importance": importance})
+
+
+        cursor.execute('''SELECT * FROM operador''')
+        operator_in_db = cursor.fetchall()
+
+        for operator in operator_in_db:
+            id_op= operator[0]
+            name_op = operator[1]
+
+            operators_in_production.append({'id':id_op, 'name': name_op})
+
+
+        return jsonify(activities_specifics)
+    
+
+
+'''@app.route("/map_menu", methods = ["POST"])
+def map():
+    
+    if request.method == "POST":
+
+        conn= get_db_connection()
+        cursor = conn.cursor()
+
+        cursor.execute(''SELECT * FROM production'')
+
+'''
 
 
 if __name__ == '__main__':
