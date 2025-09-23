@@ -562,7 +562,18 @@ function map(){
 
         let list_production_operation = []
 
-        fetch("/")
+        fetch("/map_menu",{
+           method: "POST",
+           headers: {
+               "Content-Type": "application/json"
+           },
+           body: JSON.stringify()
+
+       })
+       .then(response => response.json())
+       .then(data =>{
+            console.log(data)
+       })
     })
 
     title_task.addEventListener("click", function(){
