@@ -274,13 +274,16 @@ def map():
             status_activity = line_data[2]
             name_operator = line_data[4]
             description_activity = line_data[9]
+            title_activity = line_data[8]
             
 
             data_activity_status_op.append({"operator_id": operator_id, 
                                             "name_operator": name_operator, 
-                                            "activity_id": activity_id, 
+                                            "activity_id": activity_id,"title_activity":
+                                            title_activity,
                                             "description_activity": description_activity,
-                                            "status_activity": status_activity})
+                                            "status_activity": status_activity 
+                                            })
 
 
                                                                                                 #acima com os dados na variavel data_for_map, o algoritmo percorre toda a variavel, e insere os dados que foram resgatados da base de dados e insere em variaveis especificas dados especificos como: id e descrição das tarefas, nome e id dos operadores, além do proprio status da atividade. E com isso ele cria um JSON para enviar para o front-end.
