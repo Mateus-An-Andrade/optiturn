@@ -250,7 +250,7 @@ def specific_direction():
     
 
 
-'''@app.route("/map_menu", methods = ["POST"])
+@app.route("/map_menu", methods = ["POST"])
 def map():
     
     if request.method == "POST":
@@ -258,9 +258,36 @@ def map():
         conn= get_db_connection()
         cursor = conn.cursor()
 
-        cursor.execute(''SELECT * FROM production'')
+        data_activity_status_op = []
 
-'''
+        cursor.execute('''SELECT * FROM production 
+                                JOIN operador ON production.operator_id = operador.id_operador 
+                                JOIN activities ON production.activity_id = activities.id_activities''')
+        data_for_map = cursor.fetchall()
+
+                                                                                                #acima temos a rota do menu MAPA, a conexão deve ser por padrão POST, se for POST o algoritmo deverá criar uma conexão com o banco de dados, criar uma lista vazia e selecionar tudo da tabela produção, fazerr uma junção com os IDs correspondentes em activities e em operador, pegar todo o resultado e colocar na variavel data_for_map.
+
+        for line_data in data_for_map :
+
+            operator_id = line_data[0]
+            activity_id = line_data[1]
+            status_activity = line_data[2]
+            name_operator = line_data[4]
+            description_activity = line_data[9]
+            
+
+            data_activity_status_op.append({"operator_id": operator_id, 
+                                            "name_operator": name_operator, 
+                                            "activity_id": activity_id, 
+                                            "description_activity": description_activity,
+                                            "status_activity": status_activity})
+
+
+                                                                                                #acima com os dados na variavel data_for_map, o algoritmo percorre toda a variavel, e insere os dados que foram resgatados da base de dados e insere em variaveis especificas dados especificos como: id e descrição das tarefas, nome e id dos operadores, além do proprio status da atividade. E com isso ele cria um JSON para enviar para o front-end.
+        return jsonify(data_activity_status_op) 
+
+
+
 
 
 if __name__ == '__main__':
