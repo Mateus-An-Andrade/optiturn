@@ -534,9 +534,9 @@ function map(){
 
 
     let frame_operation_production = document.querySelector(".quadros_de_operadores_em_producao")
-    let infor_operator_01 = document.querySelector(".operador01")
+    //let infor_operator_01 = document.querySelector(".operador01")
     let title_task = document.querySelector(".tarefa_titulo")
-    let tasks_in_production_description = document.querySelector(".descricao_tarefa")
+    //let tasks_in_production_description = document.querySelector(".descricao_tarefa")
 
     let options_in_map = document.querySelector(".opcoes_em_mapa")
     let button_pause_task = document.getElementById("pause_task")
@@ -548,31 +548,110 @@ function map(){
     let menssage_sucess_task = document.querySelector (".mensagem_de_sucesso")
                                                                     //acima temos as variaveis que são referentes ao menu mapa, que serve para acompanhar as tarefas sendo realizadas pelos operadores.
 
+        const container = document.createElement('div');
+        container.classList.add('container_frames');
+        container.style.display = "grid"
+        container.style.gridTemplateColumns = "30em 30em 30em";
+        map_menu.appendChild(container);
+                                         
+
      close_window_icon.forEach(element => {
         element.addEventListener("click", function(){  
             map_menu.style.display = "none";
             buttons_menu.style.display = "grid";
+            container.innerHTML = ""
         })
     });
                                                                     //acima temos o evento de click do icone de fechar a janela/menu mapa.
     map_button.addEventListener("click", function(){
         buttons_menu.style.display = "none"
         map_menu.style.display = "grid"
-        history.replaceState({},"","git")
+        history.replaceState({},"","/map_menu")
 
-        let list_production_operation = []
-
+                            //acima temos a interação do menu MAPA. Ao ser clicado ele esconde os botões de outros menus, renomeia a URL do sistema, cria de modo dinamico um grande conteiner para criar os quadro dos operadores.
         fetch("/map_menu",{
            method: "POST",
            headers: {
                "Content-Type": "application/json"
            },
-           body: JSON.stringify()
+           body: JSON.stringify({})
 
        })
        .then(response => response.json())
-       .then(data =>{
-            console.log(data)
+       .then(data_for_map =>{
+            console.log(data_for_map)
+
+            let operator_frame = []
+
+            data_for_map.forEach(name_map => {
+                if(!operator_frame.includes(name_map.name_operator)){
+                    operator_frame.push(name_map.name_operator)
+                }
+            });
+            console.log(operator_frame)
+                                                                    //acima quando o menu MAPA é aberto, automaticamente ele solicita ao back-end um JSON, com as informações dos operadores que receberam as tarefas e quais são as tarefas. Ele cria uma lista com cada nome, e a partir disso ele saberá qual será a quantidade
+        function getRandomColor(){
+                    const r = Math.floor(Math.random()*256)
+                    const g = Math.floor(Math.random()*256)
+                    const b = Math.floor(Math.random()*256)
+
+                    return `rgba(${r}, ${b}, ${b}, 0.6)`
+                }
+
+            operator_frame.forEach(frame =>{
+                let operator_frame_map_tasks = document.createElement("div")
+                operator_frame_map_tasks.classList.add("quadros_de_operadores_em_producao")
+                operator_frame_map_tasks.style.display = "flex"
+                operator_frame_map_tasks.style.boxShadow = `10px 15px 10px ${getRandomColor()}`
+
+            //acima temos a criação do quadro maior de cada operador e a função de criação da cor da borda
+
+                let operator_infos = document.createElement("div")
+                operator_infos.classList.add("operador01")
+                operator_infos.style.display = "grid"
+                operator_infos.style.color = "red"
+                operator_frame_map_tasks.appendChild(operator_infos)
+
+                let title_name_operator = document.createElement("input")
+                title_name_operator.classList.add("nome_operador01")
+                title_name_operator.type= "text"
+                title_name_operator.value = frame.toUpperCase()
+                operator_frame_map_tasks.appendChild(title_name_operator)
+
+            // acima temos o input criado, com o nome do operador
+
+                let execution_operator = document.createElement("input")
+                execution_operator.classList.add("funcao_operador01")
+                execution_operator.type = "text"
+                execution_operator.value = "operador de insumos".toUpperCase()
+                execution_operator.readOnly = true
+                operator_frame_map_tasks.appendChild(execution_operator)
+
+            // acima temos a criação do input com a função do operador, valor fixo
+
+                let frame_of_tasks_this_operator = document.createElement("div")
+                frame_of_tasks_this_operator.classList.add("tarefas_associadas")
+                frame_of_tasks_this_operator.value = "TAREFAS:"
+                frame_of_tasks_this_operator.style.display = "flex"
+                operator_frame_map_tasks.appendChild(frame_of_tasks_this_operator)
+
+            //acima temos o quadro aonde será exibido o titulo e a tarefa
+
+
+                let title_task = document.createElement("div")
+                title_task.classList.add("tarefa_titulo")
+                data_for_map.forEach(task => {
+                    if (task.name_operator ===title_name_operator.value) {
+                        let taskItem = document.createElement("div")
+                        taskItem.classList.add("descricao_tarefa") // sua classe, se quiser
+                        taskItem.innerText = task.description_activity // ou task.title_activity, se for o nome certo
+                        frame_of_tasks_this_operator.appendChild(taskItem)
+                    }
+                })
+            //acima temos a div que será exibida o titulo da tarefa.
+            container.appendChild(operator_frame_map_tasks)
+            })
+     
        })
     })
 
