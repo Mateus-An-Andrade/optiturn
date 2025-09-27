@@ -536,10 +536,9 @@ function map(){
     let frame_operation_production = document.querySelector(".quadros_de_operadores_em_producao")
     //let infor_operator_01 = document.querySelector(".operador01")
     let title_task = document.querySelector(".tarefa_titulo")
-    //let tasks_in_production_description = document.querySelector(".descricao_tarefa")
+    let tasks_in_production_description = document.querySelector(".descricao_tarefa")
 
-    let options_in_map = document.querySelector(".opcoes_em_mapa")
-    let button_pause_task = document.getElementById("pause_task")
+    
     let button_redirection_task = document.getElementById("redirection_this_task")
     let options_reatribued = document.getElementById("options_reatribued")
     let button_complete_task = document.getElementById("complete_this_task")
@@ -568,7 +567,7 @@ function map(){
         map_menu.style.display = "grid"
         history.replaceState({},"","/map_menu")
 
-                            //acima temos a interação do menu MAPA. Ao ser clicado ele esconde os botões de outros menus, renomeia a URL do sistema, cria de modo dinamico um grande conteiner para criar os quadro dos operadores.
+                                                                    //acima temos a interação do menu MAPA. Ao ser clicado ele esconde os botões de outros menus, renomeia a URL do sistema, cria de modo dinamico um grande conteiner para criar os quadro dos operadores.
         fetch("/map_menu",{
            method: "POST",
            headers: {
@@ -631,124 +630,164 @@ function map(){
 
                 let frame_of_tasks_this_operator = document.createElement("div")
                 frame_of_tasks_this_operator.classList.add("tarefas_associadas")
-                frame_of_tasks_this_operator.value = "TAREFAS:"
                 frame_of_tasks_this_operator.style.display = "flex"
                 operator_frame_map_tasks.appendChild(frame_of_tasks_this_operator)
 
             //acima temos o quadro aonde será exibido o titulo e a tarefa
+                let title_div = document.createElement("h2")
+                title_div.innerText = "TAREFAS:"
+                frame_of_tasks_this_operator.appendChild(title_div)
+
+            
+
+               data_for_map.forEach(task => {
+                if (task.name_operator === frame) {  
+                    let title_task = document.createElement("div")
+                    title_task.classList.add("tarefa_titulo")
+                    title_task.innerText = task.title_activity
+                    frame_of_tasks_this_operator.appendChild(title_task)
+
+                    let tasks_in_production_description = document.createElement("div")
+                    tasks_in_production_description.classList.add("descricao_tarefa")
+                    tasks_in_production_description.style.display = "none"
+                    tasks_in_production_description.innerText = task.description_activity
+                    tasks_in_production_description.style.fontSize = "1.2em"
+
+                    frame_of_tasks_this_operator.appendChild(tasks_in_production_description)
+                    
+                        let options_in_map = document.createElement("div")
+                        let line_options_in_map = document.createElement("hr")
+                        tasks_in_production_description.appendChild(options_in_map);
+
+                        options_in_map.classList.add("opcoes_em_mapa")
+                        options_in_map.appendChild(line_options_in_map)
+
+                        let button_pause_task = document.createElement("input")
+                        button_pause_task.type = "button"
+                        button_pause_task.value = "PAUSAR"
+                        button_pause_task.classList.add("pause_task")
+                        options_in_map.appendChild(button_pause_task)
 
 
-                let title_task = document.createElement("div")
-                title_task.classList.add("tarefa_titulo")
-                data_for_map.forEach(task => {
-                    if (task.name_operator ===title_name_operator.value) {
-                        let taskItem = document.createElement("div")
-                        taskItem.classList.add("descricao_tarefa") // sua classe, se quiser
-                        taskItem.innerText = task.description_activity // ou task.title_activity, se for o nome certo
-                        frame_of_tasks_this_operator.appendChild(taskItem)
+                        let button_redirection_task = document.createElement("input")
+                        button_redirection_task.type = "button"
+                        button_redirection_task.value = "REALOCAR"
+                        button_redirection_task.classList.add("redirection_this_task")
+                        options_in_map.appendChild(button_redirection_task)
+
+                        let complete_this_task = document.createElement("input")
+                        complete_this_task.type = "button"
+                        complete_this_task.value = "CONCLUIR"
+                        complete_this_task.classList.add("complete_this_task")
+                        options_in_map.appendChild(complete_this_task)
+
+
+                    
+                    title_task.addEventListener("click", function(){
+                      if (tasks_in_production_description.style.display === "none") {
+                        tasks_in_production_description.style.display = "flex";
+                    } else {
+                        tasks_in_production_description.style.display = "none";
                     }
                 })
-            //acima temos a div que será exibida o titulo da tarefa.
-            container.appendChild(operator_frame_map_tasks)
+                
+                                                                         //acima temos o evento de click que aciona a descrição da tarefa que é exibida pelo titulo. Ou seja, ao clicar no titulo, o usuário poderar ver a descrição mais detalhada da tarefa e com outro clique ele poderá fechar a descrição da tarefa, juntamente com as opções do sistema, que é para concluir pausar ou redirecionar tarefas.
+
+                
+                            button_pause_task.addEventListener("click", function() {
+                                if (button_pause_task.value === "PAUSAR") {
+                                    button_pause_task.value = "CONTINUAR";
+                                
+                                    complete_this_task.style.opacity = 0.5;
+                                    complete_this_task.disabled = true;
+                                
+                                    button_redirection_task.style.opacity = 0.5;
+                                    button_redirection_task.disabled = true;
+                                } else {
+                                    button_pause_task.value = "PAUSAR";
+                                
+                                    complete_this_task.style.opacity = 1;
+                                    complete_this_task.disabled = false;
+                                
+                                    button_redirection_task.style.opacity = 1;
+                                    button_redirection_task.disabled = false;
+                                }
+                            });
+                                                                                    //acima temos o evento de pausar e continuar uma tarefa (com um duplo clique), aonde o sistema fará a comunicação com o banco de dados caso a tarefa seja pausada e continuada em seguida.
+                        
+                        button_redirection_task.addEventListener("click",function(){
+                            const isVisible = options_reatribued.style.display === "flex";
+                        
+                                if (!isVisible) {
+                                    options_reatribued.style.display = "flex";
+                                
+                                    complete_this_task.style.opacity = 0.5;
+                                    complete_this_task.disabled = true;
+                                
+                                    button_pause_task.style.opacity = 0.5;
+                                    button_pause_task.disabled = true;
+                                } else {
+                                    options_reatribued.style.display = "none";
+                                
+                                    complete_this_task.style.opacity = 1;
+                                    complete_this_task.disabled = false;
+                                
+                                    button_pause_task.style.opacity = 1;
+                                    button_pause_task.disabled = false;
+                                }
+                            });
+                                                                                    //acima temos o evento de realocar uma tarefa ou cancelar a realocação (com um duplo clique), aonde o sistema fará a comunicação com o banco de dados caso a tarefa seja realocada.
+                        confirm_realocation.addEventListener("click",function(){
+                                map_menu.style.display = "none";
+                                menssage_sucess_task.style.display = "flex";
+                                menssage_sucess_task.innerHTML = `
+                                <img src="ICONS/check-mark.png" alt="icone_de_sucesso">
+                                Tarefa Realocada!
+                            `;
+                            console.log("Mensagem de sucesso exibida. tarefa realocada.");
+                        
+                    // Após 3 segundos, oculta a mensagem e exibe o menu novamente
+                            setTimeout(function () {
+                                menssage_sucess_task.style.display = "none";
+                                options_reatribued.style.display = "none";
+                                button_pause_task.style.opacity = 1
+                                button_complete_task.style.opacity = 1;
+                                map_menu.style.display = "grid"; 
+                                console.log("Menu do mapa reativado.");
+                                }, 3000);
+                            })
+                        
+                                                                                    //acima temos a interação com botão "REALOCAR", ele tira a tarefa de um operador e entrega a outro operador, o sistema confirma a realocação, mostra uma mensagem de sucesso e volta com o menu.    
+                        
+                    complete_this_task.addEventListener("click", function () {
+                    // Oculta o menu e exibe a mensagem de sucesso imediatamente
+                            map_menu.style.display = "none";
+                            menssage_sucess_task.style.display = "flex";
+                            menssage_sucess_task.
+                            menssage_sucess_task.innerText=`TAREFA CONCLUIDA`
+                          
+                    console.log("Mensagem de sucesso exibida. Menu do mapa ocultado.");
+                    
+                    // Após 3 segundos, oculta a mensagem e exibe o menu novamente
+                    setTimeout(function () {
+                        menssage_sucess_task.style.display = "none";
+                        map_menu.style.display = "grid"; // ou "block", dependendo do layout do seu menu
+                        console.log("Menu do mapa reativado.");
+                    }, 3000);
+                });
+
+            }
+        })
+        container.appendChild(operator_frame_map_tasks)
+    })
+})          
+                                                                    //acima o algoritmo percorre pelo JSON, verifica cada atividade e compara a qual operador ela está associada. Para cada atividade associada ele cria uma div com o titulo para ser clicado, com isso ele pode mostra a descrição dela.           
+            
             })
      
-       })
-    })
-
-    title_task.addEventListener("click", function(){
-      if (tasks_in_production_description.style.display === "flex") {
-        tasks_in_production_description.style.display = "none";
-    } else {
-        tasks_in_production_description.style.display = "flex";
-    }
+       
 
 
-                                                                    //acima temos o evento de click que aciona a descrição da tarefa que é exibida pelo titulo. Ou seja, ao clicar no titulo, o usuário poderar ver a descrição mais detalhada da tarefa e com o duplo clique ele poderá fechar a tarefa.
-
-            button_pause_task.addEventListener("click", function() {
-                if (button_pause_task.value === "PAUSAR") {
-                    button_pause_task.value = "CONTINUAR";
-
-                    button_complete_task.style.opacity = 0.5;
-                    button_complete_task.disabled = true;
-
-                    button_redirection_task.style.opacity = 0.5;
-                    button_redirection_task.disabled = true;
-                } else {
-                    button_pause_task.value = "PAUSAR";
-
-                    button_complete_task.style.opacity = 1;
-                    button_complete_task.disabled = false;
-
-                    button_redirection_task.style.opacity = 1;
-                    button_redirection_task.disabled = false;
-                }
-            });
-                                                                    //acima temos o evento de pausar e continuar uma tarefa (com um duplo clique), aonde o sistema fará a comunicação com o banco de dados caso a tarefa seja pausada e continuada em seguida.
-
-        button_redirection_task.addEventListener("click",function(){
-            const isVisible = options_reatribued.style.display === "flex";
-
-                if (!isVisible) {
-                    options_reatribued.style.display = "flex";
-
-                    button_complete_task.style.opacity = 0.5;
-                    button_complete_task.disabled = true;
-
-                    button_pause_task.style.opacity = 0.5;
-                    button_pause_task.disabled = true;
-                } else {
-                    options_reatribued.style.display = "none";
-
-                    button_complete_task.style.opacity = 1;
-                    button_complete_task.disabled = false;
-
-                    button_pause_task.style.opacity = 1;
-                    button_pause_task.disabled = false;
-                }
-            });
-                                                                    //acima temos o evento de realocar uma tarefa ou cancelar a realocação (com um duplo clique), aonde o sistema fará a comunicação com o banco de dados caso a tarefa seja realocada.
-        confirm_realocation.addEventListener("click",function(){
-                map_menu.style.display = "none";
-                menssage_sucess_task.style.display = "flex";
-                menssage_sucess_task.innerHTML = `
-                <img src="ICONS/check-mark.png" alt="icone_de_sucesso">
-                Tarefa Realocada!
-            `;
-            console.log("Mensagem de sucesso exibida. tarefa realocada.");
-
-    // Após 3 segundos, oculta a mensagem e exibe o menu novamente
-            setTimeout(function () {
-                menssage_sucess_task.style.display = "none";
-                options_reatribued.style.display = "none";
-                button_pause_task.style.opacity = 1
-                button_complete_task.style.opacity = 1;
-                map_menu.style.display = "grid"; 
-                console.log("Menu do mapa reativado.");
-                }, 3000);
-            })
-
-                                                                    //acima temos a interação com botão "REALOCAR", ele tira a tarefa de um operador e entrega a outro operador, o sistema confirma a realocação, mostra uma mensagem de sucesso e volta com o menu.    
-
-    button_complete_task.addEventListener("click", function () {
-    // Oculta o menu e exibe a mensagem de sucesso imediatamente
-            map_menu.style.display = "none";
-            menssage_sucess_task.style.display = "flex";
-            menssage_sucess_task.innerHTML = `
-                <img src="ICONS/check-mark.png" alt="icone_de_sucesso">
-                Tarefa concluída!
-            `;
-    console.log("Mensagem de sucesso exibida. Menu do mapa ocultado.");
-
-    // Após 3 segundos, oculta a mensagem e exibe o menu novamente
-    setTimeout(function () {
-        menssage_sucess_task.style.display = "none";
-        map_menu.style.display = "grid"; // ou "block", dependendo do layout do seu menu
-        console.log("Menu do mapa reativado.");
-    }, 3000);
-});
-
-    })
 }
 
 function turn(){
