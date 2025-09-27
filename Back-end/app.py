@@ -279,8 +279,8 @@ def map():
 
             data_activity_status_op.append({"operator_id": operator_id, 
                                             "name_operator": name_operator, 
-                                            "activity_id": activity_id,"title_activity":
-                                            title_activity,
+                                            "activity_id": activity_id,
+                                            "title_activity":title_activity,
                                             "description_activity": description_activity,
                                             "status_activity": status_activity 
                                             })
