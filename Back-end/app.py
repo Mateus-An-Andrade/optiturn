@@ -249,14 +249,39 @@ def specific_direction():
         return jsonify(activities_specifics)
     
 
+#====================================================================================================================================
+
 
 @app.route("/map_menu", methods = ["POST"])
 def map():
     
     if request.method == "POST":
-
         conn= get_db_connection()
         cursor = conn.cursor()
+
+
+
+        button_pause_clicked = request.json.get("button_pause_clicked")  
+        activity_id_status = request.json.get("activity_id")
+            
+        if button_pause_clicked == True:
+            cursor.execute('''UPDATE production SET status = 'pendente' WHERE activity_id = %s''', (activity_id_status,))
+            conn.commit()
+           
+            return jsonify({"mensagem": "status da tarefa alterado"})
+
+        elif button_pause_clicked == False:
+            cursor.execute('''UPDATE production SET status = 'Em andamento' WHERE activity_id = %s''', (activity_id_status,))
+            conn.commit()
+
+            return jsonify({"mensagem": "status da tarefa alterado"})
+
+        
+                                                            #acima temos a rota do menu MAPA, a conexão deve ser por padrão POST, se for POST o algoritmo deverá criar uma conexão com o banco de dados,verificar se o botão de pausar uma tarefa foi ou não clicado, se nenhum foi clicado ele deverá enviar as tarefas abaixo
+
+            
+
+
 
         data_activity_status_op = []
 
@@ -265,7 +290,9 @@ def map():
                                 JOIN activities ON production.activity_id = activities.id_activities''')
         data_for_map = cursor.fetchall()
 
-                                                                                                #acima temos a rota do menu MAPA, a conexão deve ser por padrão POST, se for POST o algoritmo deverá criar uma conexão com o banco de dados, criar uma lista vazia e selecionar tudo da tabela produção, fazerr uma junção com os IDs correspondentes em activities e em operador, pegar todo o resultado e colocar na variavel data_for_map.
+        cursor.close()
+        conn.close()
+                                                                    #acima o algoritmo deve criar uma lista vazia e selecionar tudo da tabela produção, fazer uma junção com os IDs correspondentes em activities e em operador, pegar todo o resultado e colocar na variavel data_for_map.
 
         for line_data in data_for_map :
 
@@ -286,7 +313,8 @@ def map():
                                             })
 
 
-                                                                                                #acima com os dados na variavel data_for_map, o algoritmo percorre toda a variavel, e insere os dados que foram resgatados da base de dados e insere em variaveis especificas dados especificos como: id e descrição das tarefas, nome e id dos operadores, além do proprio status da atividade. E com isso ele cria um JSON para enviar para o front-end.
+                                                                    #acima com os dados na variavel data_for_map, o algoritmo percorre toda a variavel, e insere os dados que foram resgatados da base de dados e insere em variaveis especificas dados especificos como: id e descrição das tarefas, nome e id dos operadores, além do proprio status da atividade. E com isso ele cria um JSON para enviar para o front-end.
+
         return jsonify(data_activity_status_op) 
 
 
