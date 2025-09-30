@@ -681,7 +681,21 @@ function map(){
                         complete_this_task.classList.add("complete_this_task")
                         options_in_map.appendChild(complete_this_task)
 
+                        if (task.status_activity === "pendente"){
+                            tasks_in_production_description.style.opacity = 0.5
+                            title_task.style.opacity = 0.5
 
+                            button_pause_task.value = "CONTINUAR"
+
+                            complete_this_task.style.opacity = 0.5;
+                            complete_this_task.disabled = true;
+                                
+                            button_redirection_task.style.opacity = 0.5;
+                            button_redirection_task.disabled = true;
+                        }
+                                                                    //acima a condição vai depender do status no banco de dados, se vier com status pendente ele deixará o titulo e a descrição com opacidade em 50% e as opções desativadas até que a atividade seja despausada
+
+                                                                    
                     
                     title_task.addEventListener("click", function(){
                       if (tasks_in_production_description.style.display === "none") {
@@ -691,18 +705,41 @@ function map(){
                     }
                 })
                 
-                                                                         //acima temos o evento de click que aciona a descrição da tarefa que é exibida pelo titulo. Ou seja, ao clicar no titulo, o usuário poderar ver a descrição mais detalhada da tarefa e com outro clique ele poderá fechar a descrição da tarefa, juntamente com as opções do sistema, que é para concluir pausar ou redirecionar tarefas.
+                                                                    //acima temos o evento de click que aciona a descrição da tarefa que é exibida pelo titulo. Ou seja, ao clicar no titulo, o usuário poderar ver a descrição mais detalhada da tarefa e com outro clique ele poderá fechar a descrição da tarefa, juntamente com as opções do sistema, que é para concluir pausar ou redirecionar tarefas.
 
                 
                             button_pause_task.addEventListener("click", function() {
                                 if (button_pause_task.value === "PAUSAR") {
                                     button_pause_task.value = "CONTINUAR";
-                                
+                                    
+                                    tasks_in_production_description.style.opacity = 0.5
+                                    title_task.style.opacity = 0.5
+
                                     complete_this_task.style.opacity = 0.5;
                                     complete_this_task.disabled = true;
                                 
                                     button_redirection_task.style.opacity = 0.5;
                                     button_redirection_task.disabled = true;
+
+                                    
+                                    fetch("/map_menu",{
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                            body: JSON.stringify({
+                                                button_pause_clicked: true,
+                                                activity_id: task.activity_id
+                                            })
+
+                                        })
+                                            .then(response => response.json())
+                                            .then(msg =>{
+                                                console.log("mensagem do servidor:", msg)
+                                    })  
+
+                                                                        //acima o fetch é para quando o gestor precisa pausar a tarefa, isso fará com que a tarefa entre em modo pendente no banco de dados, para o relatório de turnos
+
                                 } else {
                                     button_pause_task.value = "PAUSAR";
                                 
@@ -711,9 +748,28 @@ function map(){
                                 
                                     button_redirection_task.style.opacity = 1;
                                     button_redirection_task.disabled = false;
+
+                                    tasks_in_production_description.style.opacity = 1
+                                    title_task.style.opacity = 1
+                                    fetch("/map_menu",{
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                            body: JSON.stringify({
+                                                button_pause_clicked: false,
+                                                activity_id: task.activity_id
+                                            })
+
+                                        })
+                                            .then(response => response.json())
+                                            .then(msg =>{
+                                                console.log("mensagem do servidor:", msg)
+                                    })  
+
                                 }
                             });
-                                                                                    //acima temos o evento de pausar e continuar uma tarefa (com um duplo clique), aonde o sistema fará a comunicação com o banco de dados caso a tarefa seja pausada e continuada em seguida.
+                                                                        //acima temos o evento de pausar e continuar uma tarefa (com um clique), aonde o sistema fará a comunicação com o banco de dados caso a tarefa seja pausada e continuada em seguida, mudando o status para Em andamento.    
                         
                         button_redirection_task.addEventListener("click",function(){
                             const isVisible = options_reatribued.style.display === "flex";
