@@ -545,6 +545,7 @@ function map(){
     let confirm_realocation = document.getElementById("confirm_realocation")
     
     let menssage_sucess_task = document.querySelector (".mensagem_de_sucesso")
+    let text_confirmation = document.getElementById("text_confirmation")
                                                                     //acima temos as variaveis que são referentes ao menu mapa, que serve para acompanhar as tarefas sendo realizadas pelos operadores.
 
         const container = document.createElement('div');
@@ -751,6 +752,7 @@ function map(){
 
                                     tasks_in_production_description.style.opacity = 1
                                     title_task.style.opacity = 1
+
                                     fetch("/map_menu",{
                                         method: "POST",
                                         headers: {
@@ -769,7 +771,7 @@ function map(){
 
                                 }
                             });
-                                                                        //acima temos o evento de pausar e continuar uma tarefa (com um clique), aonde o sistema fará a comunicação com o banco de dados caso a tarefa seja pausada e continuada em seguida, mudando o status para Em andamento.    
+                                                                    //acima temos o evento de pausar e continuar uma tarefa (com um clique), aonde o sistema fará a comunicação com o banco de dados caso a tarefa seja pausada e continuada em seguida, mudando o status para Em andamento.   
                         
                         button_redirection_task.addEventListener("click",function(){
                             const isVisible = options_reatribued.style.display === "flex";
@@ -792,14 +794,12 @@ function map(){
                                     button_pause_task.disabled = false;
                                 }
                             });
-                                                                                    //acima temos o evento de realocar uma tarefa ou cancelar a realocação (com um duplo clique), aonde o sistema fará a comunicação com o banco de dados caso a tarefa seja realocada.
+                                                                    //acima temos o evento de realocar uma tarefa ou cancelar a realocação (com um duplo clique), aonde o sistema fará a comunicação com o banco de dados caso a tarefa seja realocada.
+
                         confirm_realocation.addEventListener("click",function(){
                                 map_menu.style.display = "none";
                                 menssage_sucess_task.style.display = "flex";
-                                menssage_sucess_task.innerHTML = `
-                                <img src="ICONS/check-mark.png" alt="icone_de_sucesso">
-                                Tarefa Realocada!
-                            `;
+                                text_confirmation.textContent = "Tarefa realocada!"
                             console.log("Mensagem de sucesso exibida. tarefa realocada.");
                         
                     // Após 3 segundos, oculta a mensagem e exibe o menu novamente
@@ -813,16 +813,36 @@ function map(){
                                 }, 3000);
                             })
                         
-                                                                                    //acima temos a interação com botão "REALOCAR", ele tira a tarefa de um operador e entrega a outro operador, o sistema confirma a realocação, mostra uma mensagem de sucesso e volta com o menu.    
+                                                                    //acima temos a interação com botão "REALOCAR", ele tira a tarefa de um operador e entrega a outro operador, o sistema confirma a realocação, mostra uma mensagem de sucesso e volta com o menu.    
                         
                     complete_this_task.addEventListener("click", function () {
                     // Oculta o menu e exibe a mensagem de sucesso imediatamente
                             map_menu.style.display = "none";
+                            tasks_in_production_description.remove();
+                            title_task.remove(); 
                             menssage_sucess_task.style.display = "flex";
-                            menssage_sucess_task.
-                            menssage_sucess_task.innerText=`TAREFA CONCLUIDA`
+                            text_confirmation.textContent = "Tarefa concluída!"
+
+                                                                    //acima o evento de clique no botão concluir nas tarefas, faz com que uma mensagem de sucesso seja ativada e remove da tela ou do quadro a tarefa em questão.
+                            fetch("/map_menu",{
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                            body: JSON.stringify({
+                                                button_complete_clicked: true,
+                                                activity_id: task.activity_id
+                                            })
+
+                                        })
+                                            .then(response => response.json())
+                                            .then(msg =>{
+                                                console.log("mensagem do servidor:", msg)
+                                    })  
                           
-                    console.log("Mensagem de sucesso exibida. Menu do mapa ocultado.");
+                    console.log("Mensagem de sucesso exibida, tarefa retirada de operação. Menu do mapa ocultado.");
+
+                                                                    //acima o fetch capta o id da tarefa e o botão concluir clicado, com essas informações ele envia ao back end e o back atualiza o status no banco de dados.
                     
                     // Após 3 segundos, oculta a mensagem e exibe o menu novamente
                     setTimeout(function () {
