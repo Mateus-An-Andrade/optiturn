@@ -585,7 +585,7 @@ body{
     }
       .opcoes_de_reatribuicao{
         display: none;
-        flex-direction: row;
+        grid-template-columns: 10% 40% 40% 10%;
         align-items: baseline;
         font-size: 1.2rem;
         border-radius: 1em;
@@ -594,24 +594,25 @@ body{
         height: 10em;
         margin-top: 2em;
         margin-bottom: 2em;
-        justify-items: stretch;
+        justify-items: start;
+        padding: 1em;
 
             input[type="radio"]{
-                display: flex;
+
                 margin-top: 5%;
-                margin-left: 5%;
+                margin-left: 50%;
                 cursor: pointer;
             }
 
             input[type = "button"]{
-                display: flex;
+
                 width: 6em;
                 height: 2em;
                 border-radius: 10em;
                 margin-top:auto;
                 margin-bottom: 5%;
-                margin-left: 4em;
-                margin-right: 4em;
+                margin-left: 11em;
+                margin-right: 50%;
                 cursor: pointer;
             }
         }

@@ -774,16 +774,54 @@ function map(){
                                                                     //acima temos o evento de pausar e continuar uma tarefa (com um clique), aonde o sistema fará a comunicação com o banco de dados caso a tarefa seja pausada e continuada em seguida, mudando o status para Em andamento.   
                         
                         button_redirection_task.addEventListener("click",function(){
-                            const isVisible = options_reatribued.style.display === "flex";
-                        
-                                if (!isVisible) {
-                                    options_reatribued.style.display = "flex";
-                                
+                            const isVisible = options_reatribued.style.display === "grid";
                                     complete_this_task.style.opacity = 0.5;
                                     complete_this_task.disabled = true;
-                                
+                                    
                                     button_pause_task.style.opacity = 0.5;
                                     button_pause_task.disabled = true;
+
+                        
+                                if (!isVisible) {
+                                    options_reatribued.style.display = "grid";
+                                    
+                                    operator_frame.forEach(name_option_reatribuited => {
+                                        let options_operator = document.createElement("input")
+                                        options_operator.type = "radio"
+                                        options_operator.name = "options_operator"
+                                        options_operator.value = name_option_reatribuited.toUpperCase()
+                                        
+
+                                        let label = document.createElement("label")
+                                        label.textContent = name_option_reatribuited
+                                        label.prepend(options_operator)
+                                        label.style.display = "flex"
+                                        options_reatribued.appendChild(label);
+
+                                                                    //criação dinamica de inputs radio com os nomes dos operadores que devem receber novas tarefas.
+
+                                    })
+
+                                    
+                                        confirm_realocation.addEventListener("click",function(){
+                                                map_menu.style.display = "none";
+                                                menssage_sucess_task.style.display = "flex";
+                                                text_confirmation.textContent = "Tarefa realocada!"
+                                            console.log("Mensagem de sucesso exibida. tarefa realocada.");
+                                        
+                                    // Após 3 segundos, oculta a mensagem e exibe o menu novamente
+                                            setTimeout(function () {
+                                                menssage_sucess_task.style.display = "none";
+                                                options_reatribued.style.display = "none";
+                                                button_pause_task.style.opacity = 1
+                                                button_complete_task.style.opacity = 1;
+                                                map_menu.style.display = "grid"; 
+                                                console.log("Menu do mapa reativado.");
+                                                }, 3000);
+                                            })
+                        
+                                                                    //acima temos a interação com botão "REALOCAR", ele tira a tarefa de um operador e entrega a outro operador, o sistema confirma a realocação, mostra uma mensagem de sucesso e volta com o menu.  
+
                                 } else {
                                     options_reatribued.style.display = "none";
                                 
@@ -796,24 +834,7 @@ function map(){
                             });
                                                                     //acima temos o evento de realocar uma tarefa ou cancelar a realocação (com um duplo clique), aonde o sistema fará a comunicação com o banco de dados caso a tarefa seja realocada.
 
-                        confirm_realocation.addEventListener("click",function(){
-                                map_menu.style.display = "none";
-                                menssage_sucess_task.style.display = "flex";
-                                text_confirmation.textContent = "Tarefa realocada!"
-                            console.log("Mensagem de sucesso exibida. tarefa realocada.");
-                        
-                    // Após 3 segundos, oculta a mensagem e exibe o menu novamente
-                            setTimeout(function () {
-                                menssage_sucess_task.style.display = "none";
-                                options_reatribued.style.display = "none";
-                                button_pause_task.style.opacity = 1
-                                button_complete_task.style.opacity = 1;
-                                map_menu.style.display = "grid"; 
-                                console.log("Menu do mapa reativado.");
-                                }, 3000);
-                            })
-                        
-                                                                    //acima temos a interação com botão "REALOCAR", ele tira a tarefa de um operador e entrega a outro operador, o sistema confirma a realocação, mostra uma mensagem de sucesso e volta com o menu.    
+  
                         
                     complete_this_task.addEventListener("click", function () {
                     // Oculta o menu e exibe a mensagem de sucesso imediatamente
