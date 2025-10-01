@@ -260,12 +260,12 @@ def map():
         cursor = conn.cursor()
 
 
-
         button_pause_clicked = request.json.get("button_pause_clicked")  
+        button_complete_clicked = request.json.get("button_complete_clicked")
         activity_id_status = request.json.get("activity_id")
             
         if button_pause_clicked == True:
-            cursor.execute('''UPDATE production SET status = 'pendente' WHERE activity_id = %s''', (activity_id_status,))
+            cursor.execute('''UPDATE production SET status = 'Pendente' WHERE activity_id = %s''', (activity_id_status,))
             conn.commit()
            
             return jsonify({"mensagem": "status da tarefa alterado"})
@@ -275,11 +275,16 @@ def map():
             conn.commit()
 
             return jsonify({"mensagem": "status da tarefa alterado"})
-
         
-                                                            #acima temos a rota do menu MAPA, a conexão deve ser por padrão POST, se for POST o algoritmo deverá criar uma conexão com o banco de dados,verificar se o botão de pausar uma tarefa foi ou não clicado, se nenhum foi clicado ele deverá enviar as tarefas abaixo
 
-            
+        elif button_complete_clicked == True:
+            cursor.execute('''UPDATE production SET status = 'Concluida' WHERE activity_id = %s''', (activity_id_status,))
+            conn.commit()
+        
+            return jsonify({"mensagem": "tarefa concluida"})
+        
+                                                            #acima temos a rota do menu MAPA, a conexão deve ser por padrão POST, se for POST o algoritmo deverá criar uma conexão com o banco de dados,verificar se o botão de pausar uma tarefa foi ou não clicado, da mesma forma um botão de concluir foi ou não clicado, se nenhum foi clicado ele deverá enviar as tarefas abaixo. Se foi clicado então ele pode altera o status para em andamento, pendente, ou concluida.
+                                                            
 
 
 
