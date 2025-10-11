@@ -261,8 +261,19 @@ def map():
 
 
         button_pause_clicked = request.json.get("button_pause_clicked")  
+        
         button_complete_clicked = request.json.get("button_complete_clicked")
+
         activity_id_status = request.json.get("activity_id")
+        activity_id = request.json.get("activity_id")
+        title_activity = request.json.get("title_activity")
+        description_activity = request.json.get("description_activity")
+        operator_id = request.json.get("operator_id")
+        importance = request.json.get("importace")
+        name_operator_complete = request.json.get("name_operator")
+
+        button_confirm_realocation_clicked = request.json.get("button_confirm_realocation_clicked")
+        new_operator_for_task_id = request.json.get("new_operator_for_task_id")
             
         if button_pause_clicked == True:
             cursor.execute('''UPDATE production SET status = 'Pendente' WHERE activity_id = %s''', (activity_id_status,))
@@ -279,11 +290,52 @@ def map():
 
         elif button_complete_clicked == True:
             cursor.execute('''UPDATE production SET status = 'Concluida' WHERE activity_id = %s''', (activity_id_status,))
+
+            cursor.execute('''INSERT INTO turn (activities_id, 
+                                                title, 
+                                                descreption, 
+                                                status, 
+                                                importance) 
+                           
+                                                        values (%s,%s,%s,%s,%s)''', 
+
+                                            (activity_id,
+                                             title_activity, 
+                                             description_activity, 
+                                             'Concluida', 
+                                             importance))
+
+            cursor.execute('''INSERT INTO history_production (activity_id, 
+                                                                title_activity, 
+                                                                description, 
+                                                                importance, 
+                                                                status, 
+                                                                operator_id, 
+                                                                name_operator) 
+                           
+                                                                    values (%s,%s,%s,%s, %s,%s,%s)''', 
+
+                                                                (activity_id,
+                                                                 title_activity, 
+                                                                 description_activity, 
+                                                                 importance,
+                                                                 'Concluida', 
+                                                                 operator_id, 
+                                                                 name_operator_complete,))
+
+            cursor.execute('''DELETE FROM production WHERE status = 'Concluida' ''')
+
             conn.commit()
         
             return jsonify({"mensagem": "tarefa concluida"})
         
-                                                            #acima temos a rota do menu MAPA, a conexão deve ser por padrão POST, se for POST o algoritmo deverá criar uma conexão com o banco de dados,verificar se o botão de pausar uma tarefa foi ou não clicado, da mesma forma um botão de concluir foi ou não clicado, se nenhum foi clicado ele deverá enviar as tarefas abaixo. Se foi clicado então ele pode altera o status para em andamento, pendente, ou concluida.
+
+
+        elif button_confirm_realocation_clicked == True:
+            cursor.execute('''UPDATE production SET operator_id = %s WHERE activity_id = %s''',(new_operator_for_task_id,activity_id,) )
+
+        
+                                                            #acima temos a rota do menu MAPA, a conexão deve ser por padrão POST, se for POST o algoritmo deverá criar uma conexão com o banco de dados,verificar se o botão de pausar uma tarefa foi ou não clicado, da mesma forma um botão de concluir foi ou não clicado, se nenhum foi clicado ele deverá enviar as tarefas abaixo. Se foi clicado então ele pode altera o status para em andamento, pendente, ou concluida. Se o gestor confirmar a conclusão da tarefa, o sistema deverá alterar o status da tarefa tanto na tabela production apagando imediatamente para que a mesma não atrapalhe as que ainda estão em produção, e inserir os mesmos dados na tabela de historico de produção, para futuras analises de dados.
                                                             
 
 
@@ -307,6 +359,7 @@ def map():
             name_operator = line_data[4]
             description_activity = line_data[9]
             title_activity = line_data[8]
+            importance_activity = line_data[10]
             
 
             data_activity_status_op.append({"operator_id": operator_id, 
@@ -314,7 +367,8 @@ def map():
                                             "activity_id": activity_id,
                                             "title_activity":title_activity,
                                             "description_activity": description_activity,
-                                            "status_activity": status_activity 
+                                            "status_activity": status_activity,
+                                            "importance_activity": importance_activity
                                             })
 
 
