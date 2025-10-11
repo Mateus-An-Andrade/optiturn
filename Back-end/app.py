@@ -378,7 +378,37 @@ def map():
 
 
 
+#====================================================================================================================================
 
+@app.route("/turn_menu", methods = ["POST"])
+
+def turn_menu():
+
+    if request.method == "POST":
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        data_turn_report = []
+
+        cursor.execute('''SELECT * FROM turn''')
+        data_turn_db = cursor.fetchall()
+
+        for line in data_turn_db:
+            activity_id = line[0]
+            title = line[1]
+            description= line[2]
+            importance = line[3]
+            status = line[4]
+
+            data_turn_report.append({"activity_id": activity_id,
+                                     "title": title,
+                                     "description": description,
+                                     "importance": importance,
+                                     "status": status
+                                    })
+            
+            
+        return jsonify(data_turn_report)
 
 if __name__ == '__main__':
     app.run(debug=True)
