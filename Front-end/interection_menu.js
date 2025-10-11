@@ -908,7 +908,9 @@ function map(){
                                                 activity_id: task.activity_id,
                                                 title_activity: task.title_activity,
                                                 description_activity: task.description_activity,
-                                                operator_id: task.operator_id
+                                                operator_id: task.operator_id,
+                                                name_operator: task.name_operator,
+                                                importace: task.importance_activity
                                             })
 
                                         })
@@ -961,6 +963,76 @@ function turn(){
         buttons_menu.style.display = "none"
         turn_menu.style.display = "block"
         header_turn.style.display = "grid"
+        history.replaceState({},"","/turn_menu")
+
+
+        fetch("/turn_menu",{
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                 body: JSON.stringify({})
+
+       })
+       .then(response => response.json())
+       .then(data_report_turn =>{
+            console.log("dados do relatório de turno:",data_report_turn)
+
+            const container_table = document.createElement("div")
+            container_table.classList.add("tabela_relatorio")
+
+
+            let table_turn_report = document.createElement("table")
+            table_turn_report.classList.add("relatorio_de_turno")
+
+
+            let header = document.createElement("tr")
+            let th1 = document.createElement("th")
+            let th2 = document.createElement("th")
+            let th3 = document.createElement("th")
+
+            th1.textContent = "ATIVIDADE"
+            th2.textContent = "DESCRIÇÃO"
+            th3.textContent = "STATUS"
+
+
+            header.appendChild(th1)
+            header.appendChild(th2)
+            header.appendChild(th3)
+
+            table_turn_report.appendChild(header)
+
+                                                                                        //Acima, quando o botão de passagem de turno é clicado, o sistema abre um fetch e solicita ao back-end que envie os dados do relatório, ao receber esse dados ele mostra no console do navegador e inicia a criação dinamica dos elementos da tabela.
+                                                                            
+            data_report_turn.forEach(line => {
+                let row = document.createElement("tr")
+
+                let row_data_activity = document.createElement("td")
+
+                let row_data_description = document.createElement("td")
+
+                let row_data_status = document.createElement("td")
+
+                row_data_activity.textContent = line.title
+                row_data_description.textContent = line.description
+                row_data_status.textContent = line.status
+
+
+
+
+
+                                                                                            //Acima, o algoritmo entra em um loop, que a cada linha no json ele deverá criar a mesma quantidade de linhas na tabela, criando primeiro o cabeçalho dela e logo apos as linhas com titulo descrição e status inserindo os textos retornados do banco de dados.
+                row.appendChild(row_data_activity)
+                row.appendChild(row_data_description)
+                row.appendChild(row_data_status)
+                
+
+                table_turn_report.appendChild(row)
+            })
+
+            container_table.appendChild(table_turn_report)
+            turn_menu.appendChild(container_table);
+        })
     })
 }
 
