@@ -21,6 +21,8 @@ function register_user(){
 
     let interface_confirmation = document.querySelector(".mensagem_de_sucesso")
 
+    const text_confirmation = document.getElementById("text_confirmation").innerText = "Cadastro realizado!"
+
     const close_window_icon = document.querySelectorAll(".fechar_janela")
                                                                                         /*acima temos as variaveis que armazenam as classes e IDs do elementos HTML referentes ao menu de registros */
 
@@ -29,6 +31,7 @@ function register_user(){
             menu_register.style.display = "none";
             history.replaceState({},"","/")
             buttons_menu.style.display = "grid";
+            
         })
     });
 
@@ -42,45 +45,6 @@ function register_user(){
             infor_gestor.style.display = "flex";
             history.replaceState({},"","/register_user/register_gestor")
 
-
-        confirmation_register_button.addEventListener("click", function(){
-            const name = document.getElementById("name_new_user").value
-            const user = document.getElementById("user_gestor").value
-            const turn = document.getElementById("shift_gestor").value
-            const password= document.getElementById("password_gestor").value
-
-                                                                                /* acima temos a mudança da url ao entrar no menu e a captura dos valores quando o botão de "cadastrar" é clicado.*/
-            fetch("/register_gestor",{
-                method:"POST",
-                headers:{
-                    'Content-type': 'application/json',
-                },
-                body:JSON.stringify({
-                    name: name,
-                    user: user,
-                    turn: turn,
-                    password: password
-
-                })
-            })
-
-            .then(response => response.json())
-            .then(data =>
-                console.log("resposta do servidor:",data)
-            )
-                                                                        /*acima temos a conexão com o backend, ele pega as informações que estão no front e foram capturadas pelas variaveis que armazena os inputs, cria um arquivo JSON, e envia para o back end para a rota do gestor */
-        setTimeout(function(){
-            menu_register.style.display = "none"
-            buttons_menu.style.display = "grid"  
-            interface_confirmation.style.display = "none"
-            console.log("Menu principal reativado")
-        },3000)
-            menu_register.style.display = "none"
-            buttons_menu.style.display = "none"  
-            interface_confirmation.style.display = "flex"
-            console.log("mensagem de sucesso. Cadastro realizado")
-        })
-
             infor_operator.style.display = "none"
     })
 
@@ -88,50 +52,97 @@ function register_user(){
         infor_operator.style.display = "grid"
         history.replaceState({},"","/register_user/register_operator")
         infor_gestor.style.display = "none"
+        })  
 
-        confirmation_register_button.addEventListener("click",function(){
-            const name_operator = document.getElementById("name_new_operator").value
-            const fixed_op = document.getElementById("fixed_operator").value
-            const temp_op = document.getElementById("temporary_operator").value
+                                                                                    /* acima temos a mudança da url ao entrar no menu e a captura dos valores quando o botão de "cadastrar" é clicado.*/
+        
+        confirmation_register_button.addEventListener("click", function(){
+            if( option_register01.checked){
+                const name = document.getElementById("name_new_user").value
+                const user = document.getElementById("user_gestor").value
+                const turn = document.getElementById("shift_gestor").value
+                const password= document.getElementById("password_gestor").value
 
-            fetch("/register_operator",{
-                method: "POST",
-                headers:{
-                    'content-type': 'application/json',
-                },
-                body:JSON.stringify({
-                    name_operator:name_operator,
-                    fixed_op:fixed_op,
-                    temp_op:temp_op
+                fetch("/register_gestor",{
+                    method:"POST",
+                    headers:{
+                        'Content-type': 'application/json',
+                    },
+                    body:JSON.stringify({
+                        name: name,
+                        user: user,
+                        turn: turn,
+                        password: password
+
+                    })
                 })
 
-            })
+                .then(response => response.json())
+                .then(data =>
+                    console.log("resposta do servidor:",data)
+                )
+                                                                            /*acima temos a conexão com o backend, ele pega as informações que estão no front e foram capturadas pelas variaveis que armazena os inputs, cria um arquivo JSON, e envia para o back end para a rota do gestor */
+                setTimeout(function(){
+                    menu_register.style.display = "none"
+                    buttons_menu.style.display = "grid"  
+                    interface_confirmation.style.display = "none"
+                    console.log("Menu principal reativado")
+                },3000)
+                    menu_register.style.display = "none"
+                    buttons_menu.style.display = "none"  
+                    interface_confirmation.style.display = "flex"
+                    text_confirmation.style.display = "flex"
+                    text_confirmation.innerText = "Cadastro realizado!"
+                    console.log("mensagem de sucesso. Cadastro realizado")
+                    menu_register.innerHTML = " "
 
-            .then(response => response.json())
-            .then(data =>
-                console.log("resposta do servidor:",data)
-            )
+            }else if(opt_register02.checked){
+                const name_operator = document.getElementById("name_new_operator").value
+                const fixed_op = document.getElementById("fixed_operator").checked
+                const temp_op = document.getElementById("temporary_operator").checked
 
-                                                    
-                                                                        /*acima temos a conexão com o backend, ele pega as informações que estão no front e foram capturadas pelas variaveis que armazena os inputs, cria um arquivo JSON, e envia para o back end para a rota do operador */
+                fetch("/register_operator",{
+                    method: "POST",
+                    headers:{
+                        'content-type': 'application/json',
+                    },
+                    body:JSON.stringify({
+                        name_operator:name_operator,
+                        fixed_op:fixed_op,
+                        temp_op:temp_op
+                    })
 
-            setTimeout(function(){
-                menu_register.style.display = "none"
-                buttons_menu.style.display = "grid"  
-                interface_confirmation.style.display = "none"
-                console.log("Menu principal reativado")
-            },3000)
-                menu_register.style.display = "none"
-                buttons_menu.style.display = "none"  
-                interface_confirmation.style.display = "flex"
-                console.log("mensagem de sucesso. Cadastro realizado")
+                })
 
+                .then(response => response.json())
+                .then(data =>
+                    console.log("resposta do servidor:",data)
+                )
+
+                                                        
+                                                                            /*acima temos a conexão com o backend, ele pega as informações que estão no front e foram capturadas pelas variaveis que armazena os inputs, cria um arquivo JSON, e envia para o back end para a rota do operador */
+
+                setTimeout(function(){
+                    menu_register.style.display = "none"
+                    buttons_menu.style.display = "grid"  
+                    interface_confirmation.style.display = "none"
+                    console.log("Menu principal reativado")
+                },3000)
+                    menu_register.style.display = "none"
+                    buttons_menu.style.display = "none"  
+                    interface_confirmation.style.display = "flex"
+                    text_confirmation.style.display = "flex"
+                    text_confirmation.innerText = "Cadastro realizado!"
+                    console.log("mensagem de sucesso. Cadastro realizado")
+            } 
+           
+                                                                                 /* acima temos a animação mais básica para o evento de confirmação! */
+                                                                                
+    
         })
-
-    })
 }
 
-                                                                                    /* acima temos a animação mais básica para o evento de confirmação! */
+                                                                                  
 
 //==========================================================================================================================
 
@@ -1042,7 +1053,6 @@ function turn(){
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    home_page();
     register_user();   
     activities();      
     production();
