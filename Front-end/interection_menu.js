@@ -1,3 +1,8 @@
+
+
+
+
+
 function register_user(){
     let buttons_menu = document.getElementById("buttons_menu")
     let button_register = document.getElementById("register_button")
@@ -1037,6 +1042,7 @@ function turn(){
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    home_page();
     register_user();   
     activities();      
     production();

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptiTurn</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style_index.css')}}">
+
+</head>
+<body>
+
+    <section class="login_interface" id="login_interface">
+
+
+            <div class="boas_vindas_optiturn">
+                <h1>
+                    Bem-vindo ao <br> 
+                <span>OptiTurn </span>
+                 </h1>
+                
+                 <p>
+                    O sistema que vai gerenciar o seu turno,<br> suas atividades e sua equipe de modo eficiente!
+                 </p>
+
+            </div>
+
+
+            <div class="login">
+                <h2>LOGIN:</h2>
+            
+             
+                <div class="form_login">
+                    
+                    <form action="{{ url_for('index') }}" method="POST">
+
+                        <label for="username">Usuário:</label>
+                        <br>
+                        <input type="text" id="username" name="username">
+                        <br>
+                        <label for="password">Senha:</label>
+                        <br>
+                        <input type="password" id="password" name="password">
+                        <br>
+                        <input type="submit" value="Entrar" id="login_button">
+                    </form>
+
+                </div>
+            </div>
+    </section>
+
+    <script src="{{ url_for('static', filename='interection_menu.js') }}" defer></script>
+
+</body>
+</html>
