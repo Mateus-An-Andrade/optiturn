@@ -1,5 +1,43 @@
+function show_confirmation_menssage(text, time = 3000, menu_in_production) {
+    const msgBox = document.getElementById('msgSucess');
+    const msgTexto = document.getElementById('text_confirmation');
+    const inputs = document.querySelectorAll("input")
 
+    msgTexto.textContent = text;
+    msgBox.style.display = 'flex'; 
 
+    menu_in_production.style.display = "none"
+    msgBox.style.opacity = 0
+
+    setTimeout(() => {
+        msgBox.style.transition = 'opacity 0.5s';
+        msgBox.style.opacity = 1;
+        
+        inputs.forEach(input => {
+            if (input.type === "checkbox" || 
+                input.type === "radio"
+            ){
+                input.checked = false;
+                input.value = ""
+            } else if(input.type === "text" || 
+                      input.type === "password"){
+                 input.value = ""
+            } else if (input.type !== "button" && input.type !== "submit" && input.type !== "reset") {
+                input.value = "";
+            }
+        });
+
+    }, 10);
+
+                                                                    //acima o algoritmo pega o id da mensagem de sucesso, o id do icone e o parametro do menu que deve ser escondido; Em seguida faz com que o menu receba uma leve transição fade-in, retorna ao menu mas limpando os botões, se um input for checkbox ou radio ou textos e senhas ele desmarca e limpa, mas se for um input de botão como cadastrar ele mantém o valor. 
+    setTimeout(() => {
+            msgBox.style.opacity = 0;
+            setTimeout(() => {
+                msgBox.style.display = 'none';
+                menu_in_production.style.display = 'grid'; // volta o menu
+            }, 500); // espera o fade-out
+        }, time);
+}
 
 
 
@@ -21,8 +59,6 @@ function register_user(){
 
     let interface_confirmation = document.querySelector(".mensagem_de_sucesso")
 
-    const text_confirmation = document.getElementById("text_confirmation").innerText = "Cadastro realizado!"
-
     const close_window_icon = document.querySelectorAll(".fechar_janela")
                                                                                         /*acima temos as variaveis que armazenam as classes e IDs do elementos HTML referentes ao menu de registros */
 
@@ -31,6 +67,9 @@ function register_user(){
             menu_register.style.display = "none";
             history.replaceState({},"","/")
             buttons_menu.style.display = "grid";
+
+            option_register01.value =''
+            opt_register02.value = ''
             
         })
     });
@@ -81,20 +120,9 @@ function register_user(){
                 .then(data =>
                     console.log("resposta do servidor:",data)
                 )
+
+                    show_confirmation_menssage("Cadastro realizado com sucesso!", time=3000,menu_register)
                                                                             /*acima temos a conexão com o backend, ele pega as informações que estão no front e foram capturadas pelas variaveis que armazena os inputs, cria um arquivo JSON, e envia para o back end para a rota do gestor */
-                setTimeout(function(){
-                    menu_register.style.display = "none"
-                    buttons_menu.style.display = "grid"  
-                    interface_confirmation.style.display = "none"
-                    console.log("Menu principal reativado")
-                },3000)
-                    menu_register.style.display = "none"
-                    buttons_menu.style.display = "none"  
-                    interface_confirmation.style.display = "flex"
-                    text_confirmation.style.display = "flex"
-                    text_confirmation.innerText = "Cadastro realizado!"
-                    console.log("mensagem de sucesso. Cadastro realizado")
-                    menu_register.innerHTML = " "
 
             }else if(opt_register02.checked){
                 const name_operator = document.getElementById("name_new_operator").value
@@ -121,19 +149,8 @@ function register_user(){
 
                                                         
                                                                             /*acima temos a conexão com o backend, ele pega as informações que estão no front e foram capturadas pelas variaveis que armazena os inputs, cria um arquivo JSON, e envia para o back end para a rota do operador */
-
-                setTimeout(function(){
-                    menu_register.style.display = "none"
-                    buttons_menu.style.display = "grid"  
-                    interface_confirmation.style.display = "none"
-                    console.log("Menu principal reativado")
-                },3000)
-                    menu_register.style.display = "none"
-                    buttons_menu.style.display = "none"  
-                    interface_confirmation.style.display = "flex"
-                    text_confirmation.style.display = "flex"
-                    text_confirmation.innerText = "Cadastro realizado!"
-                    console.log("mensagem de sucesso. Cadastro realizado")
+                show_confirmation_menssage("Cadastro realizado com sucesso!", time=3000,menu_register)
+        
             } 
            
                                                                                  /* acima temos a animação mais básica para o evento de confirmação! */
@@ -151,11 +168,10 @@ function activities(){
     let buttons_menu = document.getElementById("buttons_menu")
     let button_activity = document.getElementById ("activity_button")
 
+
     let menu_activity = document.getElementById("menu_activities")
 
     let confirmation_register_button = document.getElementById("confirmation_button_activity")
-    let interface_confirmation = document.querySelector(".mensagem_de_sucesso")
-    const text_confirmation = document.getElementById("text_confirmation").innerText = "Tarefa criada!"
 
     const close_window_icon = document.querySelectorAll(".fechar_janela")
 
@@ -203,19 +219,8 @@ function activities(){
                 console.log("resposta do servidor:",data)
             )
 
-
-        setTimeout(function(){
-            menu_activity.style.display = "none"
-                buttons_menu.style.display = "grid"  
-                interface_confirmation.style.display = "none"
-                text_confirmation.style.display = "none"
-                console.log("Menu principal reativado")
-            },3000)
-                menu_activity.style.display = "none"
-                buttons_menu.style.display = "none"  
-                interface_confirmation.style.display = "flex"
-                text_confirmation.style.display = "flex"
-            console.log("mensagem de sucesso. Atividade criada!")
+            
+       show_confirmation_menssage("ATIVIDADE CRIADA!", time=3000,menu_activity)
     })
 
 
@@ -246,9 +251,11 @@ function production(){
     
     let interface_confirmation = document.querySelector(".mensagem_de_sucesso")
     let icon_sucess = document.querySelector(".icone_de_sucesso")
-    const text_confirmation = document.getElementById("text_confirmation").innerText = "Tarefa criada!"
+    const text_confirmation = document.getElementById("text_confirmation")
 
     const close_window_icon = document.querySelectorAll(".fechar_janela")
+
+    let last_sorted = [] 
 
                                                                                 //acima temos as referencias de elementos html que foram armazenados em variaveis;
     close_window_icon.forEach(element => {
@@ -275,12 +282,14 @@ function production(){
            headers: {
                "Content-Type": "application/json"
            },
-           body: JSON.stringify({refresh: false })
+           body: JSON.stringify({ refresh: false, confirm_production: false })
+
 
        })
        .then(response => response.json())
        .then(data =>{
            console.log("tarefas enviadas pelo servidor:", data)
+           last_sorted = data 
 
             let operator_name_task = []
 
@@ -338,8 +347,6 @@ function production(){
 
 
                                                                     /*acima, o algoritmo pega o JSON retornado do back com as tarefas, pega os nomes dos operadores e salva em uma lista que servirá para filtrar as tarefas associadas a cada nome de operadores. Com isso ele cria um quadro para cada operador enviado e as tarefas associadas a ele exibindo de modo correto no front end. */
-
-
        })
        .catch(error => {
            console.error("Erro ao buscar dados:", error);
@@ -353,17 +360,21 @@ function production(){
         refresh_task.style.display = "grid"
         confirmation_random_direction.display = "grid"
 
+
+
+
     })
 
-    let last_sorted = []
+
 
         refresh_task.addEventListener("click",function(){
         tarefas_definidas.innerHTML = ""
+        last_sorted = [] 
         
         menu_production.style.display = "none" 
         buttons_menu.style.display = "none" 
-        interface_confirmation.style.display = "flex" 
-        interface_confirmation.innerHTML = `Realizando novo direcionamento!`
+
+        show_confirmation_menssage("REALIZANDO NOVO DIRECIONAMENTO!", time=3000,menu_production)
 
             console.log("mensagem de sucesso. tarefas redirecionadas")
 
@@ -378,7 +389,7 @@ function production(){
             })
             .then(response => response.json())
             .then(data =>{ 
-                last_sorted = data
+                last_sorted = data //<==== aqui é o refresh salvo
                 console.log("tarefas reenviadas pelo servidor:",data)
                 let operator_name_task = []
                  
@@ -460,7 +471,7 @@ function production(){
            },
                 body: JSON.stringify({
                     confirm_production: true,
-                    data: last_sorted
+                    data_task: last_sorted
                 })
 
             })
@@ -468,18 +479,11 @@ function production(){
             .then(msg =>{
                 console.log("confirmação do servidor:", msg)
 
+                show_confirmation_menssage("TAREFA DIRECIONADA!", time=3000,menu_production)
             })
 
-        setTimeout(function(){
-            menu_production.style.display = "none"
-            buttons_menu.style.display = "grid"  
-            interface_confirmation.style.display = "none"
-            console.log("Menu principal reativado")
-        },3000)
-            menu_production.style.display = "none"
-            buttons_menu.style.display = "none"  
-            interface_confirmation.style.display = "flex"
-            document.getElementById("text_confirmation").innerText = "TAREFAS DIRECIONADAS!"
+            
+            
         })
 
 
@@ -561,13 +565,14 @@ function map(){
     let confirm_realocation = document.getElementById("confirm_realocation")
     
     let menssage_sucess_task = document.querySelector (".mensagem_de_sucesso")
-    let text_confirmation = document.getElementById("text_confirmation")
+    const text_confirmation = document.getElementById("text_confirmation")
                                                                     //acima temos as variaveis que são referentes ao menu mapa, que serve para acompanhar as tarefas sendo realizadas pelos operadores.
 
         const container = document.createElement('div');
         container.classList.add('container_frames');
         container.style.display = "grid"
         container.style.gridTemplateColumns = "30em 30em 30em";
+        container.style.rowGap = "2em"
         map_menu.appendChild(container);
                                          
 
@@ -595,7 +600,7 @@ function map(){
        })
        .then(response => response.json())
        .then(data_for_map =>{
-            console.log(data_for_map)
+            console.log("TAREFAS RETORNADAS DO SERVIDOR:",data_for_map)
 
             let operator_frame = []
 
@@ -910,8 +915,7 @@ function map(){
                             map_menu.style.display = "none";
                             tasks_in_production_description.remove();
                             title_task.remove(); 
-                            menssage_sucess_task.style.display = "flex";
-                            text_confirmation.textContent = "Tarefa concluída!"
+                            show_confirmation_menssage("TAREFA CONCLUÍDA!", time=3000,map_menu)
 
                                                                     //acima o evento de clique no botão concluir nas tarefas, faz com que uma mensagem de sucesso seja ativada e remove da tela ou do quadro a tarefa em questão.
                             fetch("/map_menu",{
