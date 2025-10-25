@@ -215,11 +215,12 @@ def direction_activity():
                                                                                     #acima o algoritmo está pegando cada tarefa que foi criada, acrescentada a lista e escolhendo um operador de modo aleatório para realizar a tarefa.
 
         if request.method == "POST":
-            refresh_tasks = request.json.get('refresh')
-            confirmation_manager = request.json.get("confirm_production")
-            data_tasks = request.json.get("data")
+            refresh_tasks = request.json.get('refresh', False)
+            confirmation_manager = request.json.get('confirm_production', False)
 
-            if refresh_tasks == True and confirmation_manager == False:
+            data_tasks = request.json.get("data_task")
+
+            if refresh_tasks and not confirmation_manager:
                 new_refresh = []
                 for tarefa in tasks:
                     operator_sorted = random.choice(operators)
@@ -229,15 +230,16 @@ def direction_activity():
                 return jsonify(new_refresh)
             
 
-            elif confirmation_manager and not refresh_tasks:
-                for line in data_tasks:
+            elif confirmation_manager and not refresh_tasks :
+                data_register = data_tasks
+                for line in data_register:
                     cursor.execute('''
                         INSERT INTO production (
                             operator_id,
                             activity_id,
                             status
                         ) VALUES (%s, %s, %s)
-                    ''', (line['id_operator'], line['id_task'], 'iniciada'))
+                    ''', (line['id_operator'], line['id_task'], 'pendente'))
 
                 conn.commit()
                 cursor.close()
