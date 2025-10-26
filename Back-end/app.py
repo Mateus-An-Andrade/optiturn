@@ -425,6 +425,8 @@ def map():
 def turn_menu():
 
     if request.method == "POST":
+
+        confirm_demand = request.json.get("confirm_demand",False)
         conn = get_db_connection()
         cursor = conn.cursor()
 
@@ -446,9 +448,21 @@ def turn_menu():
                                      "importance": importance,
                                      "status": status
                                     })
+        
+
+
+            if confirm_demand == True:
             
-            
+                cursor.execute('''DELETE FROM turn WHERE status = 'Concluida' ''')
+                conn.commit() 
+                cursor.execute('''SELECT * FROM turn''')
+                result_demand = cursor.fetchall()
+
+                return jsonify(result_demand)
+        
         return jsonify(data_turn_report)
+    
+                                                                    #acima o algoritmo faz a filtragem para o turno seguinte, ou seja, ele limpa as tarefas concluidas e deixa somente as pendentes para o próximo turno, isso garante a continuidade das tarefas, atráves da variavel confirm_demand, se for False deverá somente exibir todas concluidas e pendentes, se for True deverá limpar as concluidas e deixar somente as pendentes.
 
 if __name__ == '__main__':
     app.run(debug=True,use_reloader=False)
