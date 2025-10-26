@@ -15,15 +15,16 @@ function show_confirmation_menssage(text, time = 3000, menu_in_production) {
         msgBox.style.opacity = 1;
         
         inputs.forEach(input => {
-            if (input.type === "checkbox" || 
-                input.type === "radio"
-            ){
+
+            if (input.classList.contains("keep-value")) return;
+
+            if (input.type === "checkbox" || input.type === "radio") {
                 input.checked = false;
-                input.value = ""
-            } else if(input.type === "text" || 
-                      input.type === "password"){
-                 input.value = ""
-            } else if (input.type !== "button" && input.type !== "submit" && input.type !== "reset") {
+            } else if (
+                input.type !== "button" &&
+                input.type !== "submit" &&
+                input.type !== "reset"
+            ) {
                 input.value = "";
             }
         });
@@ -36,10 +37,23 @@ function show_confirmation_menssage(text, time = 3000, menu_in_production) {
             setTimeout(() => {
                 msgBox.style.display = 'none';
                 buttons_menu.style.display = 'grid'; // volta o menu principal
+                menu_in_production.style.display = 'none'; // volta o menu
             }, 500); // espera o fade-out
         }, time);
 }
 
+function close_windows (id, menu_in_production){
+    const window_to_close = document.getElementById(id)
+
+    if (window_to_close){
+        window_to_close.querySelector(".fechar_janela").addEventListener("click", function(){
+            window_to_close.style.display = "none"; 
+            history.replaceState({},"","/main")
+            buttons_menu.style.display = "grid";
+            menu_in_production.style.display = "none"
+        });
+    }
+}
 
 
 function register_user(){
@@ -63,17 +77,7 @@ function register_user(){
     const close_window_icon = document.querySelectorAll(".fechar_janela")
                                                                                         /*acima temos as variaveis que armazenam as classes e IDs do elementos HTML referentes ao menu de registros */
 
-    close_window_icon.forEach(element => {
-        element.addEventListener("click", function(){
-            menu_register.style.display = "none";
-            history.replaceState({},"","/")
-            buttons_menu.style.display = "grid";
-
-            option_register01.value =''
-            opt_register02.value = ''
-            
-        })
-    });
+    close_windows("menu_register", menu_register)
 
     button_register.addEventListener("click",function(){
         history.replaceState({},"","/register_user")
@@ -178,12 +182,7 @@ function activities(){
 
                                                                                     /*acima temos as variaveis que armazenam as classes e IDs do elementos HTML referentes ao menu de atividades */
 
-    close_window_icon.forEach(element => {
-        element.addEventListener("click", function(){
-            menu_activity.style.display = "none";
-            buttons_menu.style.display = "grid";
-        })
-    });
+    close_windows("menu_activities",menu_activity )
 
 
     button_activity.addEventListener("click",function(){
@@ -259,12 +258,7 @@ function production(){
     let last_sorted = [] 
 
                                                                                 //acima temos as referencias de elementos html que foram armazenados em variaveis;
-    close_window_icon.forEach(element => {
-        element.addEventListener("click", function(){  
-            menu_production.style.display = "none";
-            buttons_menu.style.display = "grid";
-        })
-    });
+    close_windows("menu_production",menu_production )
 
     button_production.addEventListener("click",function(){
         menu_production.style.display = "grid"
@@ -308,6 +302,7 @@ function production(){
                                                                             //criação de quadro para operadores
                 let name_op_production = document.createElement("input")
                 name_op_production.classList.add("Nome_operador_producao")
+                name_op_production.classList.add("keep-value"); 
                 name_op_production.type= "text"
                 name_op_production.value = name.toUpperCase()
                 name_op_production.readOnly = true
@@ -318,6 +313,7 @@ function production(){
                 function_op.type = "text"
                 function_op.value = "Operador de Insumos"
                 function_op.readOnly = true
+                function_op.classList.add("keep-value"); 
                 new_frame_op.appendChild(function_op)   
                                                                             //criação de inputs com a função de operadores
 
@@ -577,13 +573,7 @@ function map(){
         map_menu.appendChild(container);
                                          
 
-     close_window_icon.forEach(element => {
-        element.addEventListener("click", function(){  
-            map_menu.style.display = "none";
-            buttons_menu.style.display = "grid";
-            container.innerHTML = ""
-        })
-    });
+     close_windows("map_menu",map_menu)
                                                                     //acima temos o evento de click do icone de fechar a janela/menu mapa.
     map_button.addEventListener("click", function(){
         buttons_menu.style.display = "none"
@@ -636,6 +626,7 @@ function map(){
 
                 let title_name_operator = document.createElement("input")
                 title_name_operator.classList.add("nome_operador01")
+                title_name_operator.classList.add("keep-value"); 
                 title_name_operator.type= "text"
                 title_name_operator.value = frame.toUpperCase()
                 operator_frame_map_tasks.appendChild(title_name_operator)
@@ -644,6 +635,7 @@ function map(){
 
                 let execution_operator = document.createElement("input")
                 execution_operator.classList.add("funcao_operador01")
+                execution_operator.classList.add("keep-value"); 
                 execution_operator.type = "text"
                 execution_operator.value = "operador de insumos".toUpperCase()
                 execution_operator.readOnly = true
@@ -917,7 +909,7 @@ function map(){
                             tasks_in_production_description.remove();
                             title_task.remove(); 
                             show_confirmation_menssage("TAREFA CONCLUÍDA!", time=3000,map_menu)
-
+                            container.innerHTML = "";
                                                                     //acima o evento de clique no botão concluir nas tarefas, faz com que uma mensagem de sucesso seja ativada e remove da tela ou do quadro a tarefa em questão.
                             fetch("/map_menu",{
                                         method: "POST",
@@ -975,12 +967,7 @@ function turn(){
     let shift_demand = document.getElementById("shift_demand")
     const close_window_icon = document.querySelectorAll(".fechar_janela")
 
-    close_window_icon.forEach(element => {
-        element.addEventListener("click", function(){  
-            turn_menu.style.display = "none";
-            buttons_menu.style.display = "grid";
-        })
-    });
+    close_windows("turn_menu",turn_menu )
             
     button_shift_change.addEventListener("click",function(){
         buttons_menu.style.display = "none"
@@ -988,6 +975,7 @@ function turn(){
         header_turn.style.display = "grid"
         history.replaceState({},"","/turn_menu")
 
+        container_table_turn.innerHTML = ""
 
         fetch("/turn_menu",{
                 method: "POST",
