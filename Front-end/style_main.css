@@ -660,7 +660,7 @@ body{
                 text-align: center;
                 border-collapse: collapse;
                 font-size: 1.3rem;
-
+                padding: 0.3rem;
         }
     }
 
@@ -669,6 +669,28 @@ body{
         grid-template-columns: 50% 50%;
         justify-items: center;
         font-size: 1.2rem;
+    }
+
+    #shift_demand{
+        display: block;
+        width: 11em;
+        height: 3em;
+        border-radius: 10em;
+        margin-top:1em;
+        margin-left: 49.5%;
+        margin-right: 49.5%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    #shift_demand:hover{
+        border-radius: 10em;
+        width: 11.2em;
+        height: 3.2em;
+        background-color: #3b83f6;
+        color: #F9FAFB;
+        transition: all 0.3s ease;
+        cursor: pointer;
     }
 
 }

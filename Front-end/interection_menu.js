@@ -2,6 +2,7 @@ function show_confirmation_menssage(text, time = 3000, menu_in_production) {
     const msgBox = document.getElementById('msgSucess');
     const msgTexto = document.getElementById('text_confirmation');
     const inputs = document.querySelectorAll("input")
+    let buttons_menu = document.getElementById("buttons_menu")
 
     msgTexto.textContent = text;
     msgBox.style.display = 'flex'; 
@@ -34,7 +35,7 @@ function show_confirmation_menssage(text, time = 3000, menu_in_production) {
             msgBox.style.opacity = 0;
             setTimeout(() => {
                 msgBox.style.display = 'none';
-                menu_in_production.style.display = 'grid'; // volta o menu
+                buttons_menu.style.display = 'grid'; // volta o menu principal
             }, 500); // espera o fade-out
         }, time);
 }
@@ -970,6 +971,8 @@ function turn(){
     let buttons_menu = document.getElementById("buttons_menu")
     let turn_menu = document.getElementById("turn_menu")
     let header_turn = document.querySelector(".cabeçalho_menu_turno")
+    const container_table_turn = document.createElement("div")
+    let shift_demand = document.getElementById("shift_demand")
     const close_window_icon = document.querySelectorAll(".fechar_janela")
 
     close_window_icon.forEach(element => {
@@ -991,7 +994,7 @@ function turn(){
                 headers: {
                     "Content-Type": "application/json"
                 },
-                 body: JSON.stringify({})
+                body: JSON.stringify({confirm_demand: false})
 
        })
        .then(response => response.json())
@@ -1051,7 +1054,30 @@ function turn(){
             })
 
             container_table.appendChild(table_turn_report)
-            turn_menu.appendChild(container_table);
+            container_table_turn.appendChild(table_turn_report)
+            container_table_turn.appendChild(shift_demand)
+            turn_menu.appendChild(container_table_turn);
+
+            shift_demand.addEventListener("click",function(){
+
+                fetch("/turn_menu",{
+                    method: "POST",
+                    headers:{
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({confirm_demand : true})
+                })
+
+                .then(response => response.json())
+                .then(data_back =>{
+                    console.log("Resposta do servidors:", data_back)
+                    table_turn_report.innerHTML = ""
+                    show_confirmation_menssage("TURNO RECEBIDO!", time=3000,turn_menu)
+                })
+            })
+
+
+                                                                        //Acima o algoritmo faz a comunicação com o back, informando que pode apagar o que foi concluido, e espera a resposta do que ficou pendente.
         })
     })
 }
