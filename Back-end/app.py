@@ -159,8 +159,14 @@ def create_activity():
         cursor = conn.cursor()
 
         cursor.execute('''INSERT INTO activities (title, descreption, importance)
-                        values (%s,%s,%s)''',
+                        values (%s,%s,%s) RETURNING id_activities''',
                        (title_task,descreption_task,importance_task))
+        # Pega o ID gerado
+        activity_id = cursor.fetchone()[0]
+
+        cursor.execute('''INSERT INTO turn (activities_id,title, descreption, importance, status)
+                        values (%s,%s,%s,%s,%s)''',
+                       (activity_id, title_task,descreption_task,importance_task, 'Pendente',))
         
 
         conn.commit()
@@ -330,20 +336,6 @@ def map():
 
         elif button_complete_clicked == True:
             cursor.execute('''UPDATE production SET status = 'Concluida' WHERE activity_id = %s''', (activity_id_status,))
-
-            cursor.execute('''INSERT INTO turn (activities_id, 
-                                                title, 
-                                                descreption, 
-                                                status, 
-                                                importance) 
-                           
-                                                        values (%s,%s,%s,%s,%s)''', 
-
-                                            (activity_id,
-                                             title_activity, 
-                                             description_activity, 
-                                             'Concluida', 
-                                             importance))
 
             cursor.execute('''INSERT INTO history_production (activity_id, 
                                                                 title_activity, 
