@@ -975,7 +975,7 @@ function turn(){
         header_turn.style.display = "grid"
         history.replaceState({},"","/turn_menu")
 
-        container_table_turn.innerHTML = ""
+            container_table_turn.innerHTML = ""
 
         fetch("/turn_menu",{
                 method: "POST",
