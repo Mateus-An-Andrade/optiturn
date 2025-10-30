@@ -24,7 +24,7 @@ app.secret_key = 'uma_chave_bem_secreta_e_estavel'
 
 CORS (app)
 
-
+@app.route("/test_db")
 def get_db_connection():
     DATABASE_URL = os.environ.get("DATABASE_URL")
     conn = psycopg2.connect(DATABASE_URL)
