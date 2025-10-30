@@ -24,13 +24,28 @@ app.secret_key = 'uma_chave_bem_secreta_e_estavel'
 
 CORS (app)
 
-@app.route("/test_db")
 def get_db_connection():
     DATABASE_URL = os.environ.get("DATABASE_URL")
-    conn = psycopg2.connect(DATABASE_URL)
+    if not DATABASE_URL:
+        raise Exception(" Variável DATABASE_URL não configurada.")
     
+    conn = psycopg2.connect(DATABASE_URL, sslmode="require")
     return conn
 
+
+# a Rota de teste (só pra confirmar se o banco responde)
+@app.route("/test_db")
+def test_db():
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute("SELECT NOW();")
+        result = cur.fetchone()
+        cur.close()
+        conn.close()
+        return f"✅ Conexão bem-sucedida! Horário do servidor: {result}"
+    except Exception as e:
+        return f" Erro ao conectar: {e}"
 
 
                                                             # Nesta seção temos a configuração de conexão com a base de dados, ele está configurado para pegar as informações do endereço da base de dados (ou o host) assim como as informações da senha, nome de usuário, o nome do banco de dados. A chave secreta que valida as sessões foi definida também nessa seção.
