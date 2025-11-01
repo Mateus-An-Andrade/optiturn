@@ -56,6 +56,33 @@ function close_windows (id, menu_in_production){
 }
 
 
+function login(){
+
+    const login_user = document.getElementById("loginForm")
+
+    login_user.addEventListener("submit",async (ev) => {
+        ev.preventDefault()
+
+        const username = document.getElementById("username").value 
+        const password = document.getElementById("password").value
+
+        const response = await fetch("https://optiturn.onrender.com/login",{
+            method: "POST",
+            headers:{'content-type': 'application/json'},
+            body: JSON.stringify({username,password})
+        })
+            if(response.ok){
+                window.location.href = 'main.html';
+            }else{
+                alert("Erro: Credenciais de acesso inválidas")
+            }
+    })
+    
+}
+
+//==========================================================================================================================
+
+
 function register_user(){
     let buttons_menu = document.getElementById("buttons_menu")
     let button_register = document.getElementById("register_button")
@@ -958,6 +985,9 @@ function map(){
 
 }
 
+//==========================================================================================================================
+
+
 function turn(){
     let button_shift_change = document.getElementById("shift_change")
     let buttons_menu = document.getElementById("buttons_menu")
@@ -1070,7 +1100,11 @@ function turn(){
     })
 }
 
+//==========================================================================================================================
+
+
 document.addEventListener("DOMContentLoaded", function () {
+    login()
     register_user();   
     activities();      
     production();
