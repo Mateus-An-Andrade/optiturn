@@ -52,11 +52,11 @@ def get_db_connection():
 #Algoritmo para página principal da página:
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def index():
-    if request.method == "POST":
-        username = request.form['username']
-        password = request.form['password']
+        data = request.get_json()  # ✅ Recebe JSON do fetch
+        username = data.get('username')
+        password = data.get('password')
 
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -78,7 +78,6 @@ def index():
             conn.close()
             return "Usuário ou senha inválidos", 401
 
-    return render_template("index.html")
 
                                                                         #Acima a rota faz a requisição das informações do usuário, login e senha, faz a busca no banco de dados e com isso ele deve guardar as informações correspondentes em uma session.
 
