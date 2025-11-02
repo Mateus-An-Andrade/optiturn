@@ -31,7 +31,7 @@ app = Flask(
 
 app.secret_key = 'uma_chave_bem_secreta_e_estavel'
 
-CORS (app)
+CORS(app, resources={r"/*": {"origins": ["https://optiturnsys.vercel.app"]}})
 
 
 def get_db_connection():
