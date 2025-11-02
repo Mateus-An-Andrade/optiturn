@@ -82,6 +82,29 @@ function login(){
 
 //==========================================================================================================================
 
+async function update_UI(){
+    try{
+        const response = await fetch("https://optiturn.onrender.com");
+        if (!response.ok) throw new Error("Falha ao carregar dados")
+        
+        const data = response.json()
+
+        let name_gestor = document.getElementById("name_gestor_interface")
+        let turn_gestor = document.getElementById("turn_gestor_interface")
+
+        name_gestor.textContent = data.name
+        turn_gestor.textContent = data.turn
+
+
+    }catch (err) {
+        console.error("Erro ao atualizar UI:", err);
+    }
+
+}                                                           
+
+                                                                        //acima temos a função de atualização da interface, ou seja, ao logar ela será a responsável por mostrar o nome e o turno do gestor, assim como os icones presentes na página
+                                                                        
+
 
 function register_user(){
     let buttons_menu = document.getElementById("buttons_menu")
