@@ -29,8 +29,9 @@ app.secret_key = 'uma_chave_bem_secreta_e_estavel'
 
 CORS(
     app, 
-     supports_credentials=True, 
-     origins=["https://optiturn.vercel.app"]
+    supports_credentials=True, 
+    origins=["https://optiturn.vercel.app"], allow_headers=["Content-Type"],          
+    methods=["GET","POST","OPTIONS"]   
      )
 
 def get_db_connection():
@@ -49,15 +50,6 @@ def get_db_connection():
 #===================================================================================================================================================
 
 #Algoritmo para página principal da página:
-
-
-@app.after_request
-def add_cors_headers(response):
-    response.headers.add("Access-Control-Allow-Headers", "Content-Type")
-    response.headers.add("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
-    return response
-
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def index():
