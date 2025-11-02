@@ -69,7 +69,8 @@ function login(){
         const response = await fetch("https://optiturn.onrender.com/login",{
             method: "POST",
             headers:{'content-type': 'application/json'},
-            body: JSON.stringify({username,password})
+            body: JSON.stringify({username,password}),
+            credentials: "include"
         })
             if(response.ok){
                 window.location.href = 'main.html';
@@ -77,7 +78,7 @@ function login(){
                 alert("Erro: Credenciais de acesso inválidas")
             }
     })
-    
+                                                                            //acima temos a função que capta o login por meio de API.
 }
 
 //==========================================================================================================================
