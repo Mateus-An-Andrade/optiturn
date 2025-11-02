@@ -23,11 +23,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FRONTEND_DIR = os.path.join(BASE_DIR, '..', 'Front-end')
 
 
-app = Flask(
-    __name__,
-    template_folder=os.path.join(FRONTEND_DIR),          
-    static_folder=os.path.join(FRONTEND_DIR)            
-)
+app = Flask(__name__)
 
 app.secret_key = 'uma_chave_bem_secreta_e_estavel'
 
@@ -67,16 +63,15 @@ def index():
         print("📌 Resultado do login:", user_log)  
 
         if user_log:
+            # Guarda informações em session
             session['name'] = user_log[1]
             session['turn'] = user_log[4]
-            print(" Sessão salva:", dict(session))  
-            cursor.close()
-            conn.close()
-            return redirect(url_for('main'))
+
+            return jsonify({"status": "success", "name": user_log[1], "turn": user_log[4]}), 200
         else:
             cursor.close()
             conn.close()
-            return "Usuário ou senha inválidos", 401
+            return jsonify({"status": "error", "message": "Usuário ou senha inválidos"}), 401
 
 
                                                                         #Acima a rota faz a requisição das informações do usuário, login e senha, faz a busca no banco de dados e com isso ele deve guardar as informações correspondentes em uma session.
@@ -87,9 +82,13 @@ def main():
     name = session.get('name')
     turn = session.get('turn')
 
-    return render_template('main.html', name=name.capitalize(), turn=turn)
+    if not name:
+        return jsonify({"status": "error", "message": "Usuário não logado"}), 401
+
+    return jsonify({"status": "success", "name": name, "turn": turn}), 200
 
                                                                         #Acima a rota faz a alteração dinamica apresentando o nome e turno do gestor atualmente logado.
+#===================================================================================================================================================
 
 
 @app.route('/register_gestor', methods = ['POST'])
