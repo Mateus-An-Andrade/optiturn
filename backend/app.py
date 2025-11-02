@@ -27,8 +27,11 @@ app = Flask(__name__)
 
 app.secret_key = 'uma_chave_bem_secreta_e_estavel'
 
-CORS(app, resources={r"/*": {"origins": ["https://optiturnsys.vercel.app"]}})
-
+CORS(
+    app, 
+     supports_credentials=True, 
+     origins=["https://optiturn.vercel.app"]
+     )
 
 def get_db_connection():
     if not DATABASE_URL:
@@ -46,6 +49,14 @@ def get_db_connection():
 #===================================================================================================================================================
 
 #Algoritmo para página principal da página:
+
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type")
+    response.headers.add("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
+    return response
+
 
 
 @app.route('/login', methods=['GET', 'POST'])

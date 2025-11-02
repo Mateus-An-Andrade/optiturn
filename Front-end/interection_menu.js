@@ -84,7 +84,12 @@ function login(){
 
 async function update_UI(){
     try{
-        const response = await fetch("https://optiturn.onrender.com");
+        const response = await fetch("https://optiturn.onrender.com",{
+            method: "GET",
+            credentials: "include"
+        });
+           
+        
         if (!response.ok) throw new Error("Falha ao carregar dados")
         
         const data = await response.json()
