@@ -1133,7 +1133,8 @@ function turn(){
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    login()
+    login();
+    update_UI();
     register_user();   
     activities();      
     production();
