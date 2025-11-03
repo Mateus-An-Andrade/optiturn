@@ -30,7 +30,7 @@ app.secret_key = 'uma_chave_bem_secreta_e_estavel'
 CORS(
     app, 
     supports_credentials=True, 
-    origins=["https://optiturn.vercel.app"], allow_headers=["Content-Type"],          
+    origins=["https://optiturnsys.vercel.app"], allow_headers=["Content-Type"],          
     methods=["GET","POST","OPTIONS"]   
      )
 
