@@ -50,14 +50,6 @@ def get_db_connection():
                                                             # Nesta seção temos a configuração de conexão com a base de dados, ele está configurado para pegar as informações do endereço da base de dados (ou o host) assim como as informações da senha, nome de usuário, o nome do banco de dados. A chave secreta que valida as sessões foi definida também nessa seção.
 #===================================================================================================================================================
 
-@app.after_request
-def add_cors_headers(response):
-    response.headers.add("Access-Control-Allow-Credentials", "true")
-    response.headers.add("Access-Control-Allow-Origin", "https://optiturnsys.vercel.app")
-    response.headers.add("Access-Control-Allow-Headers", "Content-Type")
-    response.headers.add("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
-    return response
-
 
 #Algoritmo para página principal da página:
 
@@ -76,20 +68,20 @@ def index():
         print("📌 Resultado do login:", user_log)  
 
         if user_log:
+            session['name'] = user_log[1]
+            session['turn'] = user_log[4]
+
             response = jsonify({
                 "status": "success",
                 "name": user_log[1],
                 "turn": user_log[4]
             })
 
-            response.headers.add("Access-Control-Allow-Origin", "https://optiturnsys.vercel.app")
-            response.headers.add("Access-Control-Allow-Credentials", "true")
-
             return response, 200
         else:
             cursor.close()
             conn.close()
-            
+
             return jsonify({
             "status": "error",
             "message": "Usuário ou senha inválidos"
