@@ -76,19 +76,24 @@ def index():
         print("📌 Resultado do login:", user_log)  
 
         if user_log:
-            # Guarda informações em session
-            session['name'] = user_log[1]
-            session['turn'] = user_log[4]
+            response = jsonify({
+                "status": "success",
+                "name": user_log[1],
+                "turn": user_log[4]
+            })
 
-            response = jsonify({"status": "success", "name": user_log[1], "turn": user_log[4]})
-            response.set_cookie('session', session.sid, httponly=True, samesite='None', secure=True)
+            response.headers.add("Access-Control-Allow-Origin", "https://optiturnsys.vercel.app")
+            response.headers.add("Access-Control-Allow-Credentials", "true")
+
             return response, 200
         else:
             cursor.close()
             conn.close()
-            return jsonify({"status": "error", "message": "Usuário ou senha inválidos"}), 401
-
-
+            
+            return jsonify({
+            "status": "error",
+            "message": "Usuário ou senha inválidos"
+        }), 401
                                                                         #Acima a rota faz a requisição das informações do usuário, login e senha, faz a busca no banco de dados e com isso ele deve guardar as informações correspondentes em uma session.
 
 @app.route("/main", methods = ['GET','POST'])
