@@ -80,7 +80,9 @@ def index():
             session['name'] = user_log[1]
             session['turn'] = user_log[4]
 
-            return jsonify({"status": "success", "name": user_log[1], "turn": user_log[4]}), 200
+            response = jsonify({"status": "success", "name": user_log[1], "turn": user_log[4]})
+            response.set_cookie('session', session.sid, httponly=True, samesite='None', secure=True)
+            return response, 200
         else:
             cursor.close()
             conn.close()
