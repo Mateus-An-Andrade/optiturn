@@ -68,9 +68,9 @@ function login(){
 
         const response = await fetch("https://optiturn.onrender.com/login",{
             method: "POST",
-            headers:{'content-type': 'application/json'},
-            body: JSON.stringify({username,password}),
-            credentials: "include"
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password }),
+            credentials: "include" 
         })
             if(response.ok){
                 window.location.href = 'main.html';
