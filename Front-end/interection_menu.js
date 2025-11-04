@@ -1133,7 +1133,10 @@ function turn(){
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    login();
+
+       if (document.getElementById("loginForm")) {
+        login(); // só roda se estiver na página de login
+    }
     update_UI();
     register_user();   
     activities();      
