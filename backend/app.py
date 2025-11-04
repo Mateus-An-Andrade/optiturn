@@ -30,7 +30,8 @@ app.secret_key = 'uma_chave_bem_secreta_e_estavel'
 CORS(
     app, 
     supports_credentials=True, 
-    origins=["https://optiturnsys.vercel.app"], allow_headers=["Content-Type"],          
+    origins=["https://optiturnsys.vercel.app"],
+    allow_headers=["Content-Type"],          
     methods=["GET","POST","OPTIONS"]   
      )
 
@@ -48,6 +49,15 @@ def get_db_connection():
 
                                                             # Nesta seção temos a configuração de conexão com a base de dados, ele está configurado para pegar as informações do endereço da base de dados (ou o host) assim como as informações da senha, nome de usuário, o nome do banco de dados. A chave secreta que valida as sessões foi definida também nessa seção.
 #===================================================================================================================================================
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers.add("Access-Control-Allow-Credentials", "true")
+    response.headers.add("Access-Control-Allow-Origin", "https://optiturnsys.vercel.app")
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type")
+    response.headers.add("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
+    return response
+
 
 #Algoritmo para página principal da página:
 
