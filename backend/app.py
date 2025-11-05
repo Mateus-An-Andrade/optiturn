@@ -179,7 +179,7 @@ def create_activity():
         conn= get_db_connection()
         cursor = conn.cursor()
 
-        cursor.execute('''INSERT INTO turn (activities_id,title, descreption, importance, status)
+        cursor.execute('''INSERT INTO turn (title, descreption, importance, status)
                         values (%s,%s,%s,%s)''',
                        ( title_task,descreption_task,importance_task, 'Pendente',))
         
