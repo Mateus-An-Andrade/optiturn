@@ -179,14 +179,14 @@ def create_activity():
         conn= get_db_connection()
         cursor = conn.cursor()
 
-        cursor.execute('''INSERT INTO activities (title, descreption, importance)
+        cursor.execute('''INSERT INTO public.activities (title, descreption, importance)
                                 values (%s,%s,%s)
                         RETURNING id_activities''',
                         (title_task,descreption_task,importance_task))
                 # Pega o ID gerado
         activity_id = cursor.fetchone()[0]
 
-        cursor.execute('''INSERT INTO turn (activities_id,title, descreption, importance, status)
+        cursor.execute('''INSERT INTO public.turn (activities_id,title, descreption, importance, status)
                         values (%s,%s,%s,%s,%s)''',
                         (activity_id, title_task,descreption_task,importance_task, 'Pendente',))
 
