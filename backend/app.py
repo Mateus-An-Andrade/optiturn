@@ -180,7 +180,7 @@ def create_activity():
         conn= get_db_connection()
         cursor = conn.cursor()
 
-        cursor.execute(''']INSERT INTO public.activities (title, descreption, importance)
+        cursor.execute('''INSERT INTO public.activities (title, descreption, importance)
                                 values (%s,%s,%s)
                         RETURNING id_activities''',
                         (title_task,descreption_task,importance_task))
