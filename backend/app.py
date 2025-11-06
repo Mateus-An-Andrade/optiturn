@@ -7,10 +7,11 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from pathlib import Path
 
-env_path = Path(__file__).resolve().parents[1] / '.env'
-print(f"🔎 Procurando .env em: {env_path}")
 
-load_dotenv(dotenv_path=env_path)
+load_dotenv()  # carrega o .env apenas se existir localmente, sem forçar caminho
+print("🌐 Banco atual:", os.getenv("DB_NAME"))
+print("👤 Usuário atual:", os.getenv("DB_USER"))
+
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 if DATABASE_URL:
