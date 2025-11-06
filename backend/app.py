@@ -185,11 +185,11 @@ def create_activity():
                         RETURNING id_activities''',
                         (title_task,descreption_task,importance_task))
                 # Pega o ID gerado
-        activity_id = cursor.fetchone()[0]
-
-        cursor.execute('''INSERT INTO public.turn (activities_id,title, descreption, importance, status)
-                        values (%s,%s,%s,%s,%s)''',
-                        (activity_id, title_task,descreption_task,importance_task, 'Pendente'))
+      #  activity_id = cursor.fetchone()[0]
+#
+      #  cursor.execute('''INSERT INTO public.turn (activities_id,title, descreption, importance, status)
+      #                  values (%s,%s,%s,%s,%s)''',
+      #                  (activity_id, title_task,descreption_task,importance_task, 'Pendente'))
 
                 
 
