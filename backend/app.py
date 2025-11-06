@@ -176,7 +176,14 @@ def create_activity():
 
    
                                                                             #acima o algoritmo: defini o method post como metodo para receber o JSON do front end, para trabalhar com ele no banco de dados, pegando os dados necessarios para a entrada na base
+        priority_map = {
+            "PRIORIDADE MÁXIMA": 1,
+            "SEGUNDO PLANO": 2,
+            "PRIORIDADE BAIXA": 3
+        }
 
+        importance_value = request.form.get('importance')
+        importance_task = priority_map.get(importance_value, 3)
         conn= get_db_connection()
         cursor = conn.cursor()
 
