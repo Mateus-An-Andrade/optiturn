@@ -267,7 +267,7 @@ def direction_activity():
                 return jsonify(new_refresh)
             
 
-            elif confirmation_manager and not refresh_tasks :
+            elif confirmation_manager and not refresh_tasks:
                 data_register = data_tasks
                 for line in data_register:
                     cursor.execute('''
@@ -278,11 +278,9 @@ def direction_activity():
                         ) VALUES (%s, %s, %s)
                     ''', (line['id_operator'], line['id_task'], 'pendente'))
 
-                conn.commit()
-                
-                cursor.execute('''DELETE FROM activities WHERE id_activities = %s''', (line['id_task'],))
-                conn.commit()
+                    cursor.execute('DELETE FROM activities WHERE id_activities = %s', (line['id_task'],))
 
+                conn.commit()
                 cursor.close()
                 conn.close()
                 return jsonify("Tarefas registradas na base de dados")
