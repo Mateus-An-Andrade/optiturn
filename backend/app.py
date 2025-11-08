@@ -75,6 +75,7 @@ def index():
         print("📌 Resultado do login:", user_log)  
 
         if user_log:
+            session['id'] = user_log[0]
             session['name'] = user_log[1]
             session['turn'] = user_log[4]
 
