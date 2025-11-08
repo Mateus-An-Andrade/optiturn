@@ -29,6 +29,11 @@ app = Flask(__name__)
 
 app.secret_key = 'uma_chave_bem_secreta_e_estavel'
 
+app.config.update(
+    SESSION_COOKIE_SAMESITE="None", 
+    SESSION_COOKIE_SECURE=True        
+)
+
 CORS(
     app, 
     supports_credentials=True, 
