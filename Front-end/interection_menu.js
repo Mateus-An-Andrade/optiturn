@@ -100,7 +100,7 @@ async function update_UI(){
 
         name_gestor.textContent = data.name
         turn_gestor.textContent = data.turn
-
+        console.log(data)
 
     }catch (err) {
         console.error("Erro ao atualizar UI:", err);

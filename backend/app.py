@@ -75,8 +75,8 @@ def index():
 
             response = jsonify({
                 "status": "success",
-                "name": user_log[1],
-                "turn": user_log[4]
+                "name":  session['name'],
+                "turn": session['turn'] 
             })
 
             return response, 200
