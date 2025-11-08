@@ -168,11 +168,13 @@ function register_user(){
                     headers:{
                         'Content-type': 'application/json',
                     },
+                    credentials: "include",
                     body:JSON.stringify({
                         name: name,
                         user: user,
                         turn: turn,
                         password: password
+
 
                     })
                 })
@@ -195,6 +197,7 @@ function register_user(){
                     headers:{
                         'content-type': 'application/json',
                     },
+                    credentials: "include",
                     body:JSON.stringify({
                         name_operator:name_operator,
                         fixed_op:fixed_op,
@@ -264,6 +267,7 @@ function activities(){
             headers:{
                 'content-type': 'application/json',
             },
+            credentials: "include",
             body:JSON.stringify({
                 title_task_created:title_task_created,
                 descreption_task_text: descreption_task_text,
@@ -333,7 +337,8 @@ function production(){
            headers: {
                "Content-Type": "application/json"
            },
-           body: JSON.stringify({ refresh: false, confirm_production: false })
+            credentials: "include",
+            body: JSON.stringify({ refresh: false, confirm_production: false })
 
 
        })
@@ -437,6 +442,7 @@ function production(){
             headers: {
                "Content-Type": "application/json"
            },
+                credentials: "include",
                 body: JSON.stringify({refresh: true })
 
             })
@@ -522,6 +528,7 @@ function production(){
             headers: {
                "Content-Type": "application/json"
            },
+                credentials: "include",
                 body: JSON.stringify({
                     confirm_production: true,
                     data_task: last_sorted
@@ -556,6 +563,7 @@ function production(){
 //            headers: {
 //                "Content-type": "application/json"
 //            },
+//            credentials: "include",
 //            body: JSON.stringify()
 //        })
 //        .then(response => response.json())
@@ -642,6 +650,7 @@ function map(){
            headers: {
                "Content-Type": "application/json"
            },
+           credentials: "include",
            body: JSON.stringify({})
 
        })
@@ -798,6 +807,7 @@ function map(){
                                         headers: {
                                             "Content-Type": "application/json"
                                         },
+                                            credentials: "include",
                                             body: JSON.stringify({
                                                 button_pause_clicked: true,
                                                 activity_id: task.activity_id
@@ -828,6 +838,7 @@ function map(){
                                         headers: {
                                             "Content-Type": "application/json"
                                         },
+                                            credentials: "include",
                                             body: JSON.stringify({
                                                 button_pause_clicked: false,
                                                 activity_id: task.activity_id
@@ -972,6 +983,7 @@ function map(){
                                         headers: {
                                             "Content-Type": "application/json"
                                         },
+                                            credentials: "include",
                                             body: JSON.stringify({
                                                 button_complete_clicked: true,
                                                 activity_id: task.activity_id,
@@ -1041,6 +1053,7 @@ function turn(){
                 headers: {
                     "Content-Type": "application/json"
                 },
+                credentials: "include",
                 body: JSON.stringify({confirm_demand: false})
 
        })
@@ -1112,6 +1125,7 @@ function turn(){
                     headers:{
                         "Content-Type": "application/json"
                     },
+                    credentials: "include",
                     body: JSON.stringify({confirm_demand : true})
                 })
 
