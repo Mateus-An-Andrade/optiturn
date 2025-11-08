@@ -418,10 +418,10 @@ def map():
             data_activity_status_op.append({"operator_id": line_data["operator_id"], 
                                             "name_operator": line_data["name"], 
                                             "activity_id": line_data["activity_id"],
-                                            "title_activity": line_data["title_activity"],
-                                            "description_activity": line_data["description_activity"],
-                                            "status_activity": line_data["status_activity"],
-                                            "importance_activity": line_data["importance_activity"]
+                                            "title_activity": line_data["title"],
+                                            "description_activity": line_data["description"],
+                                            "status_activity": line_data["status"],
+                                            "importance_activity": line_data["importance"]
                                             })
 
 
