@@ -419,7 +419,7 @@ def map():
                                             "name_operator": line_data["name"], 
                                             "activity_id": line_data["activity_id"],
                                             "title_activity": line_data["title"],
-                                            "description_activity": line_data["description"],
+                                            "description_activity": line_data["descreption"],
                                             "status_activity": line_data["status"],
                                             "importance_activity": line_data["importance"]
                                             })
