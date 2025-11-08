@@ -278,6 +278,8 @@ def direction_activity():
                         ) VALUES (%s, %s, %s)
                     ''', (line['id_operator'], line['id_task'], 'pendente'))
 
+                cursor.execute('''DELETE FROM activities WHERE id = %s''', id_task,)
+
                 conn.commit()
                 cursor.close()
                 conn.close()
