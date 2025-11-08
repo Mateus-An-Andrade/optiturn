@@ -105,7 +105,7 @@ def main():
     if not name:
         return jsonify({"status": "error", "message": "Usuário não logado"}), 401
 
-    return jsonify({"status": "success", "name": name, "turn": turn}), 200
+    return jsonify({"status": "success", "name": name, "turn": turn, "id": id_gestor}), 200
 
                                                                         #Acima a rota faz a alteração dinamica apresentando o nome e turno do gestor atualmente logado.
 #===================================================================================================================================================
