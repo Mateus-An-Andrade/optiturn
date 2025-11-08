@@ -86,7 +86,7 @@ function login(){
 async function update_UI(){
     try{
         const response = await fetch("https://optiturn.onrender.com/main",{
-            method: "GET",
+            method: "POST",
             credentials: "include"
         });
            
