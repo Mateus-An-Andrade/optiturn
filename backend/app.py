@@ -412,7 +412,7 @@ def map():
 
         cursor.execute('''SELECT * FROM production 
                                 JOIN operador ON production.operator_id = operador.id_operador 
-                                JOIN activities ON production.activity_id = activities.id_activities''')
+                                LEFT    JOIN activities ON production.activity_id = activities.id_activities''')
         data_for_map = cursor.fetchall()
 
         cursor.close()
