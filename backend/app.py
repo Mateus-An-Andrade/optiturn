@@ -1,6 +1,7 @@
 import os
 import psycopg2
 from psycopg2.extras import RealDictCursor
+from psycopg2.extras import DictCursor
 import random
 from flask import Flask, render_template, request, redirect, session, url_for, jsonify
 from flask_cors import CORS
@@ -337,7 +338,7 @@ def map():
     
     if request.method == "POST":
         conn= get_db_connection()
-        cursor = conn.cursor()
+        cursor = conn.cursor(cursor_factory=DictCursor)
 
 
         button_pause_clicked = request.json.get("button_pause_clicked")  
