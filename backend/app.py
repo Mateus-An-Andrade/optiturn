@@ -278,7 +278,7 @@ def direction_activity():
                         ) VALUES (%s, %s, %s)
                     ''', (line['id_operator'], line['id_task'], 'pendente'))
 
-                    cursor.execute('''UPDATE activities SET in_production = TRUE WHERE activity_id = %s''', (id_task,))
+                    cursor.execute('''UPDATE activities SET in_production = TRUE WHERE id_activities = %s''', (id_task,))
 
                 conn.commit()
                 cursor.close()
