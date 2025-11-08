@@ -393,9 +393,19 @@ def map():
 
         data_activity_status_op = []
 
-        cursor.execute('''SELECT * FROM production 
-                                JOIN operador ON production.operator_id = operador.id_operador 
-                                JOIN activities ON production.activity_id = activities.id_activities''')
+        cursor.execute('''
+                SELECT 
+                    p.operator_id,
+                    o.name,
+                    p.activity_id,
+                    p.status,
+                    a.title,
+                    a.description,
+                    a.importance
+                FROM production p
+                JOIN operador o ON p.operator_id = o.id_operador
+                JOIN activities a ON p.activity_id = a.id_activities
+            ''')
         data_for_map = cursor.fetchall()
 
         cursor.close()
@@ -404,22 +414,13 @@ def map():
 
         for line_data in data_for_map :
 
-            operator_id = line_data[0]
-            activity_id = line_data[1]
-            status_activity = line_data[2]
-            name_operator = line_data[4]
-            description_activity = line_data[9]
-            title_activity = line_data[8]
-            importance_activity = line_data[10]
-            
-
-            data_activity_status_op.append({"operator_id": operator_id, 
-                                            "name_operator": name_operator, 
-                                            "activity_id": activity_id,
-                                            "title_activity":title_activity,
-                                            "description_activity": description_activity,
-                                            "status_activity": status_activity,
-                                            "importance_activity": importance_activity
+            data_activity_status_op.append({"operator_id": line_data["operator_id"], 
+                                            "name_operator": line_data["name_operator"], 
+                                            "activity_id": line_data["activity_id"],
+                                            "title_activity": line_data["title_activity"],
+                                            "description_activity": line_data["description_activity"],
+                                            "status_activity": line_data["status_activity"],
+                                            "importance_activity": line_data["importance_activity"]
                                             })
 
 
