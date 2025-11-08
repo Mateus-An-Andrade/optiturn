@@ -100,6 +100,7 @@ def main():
     print("Sessão atual:", dict(session))
     name = session.get('name')
     turn = session.get('turn')
+    id_gestor = session.get('id')
 
     if not name:
         return jsonify({"status": "error", "message": "Usuário não logado"}), 401
@@ -450,9 +451,9 @@ def turn_menu():
 
         data_turn_report = []
 
-        id_gestor = session['user_id']
-        name_gestor = session['user_name']
-        turn_demand = session['current_turn']
+        id_gestor = session['id']
+        name_gestor = session['name']
+        turn_demand = session['turn']
 
         cursor.execute('''SELECT * FROM turn''')
         data_turn_db = cursor.fetchall()
