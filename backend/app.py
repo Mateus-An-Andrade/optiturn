@@ -215,7 +215,7 @@ def direction_activity():
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        cursor.execute(''' SELECT * FROM activities''')
+        cursor.execute(''' SELECT * FROM activities WHERE in_production = FALSE''')
 
         data= cursor.fetchall()
 
@@ -278,7 +278,7 @@ def direction_activity():
                         ) VALUES (%s, %s, %s)
                     ''', (line['id_operator'], line['id_task'], 'pendente'))
 
-                    cursor.execute('DELETE FROM activities WHERE id_activities = %s', (line['id_task'],))
+                    cursor.execute('''UPDATE activities SET in_production = TRUE WHERE activity_id = %s''', (id_task,))
 
                 conn.commit()
                 cursor.close()
@@ -373,24 +373,6 @@ def map():
             cursor.execute('''UPDATE turn SET status = 'Concluida' WHERE activities_id = %s''', (activity_id_status,))
 
 
-            cursor.execute('''INSERT INTO history_production (activity_id, 
-                                                                title_activity, 
-                                                                description, 
-                                                                importance, 
-                                                                status, 
-                                                                operator_id, 
-                                                                name_operator) 
-                           
-                                                                    values (%s,%s,%s,%s, %s,%s,%s)''', 
-
-                                                                (activity_id,
-                                                                 title_activity, 
-                                                                 description_activity, 
-                                                                 importance,
-                                                                 'Concluida', 
-                                                                 operator_id, 
-                                                                 name_operator_complete,))
-
             cursor.execute('''DELETE FROM production WHERE status = 'Concluida' ''')
 
             conn.commit()
@@ -460,6 +442,10 @@ def turn_menu():
 
         data_turn_report = []
 
+        id_gestor = session['user_id']
+        name_gestor = session['user_name']
+        turn_demand = session['current_turn']
+
         cursor.execute('''SELECT * FROM turn''')
         data_turn_db = cursor.fetchall()
 
@@ -479,18 +465,50 @@ def turn_menu():
         
 
 
-            if confirm_demand == True:
+        if confirm_demand == True:
+        
+            cursor.execute('''INSERT INTO history_production(
+                                activity_id,
+                                title_activity,
+                                description,
+                                importance,
+                                status,
+                                operator_id,
+                                name_operator,
+                                id_gestor,
+                                name_gestor,
+                                turn_demand,
+                                date)
+                                     SELECT 
+                                        a.id_activities,
+                                        a.title,
+                                        a.description,
+                                        a.importance,
+                                        p.status,
+                                        p.operator_id,
+                                        o.name,
+                                        %s,%s,%s, NOW()
+                                FROM production p
+                                JOIN activities a ON p.activity_id = a.id_activities
+                                JOIN operador o ON p.operator_id = o.id_operador
+                                        WHERE p.turn = %s''',(id_gestor, name_gestor, turn_demand, turn_demand))
             
-                cursor.execute('''DELETE FROM turn WHERE status = 'Concluida' ''')
-                conn.commit() 
-                cursor.execute('''SELECT * FROM turn''')
-                result_demand = cursor.fetchall()
+            cursor.execute('''DELETE FROM activities 
+                                    WHERE id_activities 
+                                    IN (SELECT activity_id FROM production WHERE turn = %s)''', (turn_demand,))
 
-                return jsonify(result_demand)
+            cursor.execute('DELETE FROM production WHERE turn = %s', (turn_demand,))
+            
+
+            conn.commit() 
+            cursor.execute('''SELECT * FROM turn''')
+            result_demand = cursor.fetchall()
+
+            return jsonify(result_demand)
         
         return jsonify(data_turn_report)
     
-                                                                    #acima o algoritmo faz a filtragem para o turno seguinte, ou seja, ele limpa as tarefas concluidas e deixa somente as pendentes para o próximo turno, isso garante a continuidade das tarefas, atráves da variavel confirm_demand, se for False deverá somente exibir todas concluidas e pendentes, se for True deverá limpar as concluidas e deixar somente as pendentes.
+                                                                    #Acima o algoritmo deve faz a gravação na tabela histórico, ou seja, o turno que deixou tarefas pendentes ou concluidas, será gravado, o gestor e operadores do turno, isso para futuras analises de dados.
 
 if __name__ == '__main__':
     app.run(debug=True,use_reloader=False)
