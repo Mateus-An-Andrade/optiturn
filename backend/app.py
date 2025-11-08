@@ -416,7 +416,7 @@ def map():
         for line_data in data_for_map :
 
             data_activity_status_op.append({"operator_id": line_data["operator_id"], 
-                                            "name_operator": line_data["name_operator"], 
+                                            "name_operator": line_data["name"], 
                                             "activity_id": line_data["activity_id"],
                                             "title_activity": line_data["title_activity"],
                                             "description_activity": line_data["description_activity"],
