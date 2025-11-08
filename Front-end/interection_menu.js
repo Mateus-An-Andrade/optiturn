@@ -635,7 +635,7 @@ function map(){
         buttons_menu.style.display = "none"
         map_menu.style.display = "grid"
         history.replaceState({},"","/map_menu")
-
+        container.innerHTML = ""
                                                                     //acima temos a interação do menu MAPA. Ao ser clicado ele esconde os botões de outros menus, renomeia a URL do sistema, cria de modo dinamico um grande conteiner para criar os quadro dos operadores.
         fetch("https://optiturn.onrender.com/map_menu",{
            method: "POST",
