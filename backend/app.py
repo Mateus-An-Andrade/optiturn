@@ -278,9 +278,11 @@ def direction_activity():
                         ) VALUES (%s, %s, %s)
                     ''', (line['id_operator'], line['id_task'], 'pendente'))
 
-                    cursor.execute('''DELETE FROM activities WHERE id_activities = %s''', (line['id_task'],))
-
                 conn.commit()
+                
+                cursor.execute('''DELETE FROM activities WHERE id_activities = %s''', (line['id_task'],))
+                conn.commit()
+
                 cursor.close()
                 conn.close()
                 return jsonify("Tarefas registradas na base de dados")
