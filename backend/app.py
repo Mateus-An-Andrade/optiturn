@@ -187,10 +187,10 @@ def create_activity():
         conn= get_db_connection()
         cursor = conn.cursor()
 
-        cursor.execute('''INSERT INTO public.activities (title, descreption, importance)
-                                values (%s,%s,%s)
+        cursor.execute('''INSERT INTO public.activities (title, descreption, importance, in_production)
+                                values (%s,%s,%s,%s)
                         RETURNING id_activities''',
-                        (title_task,descreption_task,importance_task))
+                        (title_task,descreption_task,importance_task, False))
                 # Pega o ID gerado
         activity_id = cursor.fetchone()[0]
 
