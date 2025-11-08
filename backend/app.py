@@ -400,7 +400,7 @@ def map():
                     p.activity_id,
                     p.status,
                     a.title,
-                    a.description,
+                    a.descreption,
                     a.importance
                 FROM production p
                 JOIN operador o ON p.operator_id = o.id_operador
