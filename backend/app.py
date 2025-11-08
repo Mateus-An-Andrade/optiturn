@@ -368,7 +368,7 @@ def map():
         elif button_complete_clicked == True:
             cursor.execute('''UPDATE production SET status = 'Concluida' WHERE activity_id = %s''', (activity_id_status,))
             
-            cursor.execute('''UPDATE turn SET status = 'Concluida' WHERE activity_id = %s''', (activity_id_status,))
+            cursor.execute('''UPDATE turn SET status = 'Concluida' WHERE activities_id = %s''', (activity_id_status,))
 
 
             cursor.execute('''INSERT INTO history_production (activity_id, 
