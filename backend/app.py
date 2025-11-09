@@ -82,7 +82,7 @@ def index():
             response = jsonify({
                 "status": "success",
                 "name":  session['name'],
-                "turn": session['turn'] 
+                "turn": session['turn']
             })
 
             return response, 200
@@ -492,7 +492,7 @@ def turn_menu():
                                      SELECT 
                                         a.id_activities,
                                         a.title,
-                                        a.description,
+                                        a.descreption,
                                         a.importance,
                                         p.status,
                                         p.operator_id,
