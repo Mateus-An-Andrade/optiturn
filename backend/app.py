@@ -477,7 +477,8 @@ def turn_menu():
 
         if confirm_demand == True:
         
-            cursor.execute('''INSERT INTO history_production(
+            cursor.execute('''
+                            INSERT INTO history_production(
                                 activity_id,
                                 title_activity,
                                 description,
@@ -488,25 +489,26 @@ def turn_menu():
                                 id_gestor,
                                 name_gestor,
                                 turn_demand,
-                                date)
-                                    SELECT 
-                                        a.id_activities,
-                                        a.title,
-                                        a.descreption,
-                                        a.importance,
-                                        p.status,
-                                        o.id_operador,
-                                        o.name,
-                                        %s, 
-                                        %s,  
-                                        %s,  
-                                        NOW() 
-                           
-                                        FROM production p
-                                            JOIN activities a ON p.activity_id = a.id_activities
-                                            JOIN operador o ON p.operator_id = o.id_operador
-                                            WHERE p.turn = %s
-                                        ''', (id_gestor, name_gestor, turn_demand, turn_demand))
+                                date
+                            )
+                            SELECT 
+                                a.id_activities,
+                                a.title,
+                                a.descreption,
+                                a.importance,
+                                p.status,
+                                o.id_operador,
+                                o.name,
+                                %s, 
+                                %s,  
+                                %s,  
+                                NOW()
+                            FROM production p
+                            JOIN activities a ON p.activity_id = a.id_activities
+                            JOIN operador o ON p.operator_id = o.id_operador
+                            WHERE p.turn = %s
+                            AND p.status IN ('pendente', 'concluída')
+                                    ''', (id_gestor, name_gestor, turn_demand, turn_demand))
                                                                         
             cursor.execute('''
                                 UPDATE activities
