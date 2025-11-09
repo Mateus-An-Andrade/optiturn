@@ -512,7 +512,7 @@ def turn_menu():
                             JOIN operador o ON p.operator_id = o.id_operador
                             JOIN turn t ON t.activities_id = a.id_activities
                             WHERE p.turn = %s
-                            AND p.status IN ('pendente', 'concluída')
+                            AND LOWER(p.status) IN ('pendente', 'concluida')
                                     ''', (id_gestor, name_gestor, turn_demand, turn_demand))
                                                                         
             cursor.execute('''
@@ -523,9 +523,10 @@ def turn_menu():
                                 )
                             ''', (turn_demand,))
 
-            cursor.execute('DELETE FROM production WHERE turn = %s', (turn_demand,))
+            cursor.execute('DELETE FROM production WHERE turn = %s AND status = %s', (turn_demand, 'Concluida'))
 
-            cursor.execute('''DELETE FROM turn WHERE status ='Concluida' ''')
+
+            cursor.execute('DELETE FROM turn WHERE status = %s', ('Concluida',))
             
 
             conn.commit() 
