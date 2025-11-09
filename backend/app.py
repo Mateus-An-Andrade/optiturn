@@ -496,7 +496,11 @@ def turn_menu():
                                 a.title,
                                 a.descreption,
                                 a.importance,
-                                p.status,
+                                CASE
+                                    WHEN t.status = 'Concluida' THEN 'Concluida'
+                                    WHEN t.status = 'Pendente' THEN 'Pendente'
+                                    ELSE p.status
+                                END AS status,
                                 o.id_operador,
                                 o.name,
                                 %s, 
@@ -506,6 +510,7 @@ def turn_menu():
                             FROM production p
                             JOIN activities a ON p.activity_id = a.id_activities
                             JOIN operador o ON p.operator_id = o.id_operador
+                            JOIN turn t ON t.activities_id = a.id_activities
                             WHERE p.turn = %s
                             AND p.status IN ('pendente', 'concluída')
                                     ''', (id_gestor, name_gestor, turn_demand, turn_demand))
