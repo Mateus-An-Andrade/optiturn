@@ -489,25 +489,36 @@ def turn_menu():
                                 name_gestor,
                                 turn_demand,
                                 date)
-                                     SELECT 
+                                    SELECT 
                                         a.id_activities,
                                         a.title,
                                         a.descreption,
                                         a.importance,
                                         p.status,
-                                        p.operator_id,
+                                        o.id_operador,
                                         o.name,
-                                        %s,%s,%s, NOW()
-                                FROM production p
-                                JOIN activities a ON p.activity_id = a.id_activities
-                                JOIN operador o ON p.operator_id = o.id_operador
-                                        WHERE p.turn = %s''',(id_gestor, name_gestor, turn_demand, turn_demand))
-            
-            cursor.execute('''DELETE FROM activities 
-                                    WHERE id_activities 
-                                    IN (SELECT activity_id FROM production WHERE turn = %s)''', (turn_demand,))
+                                        %s, 
+                                        %s,  
+                                        %s,  
+                                        NOW() 
+                           
+                                        FROM production p
+                                            JOIN activities a ON p.activity_id = a.id_activities
+                                            JOIN operador o ON p.operator_id = o.id_operador
+                                            WHERE p.turn = %s
+                                        ''', (id_gestor, name_gestor, turn_demand, turn_demand))
+                                                                        
+            cursor.execute('''
+                                UPDATE activities
+                                SET in_production = FALSE
+                                WHERE id_activities IN (
+                                    SELECT activity_id FROM production WHERE turn = %s
+                                )
+                            ''', (turn_demand,))
 
             cursor.execute('DELETE FROM production WHERE turn = %s', (turn_demand,))
+
+            cursor.execute('''DELETE FROM turn WHERE status ='Concluida' ''')
             
 
             conn.commit() 
