@@ -1,3 +1,9 @@
+const API_BASE_URL =
+  location.hostname === "localhost" ||
+  location.hostname === "127.0.0.1"
+    ? "http://127.0.0.1:5000"
+    : "https://optiturn.onrender.com";
+
 function show_confirmation_menssage(text, time = 3000, menu_in_production) {
     const msgBox = document.getElementById('msgSucess');
     const msgTexto = document.getElementById('text_confirmation');
@@ -66,7 +72,7 @@ function login(){
         const username = document.getElementById("username").value 
         const password = document.getElementById("password").value
 
-        const response = await fetch("https://optiturn.onrender.com/login",{
+        const response = await fetch(`${API_BASE_URL}login`,{
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password }),
@@ -83,9 +89,23 @@ function login(){
 
 //==========================================================================================================================
 
+
+function open_menu(id_btn,id_menu, displayType = "grid"){
+    const button_menu = document.getElementById(id_btn)
+    const menu_in_work = document.getElementById(id_menu)
+    const main_menu = document.getElementById("nav_principal_menu")
+
+    button_menu.addEventListener("click",function(){
+        menu_in_work.style.display = displayType
+        main_menu.style.display = "none"
+    })
+
+}
+
+
 async function update_UI(){
     try{
-        const response = await fetch("https://optiturn.onrender.com/main",{
+        const response = await fetch(`${API_BASE_URL}/main`,{
             method: "POST",
             credentials: "include"
         });
@@ -163,7 +183,7 @@ function register_user(){
                 const turn = document.getElementById("shift_gestor").value
                 const password= document.getElementById("password_gestor").value
 
-                fetch("https://optiturn.onrender.com/register_gestor",{
+                fetch(`${API_BASE_URL}/register_gestor` ,{
                     method:"POST",
                     headers:{
                         'Content-type': 'application/json',
@@ -192,7 +212,7 @@ function register_user(){
                 const fixed_op = document.getElementById("fixed_operator").checked
                 const temp_op = document.getElementById("temporary_operator").checked
 
-                fetch("https://optiturn.onrender.com/register_operator",{
+                fetch(`${API_BASE_URL}/register_operator`,{
                     method: "POST",
                     headers:{
                         'content-type': 'application/json',
@@ -262,7 +282,7 @@ function activities(){
 
                                                                                     /*acima temos as variaveis que recebem os campos referentes as informações que o gestor vai imputar referente as tarefas criadas, para enviar para o backend*/
 
-        fetch("https://optiturn.onrender.com/create_activity",{
+        fetch(`${API_BASE_URL}/create_activity`,{
             method: "POST",
             headers:{
                 'content-type': 'application/json',
@@ -332,7 +352,7 @@ function production(){
         specific_direction.style.opacity = 0.5
         history.replaceState({},"","/production_menu/random_direction")
 
-       fetch("https://optiturn.onrender.com/production_menu_random_direct",{
+       fetch(`${API_BASE_URL}/production_menu_random_direct`,{
            method: "POST",
            headers: {
                "Content-Type": "application/json"
@@ -437,7 +457,7 @@ function production(){
             console.log("mensagem de sucesso. tarefas redirecionadas")
 
         
-        fetch("https://optiturn.onrender.com/production_menu_random_direct",{
+        fetch(`${API_BASE_URL}/production_menu_random_direct`,{
             method: "POST",
             headers: {
                "Content-Type": "application/json"
@@ -523,7 +543,7 @@ function production(){
 
     confirmation_random_direction.addEventListener("click",function(){
 
-        fetch("https://optiturn.onrender.com/production_menu_random_direct",{
+        fetch(`${API_BASE_URL}/production_menu_random_direct`,{
             method: "POST",
             headers: {
                "Content-Type": "application/json"
@@ -558,7 +578,7 @@ function production(){
 //        operators.style.display = "flex"
 //        confirmation_direction.style.display = "grid"
 
-//    fetch("/production_menu_specific_direction",{
+//    fetch(`${API_BASE_URL}/production_menu_specific_direction`,{
 //            method: "POST",
 //            headers: {
 //                "Content-type": "application/json"
@@ -645,7 +665,7 @@ function map(){
         history.replaceState({},"","/map_menu")
         container.innerHTML = ""
                                                                     //acima temos a interação do menu MAPA. Ao ser clicado ele esconde os botões de outros menus, renomeia a URL do sistema, cria de modo dinamico um grande conteiner para criar os quadro dos operadores.
-        fetch("https://optiturn.onrender.com/map_menu",{
+        fetch(`${API_BASE_URL}/map_menu`,{
            method: "POST",
            headers: {
                "Content-Type": "application/json"
@@ -802,7 +822,7 @@ function map(){
                                     //button_redirection_task.disabled = true;
 
                                     
-                                    fetch("https://optiturn.onrender.com/map_menu",{
+                                    fetch(`${API_BASE_URL}/map_menu`,{
                                         method: "POST",
                                         headers: {
                                             "Content-Type": "application/json"
@@ -833,7 +853,7 @@ function map(){
                                     tasks_in_production_description.style.opacity = 1
                                     title_task.style.opacity = 1
 
-                                    fetch("https://optiturn.onrender.com/map_menu",{
+                                    fetch(`${API_BASE_URL}/map_menu`,{
                                         method: "POST",
                                         headers: {
                                             "Content-Type": "application/json"
@@ -978,7 +998,7 @@ function map(){
                             show_confirmation_menssage("TAREFA CONCLUÍDA!", time=3000,map_menu)
                             container.innerHTML = "";
                                                                     //acima o evento de clique no botão concluir nas tarefas, faz com que uma mensagem de sucesso seja ativada e remove da tela ou do quadro a tarefa em questão.
-                            fetch("https://optiturn.onrender.com/map_menu",{
+                            fetch(`${API_BASE_URL}/map_menu`,{
                                         method: "POST",
                                         headers: {
                                             "Content-Type": "application/json"
@@ -1048,7 +1068,7 @@ function turn(){
 
             container_table_turn.innerHTML = ""
 
-        fetch("https://optiturn.onrender.com/turn_menu",{
+        fetch(`${API_BASE_URL}/turn_menu`,{
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -1120,7 +1140,7 @@ function turn(){
 
             shift_demand.addEventListener("click",function(){
 
-                fetch("https://optiturn.onrender.com/turn_menu",{
+                fetch(`${API_BASE_URL}/turn_menu`,{
                     method: "POST",
                     headers:{
                         "Content-Type": "application/json"
