@@ -34,15 +34,10 @@ app.config.update(
     SESSION_COOKIE_SECURE=True        
 )
 origins = [
-    "https://optiturnsys.vercel.app"
-]
-
-if os.getenv("FLASK_ENV") == "development":
-    origins.extend([
         "https://optiturnsys.vercel.app",
         "http://localhost:5500",
         "http://127.0.0.1:5500"
-    ])
+    ]
 
 CORS(
     app,
