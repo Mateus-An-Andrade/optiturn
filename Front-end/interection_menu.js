@@ -4,6 +4,7 @@ const API_BASE_URL =
     ? "http://127.0.0.1:5000"
     : "https://optiturn.onrender.com";
 
+
 function show_confirmation_menssage(text, time = 3000, menu_in_production) {
     const msgBox = document.getElementById('msgSucess');
     const msgTexto = document.getElementById('text_confirmation');
@@ -90,17 +91,35 @@ function login(){
 //==========================================================================================================================
 
 
-function open_menu(id_btn,id_menu, displayType = "grid"){
+function open_menu(id_btn,id_menu, displayType = "grid", url){
     const button_menu = document.getElementById(id_btn)
     const menu_in_work = document.getElementById(id_menu)
-    const main_menu = document.getElementById("nav_principal_menu")
+    const main_menu = document.getElementById("buttons_menu")
+
 
     button_menu.addEventListener("click",function(){
         menu_in_work.style.display = displayType
         main_menu.style.display = "none"
+         if (url) {
+            history.replaceState({}, "", url)
+        }
     })
 
 }
+
+function open_inner_option(id_btn,id_menu, displayType = "grid", group_class = "inner_menu"){
+    const button_menu = document.getElementById(id_btn)
+    const menu_in_work = document.getElementById(id_menu)
+
+    button_menu.addEventListener("click",function(){
+        document.querySelectorAll(`.${group_class}`).forEach(all =>{
+            all.style.display = "none"
+        })
+
+        menu_in_work.style.display = displayType
+    })
+}
+
 
 
 async function update_UI(){
@@ -133,46 +152,16 @@ async function update_UI(){
 
 
 function register_user(){
-    let buttons_menu = document.getElementById("buttons_menu")
-    let button_register = document.getElementById("register_button")
-    let menu_register = document.getElementById("menu_register")
-
-    let option_register01 = document.getElementById("opt_register_worker01")  
-        
+    let option_register01 = document.getElementById("opt_register_worker01")   
     let opt_register02 = document.getElementById("opt_register_worker02") 
-
-    let infor_gestor = document.querySelector(".cadastro_gestor_informacoes")
-
-    let infor_operator = document.querySelector(".cadastro_operario_informacoes")
-
-
     let confirmation_register_button = document.getElementById("confirmation_button")
 
-    let interface_confirmation = document.querySelector(".mensagem_de_sucesso")
-
-    const close_window_icon = document.querySelectorAll(".fechar_janela")
                                                                                         /*acima temos as variaveis que armazenam as classes e IDs do elementos HTML referentes ao menu de registros */
-
     close_windows("menu_register", menu_register)
+    open_menu("register_button","menu_register", "grid", "/register_user")
+    open_inner_option("opt_register_worker01", "register_leader", "flex")
+    open_inner_option("opt_register_worker02", "register_operator", "grid")
 
-    button_register.addEventListener("click",function(){
-        history.replaceState({},"","/register_user")
-        menu_register.style.display = "grid";
-        buttons_menu.style.display = "none";
-    })
-
-    option_register01.addEventListener("click",function(){
-            infor_gestor.style.display = "flex";
-            history.replaceState({},"","/register_user/register_gestor")
-
-            infor_operator.style.display = "none"
-    })
-
-    opt_register02.addEventListener("click",function(){
-        infor_operator.style.display = "grid"
-        history.replaceState({},"","/register_user/register_operator")
-        infor_gestor.style.display = "none"
-        })  
 
                                                                                     /* acima temos a mudança da url ao entrar no menu e a captura dos valores quando o botão de "cadastrar" é clicado.*/
         
@@ -249,26 +238,12 @@ function register_user(){
 
 
 function activities(){
-    let buttons_menu = document.getElementById("buttons_menu")
-    let button_activity = document.getElementById ("activity_button")
-
-
     let menu_activity = document.getElementById("menu_activities")
-
     let confirmation_register_button = document.getElementById("confirmation_button_activity")
 
-    const close_window_icon = document.querySelectorAll(".fechar_janela")
-
-                                                                                    /*acima temos as variaveis que armazenam as classes e IDs do elementos HTML referentes ao menu de atividades */
-
+                                                                                     /*acima temos as variaveis que armazenam as classes e IDs do elementos HTML referentes ao menu de atividades */
+    open_menu("activity_button","menu_activities","grid","/create_activity")
     close_windows("menu_activities",menu_activity )
-
-
-    button_activity.addEventListener("click",function(){
-        buttons_menu.style.display = "none";
-        history.replaceState({},"","/create_activity")
-        menu_activity.style.display = "grid";
-    })
 
                                                                                     //acima temos as interações basicas do menu que permite que ele seja aberto para a interação do usuário e a mudança da url do menu.
 
@@ -312,11 +287,6 @@ function activities(){
 
 
 function production(){
-    let buttons_menu = document.getElementById("buttons_menu")
-    let button_production = document.getElementById ("production_button")
-
-    let menu_production = document.getElementById("menu_production")
-
     let random_direction = document.getElementById("random_direction")
         let tarefas_definidas = document.querySelector(".tarefas_definidas")
         let confirmation_redirection= document.querySelector(".confirmacao_redirecionamento")
@@ -330,21 +300,14 @@ function production(){
         let confirmation_button_direction = document.getElementById("confirmation_button_direction")
     
     let interface_confirmation = document.querySelector(".mensagem_de_sucesso")
-    let icon_sucess = document.querySelector(".icone_de_sucesso")
-    const text_confirmation = document.getElementById("text_confirmation")
-
-    const close_window_icon = document.querySelectorAll(".fechar_janela")
 
     let last_sorted = [] 
 
                                                                                 //acima temos as referencias de elementos html que foram armazenados em variaveis;
     close_windows("menu_production",menu_production )
+    open_menu("production_button","menu_production","grid","/production_menu")
+    //open_inner_option()
 
-    button_production.addEventListener("click",function(){
-        menu_production.style.display = "grid"
-        buttons_menu.style.display = "none"
-        history.replaceState({},"","/production_menu")
-    })
 
    random_direction.addEventListener("click", function(){
         tarefas_definidas.style.display = "grid"
