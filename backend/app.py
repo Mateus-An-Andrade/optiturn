@@ -33,18 +33,23 @@ app.config.update(
     SESSION_COOKIE_SAMESITE="None", 
     SESSION_COOKIE_SECURE=True        
 )
+origins = [
+    "https://optiturnsys.vercel.app"
+]
+
+if os.getenv("FLASK_ENV") == "development":
+    origins.extend([
+        "http://localhost:3000",
+        "http://127.0.0.1:3000"
+    ])
 
 CORS(
-    app, 
-    supports_credentials=True, 
-    origins=["https://optiturnsys.vercel.app",
-             "http://localhost:3000",
-             "http://127.0.0.1:3000"
-             ],
-    allow_headers=["Content-Type"],          
-    methods=["GET","POST","OPTIONS"]   
-     )
-
+    app,
+    supports_credentials=True,
+    origins=origins,
+    allow_headers=["Content-Type"],
+    methods=["GET", "POST", "OPTIONS"]
+)
 def get_db_connection():
     if not DATABASE_URL:
         raise Exception("Variável DATABASE_URL não configurada no ambiente.")
