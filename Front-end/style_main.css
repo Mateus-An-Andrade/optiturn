@@ -6,9 +6,9 @@ body{
 .cabeçalho{
     display: flex;
     justify-content: space-evenly;
-    font-size: 1.2rem;
-    width: 100%;
-    height: 4em;
+    font-size: 1rem;
+    width: 100vw;
+    height: 3em;
     padding:0.01em;
     background-color: #1E40AF;
     margin-bottom: 2em;
@@ -105,21 +105,21 @@ body{
 }
 
 .botao_cadastro, .botao_atividades, .botao_produção, .botao_mapa, .botao_passagem_de_turno{
-    border-radius: 25%;
-    width: 10em;
-    height: 10em;
+    border-radius: 50%;
+    width: 8em;
+    height: 8em;
     transition: all 0.3s ease;
     cursor: pointer;
             
     img{
-        width: 3.5em;
+        width: 2em;
     }
 }
 
 .botao_cadastro:hover, .botao_atividades:hover, .botao_produção:hover, .botao_mapa:hover, .botao_passagem_de_turno:hover{
-    border-radius: 25%;
-    width: 11em;
-    height: 11em;
+    border-radius: 50%;
+    width: 8.5em;
+    height: 8.5em;
     background-color: #3B82F6;
     color: #F9FAFB;
     transition: all 0.3s ease;
@@ -128,15 +128,15 @@ body{
 }
 
 .fechar_janela{
-    height:1em;
+    height:1;
     width: 1em;
     transition: all 0.3s ease;
     cursor: pointer;
 }
 
 .fechar_janela:hover{
-    height:1.2em;
-    width: 1.2em;
+    height:1.01em;
+    width: 1.01em;
     rotate: 360deg;
     cursor: pointer;
 }
@@ -150,19 +150,19 @@ body{
     font-size: large;
     position: absolute;
     z-index: 10;
-    width: 40.4em;
-    height: 45.9em;
+    width: 35em;
+    height: 32em;
     border: 2px solid black;
     border-color: black;
     background-color: #F9FAFB;
     color: black;
 
     label{
-        font-size: 1.2em;
+        font-size: 1.2rem;
     }
 
     input[type="text"] {
-        width:42em;
+        width:98%;
         height: 2em;
         border: 2px solid black;
         border-radius: 2em;
@@ -176,7 +176,7 @@ body{
     }
 
     input[type="password"] {
-        width:42em;
+        width:98%;
         height: 2em;
         border: 2px solid black;
         border-radius: 2em;
@@ -205,8 +205,8 @@ body{
     display: none ; /*mudar para flex*/
     flex-direction: column;
     align-items:first baseline;
-    width: 32em;
-    height: 22.5em;
+    width: 90%;
+    height: 18em;
     border: 2px solid black;
     background-color: #FFFFFF;
     border-radius: 1em;
@@ -219,7 +219,7 @@ body{
     display: none;  /*mudar para grid*/
     align-items: center;
     justify-content: space-around;
-    width: 32em;
+    width: 90%;
     height: 11em;
     border: 2px solid black;
     background-color: #FFFFFF;
@@ -253,18 +253,19 @@ body{
     justify-items: center;
     font-size: 1.5rem;
 
-    .fechar_janela{
-        height:1em;
-        width: 1em;
-        transition: all 0.3s ease;
-        cursor: pointer;
-    }
+.fechar_janela{
+    height:1em;
+    width: 1em;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
 
-    .fechar_janela:hover{
-        height:1.2em;
-        width: 1.2em;
-        cursor: pointer;
-    }
+.fechar_janela:hover{
+    height:1.01em;
+    width: 1.01em;
+    rotate: 360deg;
+    cursor: pointer;
+}
 
     
 }
@@ -345,8 +346,8 @@ body{
     }
 
     .fechar_janela:hover{
-        height:1.2em;
-        width: 1.2em;
+        height:1.01em;
+        width: 1.01em;
         rotate: 360deg;
         cursor: pointer;
     }
@@ -510,8 +511,8 @@ body{
     }
 
     .fechar_janela:hover{
-        height:1.2em;
-        width: 1.2em;
+        height:1.01em;
+        width: 1.01em;
         rotate: 360deg;
         cursor: pointer;
     }
@@ -633,7 +634,7 @@ body{
         margin-bottom: 1em;
     }
 
-     .fechar_janela{
+    .fechar_janela{
         height:1em;
         width: 1em;
         transition: all 0.3s ease;
@@ -641,8 +642,8 @@ body{
     }
 
     .fechar_janela:hover{
-        height:1.2em;
-        width: 1.2em;
+        height:1.01em;
+        width: 1.01em;
         rotate: 360deg;
         cursor: pointer;
     }
