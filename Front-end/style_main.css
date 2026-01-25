@@ -279,12 +279,14 @@ body{
     font-size: large;
     position: absolute;
     z-index: 10;
-    width: 40.4em;
-    height: 45.9em;
+    width: 35em;
+    height: 32em;
     border: 2px solid black;
     border-color: black;
     background-color: #F9FAFB;
     color: black;
+    overflow: hidden;
+
 
      label{
         font-size: 1.2em;
@@ -323,12 +325,13 @@ body{
     font-size: large;
     position: absolute;
     z-index: 10;
-    width: 40.4em;
-    height: 45.9em;
+    width: 36em;
+    height: 32em;
     border: 2px solid black;
     border-color: black;
     background-color: #F9FAFB;
     color: black;
+    overflow: auto;
 
     .cabeçalho_menu_producao{
         height: 2em;
@@ -369,8 +372,8 @@ body{
     }
     
     input[type="button"] {
-        width: 18em;
-        height: 6em;
+        width: 16em;
+        height: 2em;
         border-radius: 2em;
         font-size: 1.1rem;
         transition: all 0.3s ease;
@@ -378,10 +381,10 @@ body{
     }
 
         input[type="button"]:hover {
-        width: 18.3em;
-        height: 6.3em;
+        width: 16.2em;
+        height: 2.2em;
         border-radius: 2em;
-        font-size: 1.1rem;
+        font-size: 1rem;
         transition: all 0.3s ease;
         cursor: pointer;
     }
@@ -395,8 +398,8 @@ body{
         border: 2px solid black;
         border-radius: 2em;
         background-color: #fff;
-        width: 18em;
-        height: 21.75em;
+        width: 14em;
+        height: 16.75em;
         background-color: #fff;
     }
 
@@ -413,7 +416,7 @@ body{
     }
 
     input[type="text"]{
-        width: 23em;
+        width: 90%;
         height: 2em;
         margin: 2%;
         border: 2px solid black;
@@ -427,6 +430,7 @@ body{
         border-radius: 1em;
         text-align: center;
         background-color: #fff;
+        overflow: auto;
     }
 
     hr{
