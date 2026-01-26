@@ -160,7 +160,7 @@ function register_user(){
     close_windows("menu_register", menu_register)
     open_menu("register_button","menu_register", "grid", "/register_user")
     open_inner_option("opt_register_worker01", "register_leader", "flex")
-    open_inner_option("opt_register_worker02", "register_operator", "grid")
+    open_inner_option("opt_register_worker02", "register_operator", "flex")
 
 
                                                                                     /* acima temos a mudança da url ao entrar no menu e a captura dos valores quando o botão de "cadastrar" é clicado.*/
@@ -306,7 +306,7 @@ function production(){
                                                                                 //acima temos as referencias de elementos html que foram armazenados em variaveis;
     close_windows("menu_production",menu_production )
     open_menu("production_button","menu_production","grid","/production_menu")
-    //open_inner_option()
+
 
 
    random_direction.addEventListener("click", function(){
@@ -531,61 +531,71 @@ function production(){
 
 
 
-
+//================================================================================================================================================
     specific_direction.addEventListener("click",function(){
         random_direction.style.opacity = 0.5
         specific_direction.style.opacity = 1
-//        confirmation_redirection.style.display = "none"
+        confirmation_redirection.style.display = "none"
         task_for_direction.style.display = "grid"
-//        tarefas_definidas.style.display = "none"
-//        operators.style.display = "flex"
-//        confirmation_direction.style.display = "grid"
+        tarefas_definidas.style.display = "none"
+        operators.style.display = "flex"
+        confirmation_direction.style.display = "grid"
+        operators_in_work_div = document.getElementById("operators_in_work")
+        
 
-//    fetch(`${API_BASE_URL}/production_menu_specific_direction`,{
-//            method: "POST",
-//            headers: {
-//                "Content-type": "application/json"
-//            },
-//            credentials: "include",
-//            body: JSON.stringify()
-//        })
-//        .then(response => response.json())
-//        .then(data_specific =>{
-//            console.log("confirmação de tarefas do servidor:", data_specific)
-//
-//            data_specific.forEach(task_specific =>{
-//                let table_structure = document.createElement("table")
-//                table_structure.style.display = "block"
-//                let table_title_task = document.createElement("thead")
-//                let
-//                let table_data_task = document.createElement("tdata")
-//                                                                                /*acima o algoritmo recebe o JSON das tarefas que deve ser direcionadas e cria dinamicamente os elementos necessários para exibir, começando pela tabela */
-//
-//                table_structure.classList.add("tabela_de_tarefa")
-//                table_title_task.classList.add("titulo_tarefa")
-//
-//
-//
-//            })
-//
-//        })
-    })
+    fetch(`${API_BASE_URL}/production_menu_specific_direction`,{
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            credentials: "include",
+            body: JSON.stringify()
+        })
+        .then(response => response.json())
+        .then(data_specific =>{
+            console.log("confirmação de tarefas do servidor:", data_specific)
+            operators_in_work = data_specific[1]
+            work_instruction = data_specific[0]
+            console.log("operadores disponiveis:", operators_in_work)
+            console.log("Tarefas para direcionamento:", work_instruction)
+            
+                                                                        /*acima o algoritmo recebe dois arrays, um com as tarefas criadas e outro com os operadores cadastrados. Ao receber os arrays ele pega o array dos operadores e guarda na variavel operators_in_work*/
+
+            
+
+            operators_in_work.forEach(ops =>{
+                let checkbox_ops = document.createElement("input")
+                checkbox_ops.type = "checkbox"
+                checkbox_ops.classList.add("selecao_operador")
+                
+                let label_checkbox = document.createElement("label")
+                label_checkbox.innerText = ops.name
+                operators_in_work_div.append(checkbox_ops)
+                operators_in_work_div.append(label_checkbox)
+            })
+
+            
+
+            })
+
+        })
+    
  
-//    confirmation_button_direction.addEventListener("click", function(){
-//        setTimeout(function(){
-//            menu_production.style.display = "none"
-//            buttons_menu.style.display = "grid"  
-//            interface_confirmation.style.display = "none"
-//            console.log("Menu principal reativado")
-//        },3000)
-//            menu_production.style.display = "none"
-//            buttons_menu.style.display = "none"  
-//            interface_confirmation.style.display = "flex"
-//            text_confirmation.innerText = "TAREFAS DIRECIONADAS"
-//            console.log("mensagem de sucesso. tarefas direcionadas")
-//        })
-//
-//                                                                        //acima temos o direcionamento especifico, aonde o próprio gestor direciona ao seu modo as tarefas.
+    confirmation_button_direction.addEventListener("click", function(){
+        setTimeout(function(){
+            menu_production.style.display = "none"
+            buttons_menu.style.display = "grid"  
+            interface_confirmation.style.display = "none"
+            console.log("Menu principal reativado")
+        },3000)
+            menu_production.style.display = "none"
+            buttons_menu.style.display = "none"  
+            interface_confirmation.style.display = "flex"
+            text_confirmation.innerText = "TAREFAS DIRECIONADAS"
+            console.log("mensagem de sucesso. tarefas direcionadas")
+        })
+
+                                                                        //acima temos o direcionamento especifico, aonde o próprio gestor direciona ao seu modo as tarefas.
 }
 //==========================================================================================================================
 
