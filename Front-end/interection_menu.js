@@ -541,6 +541,8 @@ function production(){
         operators.style.display = "flex"
         confirmation_direction.style.display = "grid"
         operators_in_work_div = document.getElementById("operators_in_work")
+        text_description_task_table = document.getElementById("text_description_task_table")
+        title_task_table = document.getElementById("title_task_table")
         
 
     fetch(`${API_BASE_URL}/production_menu_specific_direction`,{
@@ -561,18 +563,29 @@ function production(){
             
                                                                         /*acima o algoritmo recebe dois arrays, um com as tarefas criadas e outro com os operadores cadastrados. Ao receber os arrays ele pega o array dos operadores e guarda na variavel operators_in_work*/
 
-            
 
-            operators_in_work.forEach(ops =>{
-                let checkbox_ops = document.createElement("input")
-                checkbox_ops.type = "checkbox"
-                checkbox_ops.classList.add("selecao_operador")
-                
-                let label_checkbox = document.createElement("label")
-                label_checkbox.innerText = ops.name
-                operators_in_work_div.append(checkbox_ops)
-                operators_in_work_div.append(label_checkbox)
-            })
+                work_instruction.forEach(wi=>{
+                    title_task_table.dataset.id = wi.id
+                    title_task_table.append(wi.title)
+                    text_description_task_table.dataset.id = wi.id
+                    text_description_task_table.append(wi.description)
+                })                                                        
+
+           // ------------------------------------------------------------------------------------------------------------------
+
+                operators_in_work.forEach(ops =>{
+                    let checkbox_ops = document.createElement("input")
+                    checkbox_ops.type = "checkbox"
+                    checkbox_ops.dataset.id = ops.id
+                    checkbox_ops.classList.add("selecao_operador")
+                    
+                    let label_checkbox = document.createElement("label")
+                    label_checkbox.innerText = ops.name
+                    operators_in_work_div.append(checkbox_ops)
+                    operators_in_work_div.append(label_checkbox)
+
+                                                                        /*acima o loop faz o percurso dentro do array, e cria checkbox de acordo com o numero de dados retornados do back-end, cria dinamicamente, adiciona class, e data-id para saber qual foi clicado. */
+                })
 
             
 
