@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OptiTurn</title>
-    <link rel="stylesheet" href="style_main.css">
+    <link rel="stylesheet" href="/Front-end/static/style_main.css">
 </head>
 
 
@@ -127,8 +127,6 @@
                     <Label>Nome:</Label>
                     <br>
                     <input type="text" id="name_new_operator">
-                    <label>Fixo: <input type="radio" name="cadastro_usuario_tempo" id="fixed_operator"></label>
-                    <label>Tempórario: <input type="radio" name="cadastro_usuario_tempo" id="temporary_operator"></label>
                 </div>
                 
         </div>
@@ -206,12 +204,11 @@
             <div class="tarefa_para_direcionamento">
                 <table class="tabela_de_tarefa">
                     <tr>
-                        <th class="titulo_tarefa">Tarefa</th>
+                        <th class="titulo_tarefa" id="title_task_table"></th>
                         <th class="titulo_importancia">IMPORTÂNCIA</th>
                     </tr>
                     <tr>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis maxime porro quasi, quidem asperiores ducimus. Possimus qui, iusto necessitatibus culpa eveniet facilis officia voluptate provident, accusamus hic error commodi dignissimos.</td>
-                        <td>grau de IMPORTÂNCIA</td>
+                        <td id="text_description_task_table"></td>
                     </tr>
                 </table>
             </div>
@@ -322,7 +319,18 @@
     <div id="blur-overlay"></div> 
 
 
-    <script src="interection_menu.js" defer></script>
-
+    <script src="/Front-end/static/js/features/openWindows.js" defer></script>
+    <script type="module" src="/Front-end/static/js/features/config.js" defer></script>
+    <script type="module" src="/Front-end/static/js/features/login.js" defer></script>
+    <script src="/Front-end/static/js/features/closeWindows.js" defer></script>
+    <script src="/Front-end/static/js/features/confirmMenssage.js" defer></script>
+    <script src="/Front-end/static/js/features/activities.js" defer></script>
+    <script src="/Front-end/static/js/features/registerUser.js" defer></script>
+    <script src="/Front-end/static/js/features/productionRandom.js" defer></script>
+    <script src="/Front-end/static/js/features/productionSpecific.js" defer></script>
+    <script src="/Front-end/static/js/features/map.js" defer></script>
+    <script src="/Front-end/static/js/features/turn.js" defer></script>
+    <script src="/Front-end/static/js/features/updateUI.js" defer></script>
+    <script src="/Front-end/static/js/features/interection_menu.js" defer></script>
 </body>
 </html>

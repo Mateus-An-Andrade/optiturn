@@ -1,0 +1,12 @@
+
+O optiturn é um sistema pensado para operações logisticas, galpões e CDs logisticos, principalmente equipes direcionada a gestão de insumos. Os seus principais objetivos são:
+
+-> criação de usuários (gestores e operadores);
+-> criação e direcionamento de tarefas;
+-> acompanhamento das tarefas direcionadas;
+-> geração de relatório automatico de turno com as tarefas criadas, concluidas ou pendentes;
+
+
+Logs, de erro:
+
++ERRO: M1549145OT. Campos com informações não preenchidas,
