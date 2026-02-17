@@ -6,7 +6,8 @@ from dotenv import load_dotenv
 from routes.auth_routes import auth_bp
 from routes.route_main import main_bp
 from routes.register_gestor_route import user_bp
-from routes.register_operator_route import user_op 
+from routes.register_operator_route import user_op
+from routes.register_activities_route import user_act
 
 load_dotenv()
 
@@ -49,48 +50,14 @@ app.register_blueprint(auth_bp)
 app.register_blueprint(main_bp)
 app.register_blueprint(user_bp)
 app.register_blueprint(user_op)
+app.register_blueprint(user_act)
                                                        
-#===================================================================================================================================================
-
-
-#Algoritmo para página principal da página:
-
-
-
 #===================================================================================================================================================
 
 @app.route("/ping")
 def ping():
     return {"status": "ok"}
 
-
-#@app.route("/register_operator", methods = ["POST"])
-#def register_operator():
-#
-#    if request.method == "POST":
-#        data = request.get_json()
-#
-#        name = data.get('name_operator')
-#        fixed_op = data.get('fixed_op', False)
-#
-#       
-#        fixed_shift = True if fixed_op else False
-#        temporary = not fixed_shift  
-#
-#        conn = get_db_connection()
-#        cursor= conn.cursor()
-#
-#        cursor.execute(''' INSERT INTO operador (name, fixed_shift, temporary) values (%s,%s,%s)
-#                       ''', (name,fixed_op,temporary))
-#        
-#        conn.commit()
-#        cursor.close()
-#        conn.close()
-#
-#        return jsonify("novo Operador cadastrado com sucesso")
-#
-##================================================================================================================#====================
-#
 #@app.route("/create_activity",methods = ["POST"])
 #def create_activity():
 #    if request.method == "POST":

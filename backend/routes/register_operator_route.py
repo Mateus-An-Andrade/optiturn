@@ -11,4 +11,4 @@ def register_operator():
 
     response = register_operator_svc(name,direct_manager)
 
-    return jsonify(response),200
+    return jsonify(response),200    
