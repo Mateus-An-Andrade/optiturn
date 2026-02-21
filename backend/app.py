@@ -8,6 +8,7 @@ from routes.route_main import main_bp
 from routes.register_gestor_route import user_bp
 from routes.register_operator_route import user_op
 from routes.register_activities_route import user_act
+from routes.random_direct_atv_route import act_random
 
 load_dotenv()
 
@@ -51,6 +52,7 @@ app.register_blueprint(main_bp)
 app.register_blueprint(user_bp)
 app.register_blueprint(user_op)
 app.register_blueprint(user_act)
+app.register_blueprint(act_random)
                                                        
 #===================================================================================================================================================
 
@@ -58,49 +60,6 @@ app.register_blueprint(user_act)
 def ping():
     return {"status": "ok"}
 
-#@app.route("/create_activity",methods = ["POST"])
-#def create_activity():
-#    if request.method == "POST":
-#        data = request.get_json()
-#
-#        title_task = data.get('title_task_created')
-#        descreption_task = data.get('descreption_task_text')
-#        importance_task = data.get('importance_task')
-#
-#   
-#                                                                            #acima o algoritmo: defini o method #post como metodo para receber o JSON #do front end, para trabalhar com ele #no banco de dados, pegando os dados #necessarios para a entrada na base
-#        priority_map = {
-#            "PRIORIDADE MÁXIMA": 1,
-#            "SEGUNDO PLANO": 2,
-#            "PRIORIDADE BAIXA": 3
-#        }
-#
-#        importance_value = request.form.get('importance')
-#        importance_task = priority_map.get(importance_value, 3)
-#        conn= get_db_connection()
-#        cursor = conn.cursor()
-#
-#        cursor.execute('''INSERT INTO public.activities (title, descreption, importance, in_production)
-#                                values (%s,%s,%s,%s)
-#                        RETURNING id_activities''',
-#                        (title_task,descreption_task,importance_task, False))
-#                # Pega o ID gerado
-#        activity_id = cursor.fetchone()[0]
-#
-#        cursor.execute('''INSERT INTO public.turn (activities_id,title, descreption, importance, status)
-#                       values (%s,%s,%s,%s,%s)''',
-#                        (activity_id, title_task,descreption_task,importance_task, 'Pendente'))
-#
-#                
-#
-#        conn.commit()
-#        cursor.close()
-#        conn.close()
-#
-#        return jsonify("Nova tarefa criada e pronta para ser direcionada")
-#
-##================================================================================================================#====================
-#
 #@app.route("/production_menu_random_direct", methods = ["POST"])
 #def direction_activity():
 #
