@@ -9,6 +9,7 @@ from routes.register_gestor_route import user_bp
 from routes.register_operator_route import user_op
 from routes.register_activities_route import user_act
 from routes.random_direct_atv_route import act_random
+from routes.specific_direction_route import act_specific
 
 load_dotenv()
 
@@ -53,6 +54,7 @@ app.register_blueprint(user_bp)
 app.register_blueprint(user_op)
 app.register_blueprint(user_act)
 app.register_blueprint(act_random)
+app.register_blueprint(act_specific)
                                                        
 #===================================================================================================================================================
 
