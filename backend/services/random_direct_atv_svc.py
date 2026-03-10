@@ -1,4 +1,4 @@
-from repositories.random_direction_activities import random_direction_activities
+from repositories.random_direction_activities import random_direction_activities, confirmRandomDirect
 from random import shuffle,choice
 
 
@@ -44,5 +44,10 @@ def randon_direction_act_svc():
 
 
     return(direct_order)
+
+
+def confirmDirectionService(sorted_data):
+    confirmRandomDirect(sorted_data)
+      
 
 

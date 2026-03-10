@@ -15,3 +15,27 @@ def random_direction_activities():
    
 
     return (tasks, operators)
+
+
+def confirmRandomDirect(sorted_data):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    for data in sorted_data:
+        cursor.execute('''INSERT INTO production(
+                                    operator_id, 
+                                    activity_id,
+                                    status) 
+                                    VALUES (%s,%s,%s)''',
+                                    (data['operator']['id_op'],
+                                     data['task']['id_task'],"PENDENTE"))
+        
+        cursor.execute('''INSERT INTO activities (in_production) VALUES ('true')''')
+
+
+                                                                
+    conn.commit()
+    cursor.close()
+    
+                                                    #acima a função de atualizar na tabela o estado booleano das atividades para true para evitar que as atividades sejam sorteadas/direcionadas novamente.
+    
