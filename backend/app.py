@@ -11,6 +11,7 @@ from routes.register_activities_route import user_act
 from routes.random_direct_atv_route import act_random
 from routes.specific_direction_route import act_specific
 from routes.random_direct_atv_route import act_random_confirm
+from routes.mapMenu_route import map_bp
 
 load_dotenv()
 
@@ -57,6 +58,7 @@ app.register_blueprint(user_act)
 app.register_blueprint(act_random)
 app.register_blueprint(act_specific)
 app.register_blueprint(act_random_confirm)
+app.register_blueprint(map_bp)
                                                        
 #===================================================================================================================================================
 
