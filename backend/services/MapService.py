@@ -1,7 +1,8 @@
-from repositories.mapMenu_repositories import queryAndUpdateMap
+from repositories.mapMenu_repositories import queryMap, updateProduction
+
 
 def dataMap():
-    data_query = queryAndUpdateMap()
+    data_query = queryMap()
 
     array_data_map = []
 
@@ -20,3 +21,6 @@ def dataMap():
         array_data_map.append(jsonMap)  
 
     return(array_data_map)
+
+def confirmTaskFinish(id_task):
+    updateProduction(id_task)
