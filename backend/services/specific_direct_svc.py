@@ -13,9 +13,11 @@ def specific_direction_svc():
 
     for data in array_task:
         id = data[0]
-        description = data[1]
+        description = data[2]
+        title = data[1]
+        importance = data[3]
 
-        task_dict = {"id_task": id, "description_task": description}
+        task_dict = {"id_task": id,"title": title, "description_task": description,"importance":importance}
 
         tasks.append(task_dict)
 
