@@ -167,9 +167,9 @@
         <div>
             <label>IMPORTÂNCIA:</label>
             <br>
-            <input type="radio" name="prioridade" value="1">PRIORIDADE MÁXIMA |
-            <input type="radio" name="prioridade" value="2">SEGUNDO PLANO |
-            <input type="radio" name="prioridade" value="3">PRIORIDADE BAIXA
+            <input type="radio" name="prioridade" value="PRIOR. MAX">PRIORIDADE MÁXIMA |
+            <input type="radio" name="prioridade" value="PRIOR. MED.">PRIORIDADE MÉDIA |
+            <input type="radio" name="prioridade" value="PRIOR. BX">PRIORIDADE BAIXA
         </div>
 
         <input type="button" value="REGISTRAR"  id="confirmation_button_activity">
@@ -195,22 +195,24 @@
         </div>
 
                 <div class="confirmacao_redirecionamento">
-                    <input type="button" value="REDIRECIONAR" id="refresh_task">
                      <input type="button" value="CONFIRMAR" id="confirmation_random_direction">
                 </div>
 
         <div class="direcionamento_por_operador">
 
             <div class="tarefa_para_direcionamento">
-                <table class="tabela_de_tarefa">
+<!--
+                <table class="tabela_de_tarefa" id="tableTaskSpecificDirection">
                     <tr>
                         <th class="titulo_tarefa" id="title_task_table"></th>
                         <th class="titulo_importancia">IMPORTÂNCIA</th>
                     </tr>
                     <tr>
                         <td id="text_description_task_table"></td>
+                        <td id="task_importance"></td>
                     </tr>
                 </table>
+-->
             </div>
 
         </div>
@@ -291,24 +293,46 @@
             <h1> PASSAGEM DE TURNO </h1>
             <img src="ICONS/close.png" alt="icone_fechar_janela" class="fechar_janela" >
         </div>
-<!--
-        <div class="tabela_relatorio">
-            <table class="relatorio_de_turno">
-                <tr>
-                    <th>ATIVIDADE</th>
-                    <th>DESCRIÇÃO</th>
-                    <th>STATUS</th>
-                </tr>
 
-                <tr>
-                    <td>contagem de manga-pallet</td>
-                    <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta, magnam. Corrupti ex qui, a, placeat praesentium dignissimos aut, nemo amet sit explicabo eos magnam ratione aperiam soluta sequi non mollitia.</td>
-                    <td>PENDENTE</td>
-                </tr>
-            </table>
+        <div class="report_UI">
+            <div class="head_report">
+                <h3>Relatório de turno: <i><span id="date_report"></span></i></h3>
+                <h3>Gestor: <i><span id="responsible_report"></i></span></h3>
+            </div>
+
+            <div class="body_report">
+                <div class="infors_numbers">
+                    <div class="operators_in_work">
+                        <h4>OPERADORES DISPONIVEIS: <br><i><span id="infor_report_operators"></span></i></h4>
+                    </div>
+
+                    <div class="number_of_tasks">
+                        <h4>TAREFAS CRIADAS:<br> <i><span id="infor_report_task"></span></i></h4>
+                    </div>
+
+                    <div class="task_complete">
+                        <h4>TAREFAS CONCLUIDAS: <br><i><span id="infor_report_tasks_complete"></span></i></h4>
+                    </div>
+
+                    <div class="task_pending">
+                        <h4>TAREFAS PENDENTES: <br><i> <span id="infor_report_tasks_pending"></span></i></h4>
+                    </div>
+                </div>
+
+                <div class="infors_graphics">
+                    <h3>Indicadores:</h3>
+                    <h4>aproveitamento de tarefas: <span class="data_report_KPI"></span></h4>
+                    <h4>aproveitamento de equipe: <span class="data_report_KPI"></span> </h4>
+
+                    <canvas id="graphic_production">
+
+                    </canvas>
+                </div>
+
+            </div>
 
         </div>
--->
+
         <input type="button" value="GRAVAR TURNO" id="shift_demand">
     </section>
 
@@ -318,19 +342,7 @@
 <!--efeito de blur-->
     <div id="blur-overlay"></div> 
 
-
-    <script src="/Front-end/static/js/features/openWindows.js" defer></script>
-    <script type="module" src="/Front-end/static/js/features/config.js" defer></script>
-    <script type="module" src="/Front-end/static/js/features/login.js" defer></script>
-    <script src="/Front-end/static/js/features/closeWindows.js" defer></script>
-    <script src="/Front-end/static/js/features/confirmMenssage.js" defer></script>
-    <script src="/Front-end/static/js/features/activities.js" defer></script>
-    <script src="/Front-end/static/js/features/registerUser.js" defer></script>
-    <script src="/Front-end/static/js/features/productionRandom.js" defer></script>
-    <script src="/Front-end/static/js/features/productionSpecific.js" defer></script>
-    <script src="/Front-end/static/js/features/map.js" defer></script>
-    <script src="/Front-end/static/js/features/turn.js" defer></script>
-    <script src="/Front-end/static/js/features/updateUI.js" defer></script>
-    <script src="/Front-end/static/js/features/interection_menu.js" defer></script>
+    <script type="module" src="/Front-end/static/js/features/interection_menu.js" defer></script>
+ 
 </body>
 </html>
