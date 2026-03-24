@@ -90,27 +90,27 @@ import {show_confirmation_menssage} from "../features/confirmMenssage.js"
             const checkBox = document.querySelectorAll(".selecao_operador")
             const selectedOps = []
 
-            checkBox.forEach(cb => {
-                if(cb.checked){
-                    selectedOps.push(cb.dataset.id)
+                checkBox.forEach(cb => {
+                    if(cb.checked){
+                        selectedOps.push(cb.dataset.id)
+                    }
+                })
+
+                if(selectedOps.length === 0){
+                    alert("Selecione pelo menos um operador!")
+                    return
                 }
-            })
 
-            if(selectedOps.length === 0){
-                alert("Selecione pelo menos um operador!")
-                return
-            }
+                // ✅ payload correto (ARRAY)
+                const payload = selectedOps.map(opId => ({
+                    operator_id: opId,
+                    task_id: tasksBackend[currentTaskIndex].id_task
+                }))
 
-            // envia operador + task
-            selectedOps.forEach(opId => {
-                console.log("Enviando para backend:", { operator_id: opId, task_id: tasksBackend[currentTaskIndex].id_task })
-                // aqui você chama sua feature que envia para o backend
-                    const payload = { operator_id: opId, task_id: tasksBackend[currentTaskIndex].id_task }
+                console.log("Payload enviado:", payload)
 
-                    // chama a feature
-                    featureDirectionTask(payload)
-            })
-
+                // ✅ chama UMA vez só
+                featureDirectionTask(payload)
             // avança para a próxima task
             currentTaskIndex++
             if(currentTaskIndex < tasksBackend.length){

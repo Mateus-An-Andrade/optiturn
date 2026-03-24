@@ -14,7 +14,7 @@ const response = await fetch(`${API_BASE_URL}/direction/specific`,{
 
 
 export async function directionTaskService(payload) {
-    return fetch(`${API_BASE_URL}/direction/specific`, {
+    return fetch(`${API_BASE_URL}/direction/specific/confirm`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
