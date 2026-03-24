@@ -9,6 +9,8 @@ const numberOperators = document.getElementById("infor_report_operators")
 const dateReport = document.getElementById("date_report")
 const user = JSON.parse(sessionStorage.getItem("user"))
 const nameReport = document.getElementById("responsible_report")
+const kpiTeam = document.getElementById("data_report_KPI_team")
+const kpiTask = document.getElementById("data_report_KPI_task")
 
 
 button.addEventListener("click", async () => {
@@ -17,15 +19,31 @@ button.addEventListener("click", async () => {
 
 export async function viewReport(data) {
     console.log("aqui estão os dados:",data)
+    const ctx = document.getElementById('graphic_production')
         tasksCreated.innerText = data.numberTasksCreated
         tasksComplete.innerText = data.numberCompleteTasks
         tasksIncomplete.innerText = data.numberIncompleteTasks
         numberOperators.innerText = data.numberOperators
-        nameReport.innerText = user.name
+        nameReport.innerText = user
+        kpiTask.innerText = data.kpiTask+"% de eficiência"
+        kpiTeam.innerText = "média de: "+ data.kpiTeam+" atividades por operador"
 
         const formattedDate = new Date(data.dateReport).toLocaleDateString("pt-BR")
 
         dateReport.innerText = formattedDate
 
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['TAREFAS CONCLUÍDAS', 'TAREFAS PENDENTE'],
+                datasets: [{
+                    data: [
+                        data.numberCompleteTasks,
+                        data.numberIncompleteTasks
+                    ]
+                }]
+            }
+        })
 
 }
