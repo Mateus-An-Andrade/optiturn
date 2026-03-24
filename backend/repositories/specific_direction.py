@@ -12,6 +12,33 @@ def specific_direction():
 
     cursor.close()
     conn.close()
-   
 
+    
     return (tasks, operators)
+
+def confirmSpecifcDirect(sorted_data):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    for data in sorted_data:
+        cursor.execute('''INSERT INTO production(
+                                    operator_id, 
+                                    activity_id,
+                                    status) 
+                                    VALUES (%s,%s,%s)''',
+                                    (data['operator_id'],
+                                     data['task_id'],"PENDENTE"))
+        
+        cursor.execute('''
+                UPDATE activities 
+                SET in_production = true 
+                WHERE id_activities = %s
+            ''', (data['task_id'],))
+
+        conn.commit()
+
+
+
+                                                                
+    conn.commit()
+    cursor.close()
