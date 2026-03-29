@@ -9,9 +9,10 @@ from routes.register_gestor_route import user_bp
 from routes.register_operator_route import user_op
 from routes.register_activities_route import user_act
 from routes.random_direct_atv_route import act_random
-from routes.specific_direction_route import act_specific
+from routes.specific_direction_route import act_specific, act_specific_confirm
 from routes.random_direct_atv_route import act_random_confirm
-from routes.mapMenu_route import map_bp
+from routes.mapMenu_route import map_bp,map_confirm_task
+from routes.shiftRoute import report_bp
 
 load_dotenv()
 
@@ -57,8 +58,11 @@ app.register_blueprint(user_op)
 app.register_blueprint(user_act)
 app.register_blueprint(act_random)
 app.register_blueprint(act_specific)
+app.register_blueprint(act_specific_confirm)
 app.register_blueprint(act_random_confirm)
 app.register_blueprint(map_bp)
+app.register_blueprint(map_confirm_task)
+app.register_blueprint(report_bp)
                                                        
 #===================================================================================================================================================
 
@@ -66,88 +70,7 @@ app.register_blueprint(map_bp)
 def ping():
     return {"status": "ok"}
 
-#@app.route("/production_menu_random_direct", methods = ["POST"])
-#def direction_activity():
-#
-#    if request.method == "POST":
-#        conn = get_db_connection()
-#        cursor = conn.cursor()
-#
-#        cursor.execute(''' SELECT * FROM activities WHERE in_production = FALSE''')
-#
-#        data= cursor.fetchall()
-#
-#        tasks = []
-#        operators = []
-#        assigniments = []
-#                                                                                    #lista de tarefas e #operadores para enviar ao #front
-#        for activity in data:
-#            id_task = activity[0]
-#            title = activity[1]
-#            descreption = activity[2]
-#            importance = activity[3]
-#
-#            tasks.append ({'id':id_task, 'titulo': title, 'descrição': descreption, 'importancia': importance })
-#
-#                                                                                    #acima o algoritmo está #pegando todas as tarefas #criadas no banco de dados e #criando um JSON
-#        cursor.execute('''SELECT * FROM operador''')
-#        op_data = cursor.fetchall()
-#
-#        for worker in op_data:
-#            id_op= worker[0]
-#            name_op = worker[1]
-#
-#            operators.append({'id':id_op, 'name': name_op})
-#
-#                                                                                    #acima temos o algoritmo #pegado os operadores #cadastrados no banco de #dados e acrescentado a uma #lista 
-#
-#
-#        for tarefa in tasks:
-#            operator_sorted = random.choice(operators)
-#
-#            assigniments.append({"id_task": tarefa['id'], "title":tarefa['titulo'], "id_operator": #operator_sorted['id'],'nome_operador': operator_sorted['name'], 'importancia': importance,})
-#
-#                                                                                    #acima o algoritmo está #pegando cada tarefa que foi #criada, acrescentada a lista #e escolhendo um operador de #modo aleatório para realizar #a tarefa.
-#
-#        if request.method == "POST":
-#            refresh_tasks = request.json.get('refresh', False)
-#            confirmation_manager = request.json.get('confirm_production', False)
-#
-#            data_tasks = request.json.get("data_task")
-#
-#            if refresh_tasks and not confirmation_manager:
-#                new_refresh = []
-#                for tarefa in tasks:
-#                    operator_sorted = random.choice(operators)
-#
-#                    new_refresh.append({"id_task": tarefa['id'], "title":tarefa['titulo'], "id_operator": #operator_sorted['id'],'nome_operador': operator_sorted['name'], 'importancia': importance,})
-#                
-#                return jsonify(new_refresh)
-#            
-#
-#            elif confirmation_manager and not refresh_tasks:
-#                data_register = data_tasks
-#                for line in data_register:
-#                    cursor.execute('''
-#                        INSERT INTO production (
-#                            operator_id,
-#                            activity_id,
-#                            status
-#                        ) VALUES (%s, %s, %s)
-#                    ''', (line['id_operator'], line['id_task'], 'pendente'))
-#
-#                    cursor.execute('''UPDATE activities SET in_production = TRUE 
-#                                        WHERE id_activities = %s''', (line['id_task'],))
-#
-#                conn.commit()
-#                cursor.close()
-#                conn.close()
-#                return jsonify("Tarefas registradas na base de dados")
-#
-#                                                                                #acima o sistema está refazendo #o sorteio de modo aleatório e #enviando ao front end essa #informação e se o gestor #confirmar ele pega cada #informação do json e insere no #banco de dados para consultas #posteriores e para o Map_Menu.
-#
-#        return jsonify(assigniments)
-#    
+
 ##================================================================================================================#====================
 #
 #@app.route("/production_menu_specific_direction", methods = ["POST"])
