@@ -1,4 +1,4 @@
-function close_windows (id, menu_in_production){
+export function close_windows(id, menu_in_production){
     const window_to_close = document.getElementById(id)
 
     if (window_to_close){
