@@ -9,6 +9,8 @@ def report_service():
     arrayCompleteTasks =[]
     arrayIncompleteTasks = []
 
+    dateTask = None  
+
     for data in reportData:
         idOp= data[0]
         idTask = data[1]
@@ -27,10 +29,14 @@ def report_service():
 
         if idTask not in arrayLenTasks:
             arrayLenTasks.append(idTask)
-    
+    utilizationTeam = (len(arrayCompleteTasks)/len(arrayLenOps)) if len(arrayLenOps) > 0 else 0
+    utilizationTasks = ((len(arrayCompleteTasks)/len(arrayLenTasks))*100) if len(arrayLenTasks) > 0 else 0
+
     return ({"numberOperators": len(arrayLenOps),
              "numberTasksCreated": len(arrayLenTasks),
              "dateReport": dateTask,
              "numberCompleteTasks": len(arrayCompleteTasks),
-             "numberIncompleteTasks": len(arrayIncompleteTasks)
+             "numberIncompleteTasks": len(arrayIncompleteTasks),
+             "kpiTeam": utilizationTeam,
+             "kpiTask": round(utilizationTasks, 2)
              })
