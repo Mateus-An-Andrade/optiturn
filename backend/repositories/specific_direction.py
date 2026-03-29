@@ -24,8 +24,9 @@ def confirmSpecifcDirect(sorted_data):
         cursor.execute('''INSERT INTO production(
                                     operator_id, 
                                     activity_id,
-                                    status) 
-                                    VALUES (%s,%s,%s)''',
+                                    status,
+                                    create_date) 
+                                    VALUES (%s,%s,%s,NOW())''',
                                     (data['operator_id'],
                                      data['task_id'],"PENDENTE"))
         
