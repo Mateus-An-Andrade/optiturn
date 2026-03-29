@@ -6,8 +6,10 @@ user_op = Blueprint("users", __name__)
 @user_op.route("/register/operator", methods=["POST"])
 def register_operator():
     data = request.get_json()
-    name= data.get("name_operator")
-    direct_manager = session["id"]
+    print(data)
+  
+    name = data.get("name")
+    direct_manager = session.get("id")
 
     response = register_operator_svc(name,direct_manager)
 
