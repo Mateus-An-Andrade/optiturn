@@ -1,4 +1,4 @@
-function show_confirmation_menssage(text, time = 3000, menu_in_production) {
+export async function show_confirmation_menssage(text, time = 3000, menu_in_production) {
     const msgBox = document.getElementById('msgSucess');
     const msgTexto = document.getElementById('text_confirmation');
     const inputs = document.querySelectorAll("input")
