@@ -301,6 +301,7 @@
             </div>
 
             <div class="body_report">
+                <h3>RESUMO DE TURNO:</h3>
                 <div class="infors_numbers">
                     <div class="operators_in_work">
                         <h4>OPERADORES DISPONIVEIS: <br><i><span id="infor_report_operators"></span></i></h4>
@@ -319,19 +320,27 @@
                     </div>
                 </div>
 
-                <div class="infors_graphics">
+            <div class="infors_graphics">
+                <div class="kpis">
                     <h3>Indicadores:</h3>
-                    <h4>aproveitamento de tarefas: <span class="data_report_KPI"></span></h4>
-                    <h4>aproveitamento de equipe: <span class="data_report_KPI"></span> </h4>
-
-                    <canvas id="graphic_production">
-
-                    </canvas>
+                    <h4>aproveitamento de tarefas: <i><span id="data_report_KPI_task"></span></i></h4>
+                    <h4>aproveitamento de equipe: <i></i><span id="data_report_KPI_team"></span> </i></h4>
                 </div>
+                    
+                    
+                
+
+                    <div class="container_canvas">
+                        <canvas id="graphic_production">
+
+                        </canvas>
+                    </div>
 
             </div>
 
         </div>
+
+    </div>
 
         <input type="button" value="GRAVAR TURNO" id="shift_demand">
     </section>
@@ -343,6 +352,7 @@
     <div id="blur-overlay"></div> 
 
     <script type="module" src="/Front-end/static/js/features/interection_menu.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
  
 </body>
 </html>
