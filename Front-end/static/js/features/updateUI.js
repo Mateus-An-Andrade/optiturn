@@ -1,4 +1,6 @@
-async function update_UI(){
+import { API_BASE_URL } from "../features/config.js";
+
+export async function update_UI(){
     try{
         const response = await fetch(`${API_BASE_URL}/main`,{
             method: "POST",
@@ -15,7 +17,10 @@ async function update_UI(){
 
         name_gestor.textContent = data.name
         turn_gestor.textContent = data.turn
+        window.currentUser = data
+        sessionStorage.setItem("user", JSON.stringify(data))
         console.log(data)
+
 
     }catch (err) {
         console.error("Erro ao atualizar UI:", err);

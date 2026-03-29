@@ -17,8 +17,6 @@ export async function production(){
 
                                                                                 //acima temos as referencias de elementos html que foram armazenados em variaveis;
 
-    open_menu("production_button","menu_production","grid","/production_menu")
-    close_windows("menu_production", menu_production)
 
     random_direction.addEventListener("click", async function(){
         tarefas_definidas.style.display = "grid"
@@ -32,7 +30,6 @@ export async function production(){
     try {
         const data = await randomDirectionService();
         last_sorted = data;
-        console.log(data)
         renderOperators(data);
     } catch (error) {
         console.error("Erro ao buscar dados:", error);
