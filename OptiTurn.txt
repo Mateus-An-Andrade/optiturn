@@ -7,6 +7,13 @@ O optiturn é um sistema pensado para operações logisticas, galpões e CDs log
 -> geração de relatório automatico de turno com as tarefas criadas, concluidas ou pendentes;
 
 
+
+===> Camada Front-End:
+
++Features: Comunicação com o back-end, deve conter os fetchs
++Services: Regras de negocio,
++view: deve manipular o DOM.
+
 Logs, de erro:
 
-+ERRO: M1549145OT. Campos com informações não preenchidas,
++ERRO: M1549145OT. Campos com informações não preenchidas.
