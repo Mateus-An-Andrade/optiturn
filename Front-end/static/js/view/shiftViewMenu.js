@@ -24,9 +24,9 @@ export async function viewReport(data) {
         tasksComplete.innerText = data.numberCompleteTasks
         tasksIncomplete.innerText = data.numberIncompleteTasks
         numberOperators.innerText = data.numberOperators
-        nameReport.innerText = user
+        //nameReport.innerText = user.name
         kpiTask.innerText = data.kpiTask+"% de eficiência"
-        kpiTeam.innerText = "média de: "+ data.kpiTeam+" atividades por operador"
+        kpiTeam.innerText = "média de "+ data.kpiTeam+" atividades por operador"
 
         const formattedDate = new Date(data.dateReport).toLocaleDateString("pt-BR")
 
@@ -40,7 +40,11 @@ export async function viewReport(data) {
                 datasets: [{
                     data: [
                         data.numberCompleteTasks,
-                        data.numberIncompleteTasks
+                        data.numberIncompleteTasks,
+                    ],
+                    backgroundColor: [
+                        'rgb(206, 35, 72)',
+                        'rgb(34, 197, 94)',
                     ]
                 }]
             }
