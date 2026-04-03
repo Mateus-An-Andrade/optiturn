@@ -1,28 +1,26 @@
 body{
     background-color: #F9FAFB;
     margin: 0%;
+    overflow-x: hidden;
 }
 
 .cabeçalho{
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: row-reverse;
+    justify-content: space-between;
     font-size: 1rem;
-    width: 100vw;
+    width: 95%;
     height: 3em;
-    padding:0.01em;
+    padding:0 3em;
     background-color: #1E40AF;
     margin-bottom: 2em;
     align-items: center;
     color: #F9FAFB;
 
-    .info_cabeçalho{
-        padding-left: 30%;
-    }
 
     .icone_menu_configuracoes{
         width: 2em;
         height: 2em;
-        padding-left: 38em;
         display: flex;
         transition: all 0.3s ease;
         cursor: pointer;
@@ -41,9 +39,9 @@ body{
     width: 30.6em;
     height: 100vh;
     background-color: #D9D9D9;
-    margin-left: 66em;
     position: fixed;
-    top: 0px;
+    right: 0;
+    top: 0;
     
 
     .cabeçalho_menu_configuracoes{
