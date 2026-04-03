@@ -304,21 +304,32 @@ body{
 }
 
 .menu_atividades{
-    display: none ;  /*mudar para grid*/
-    justify-items: center;
-    padding: 1em;
-    margin-left: 25%;
-    margin-right: 25%;
+ display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+
+    width: 90%;
+    max-width: 35em;
+    max-height: 90vh;
+
+    padding: 1.5em;
     font-size: large;
-    position: absolute;
-    z-index: 10;
-    width: 35em;
-    height: 32em;
+
     border: 2px solid black;
-    border-color: black;
+    border-radius: 1em;
+
     background-color: #F9FAFB;
     color: black;
-    overflow: hidden;
+
+    overflow-y: hidden;
+    overflow-x: hidden;
+    
 
 
      label{
@@ -335,6 +346,7 @@ body{
     input[type="button"] {
         width: 6.92em;
         height: 2.1em;
+        border: 1px solid;
         border-radius: 5em;
         cursor: pointer;
     }
@@ -345,6 +357,20 @@ body{
         border: 2px solid black;
         border-radius: 1em;
     }
+
+    .importance_task{
+        text-align: center;
+        width: 100%;
+
+        .priority_btn{
+            width: 12em;
+            height: 2.1em;
+            border: 1px solid;
+            border-radius: 5em;
+            cursor: pointer;
+        }
+    }
+
 }
 
 .menu_producao{

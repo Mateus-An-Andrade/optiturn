@@ -9,7 +9,7 @@ export function create_activities(){
     let confirmation_register_button = document.getElementById("confirmation_button_activity")
 
                                                                                      /*acima temos as variaveis que armazenam as classes e IDs do elementos HTML referentes ao menu de atividades */
-    open_menu("activity_button","menu_activities","grid","/create_activity")
+    open_menu("activity_button","menu_activities","flex","/create_activity")
     close_windows("menu_activities",menu_activity )
 
                                                                                     //acima temos as interações basicas do menu que permite que ele seja aberto para a interação do usuário e a mudança da url do menu.
