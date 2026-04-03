@@ -95,20 +95,21 @@ body{
 }
 
 .botoes_menu{
-    display: grid; /*mudar pra grid*/
-    grid-template-columns: 0% 10% 10% 10% 10% 10% 0%;
+    display: flex;
     justify-content: center;
-    column-gap: 5%;
-    
+    gap: 2em;
+    flex-wrap: wrap; 
 }
 
 .botao_cadastro, .botao_atividades, .botao_produção, .botao_mapa, .botao_passagem_de_turno{
+    border: 1px solid;
     border-radius: 50%;
     width: 8em;
     height: 8em;
     transition: all 0.3s ease;
     cursor: pointer;
     background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             
     img{
         width: 2em;
@@ -116,11 +117,11 @@ body{
 }
 
 .botao_cadastro:hover, .botao_atividades:hover, .botao_produção:hover, .botao_mapa:hover, .botao_passagem_de_turno:hover{
-    border-radius: 50%;
-    width: 8.5em;
-    height: 8.5em;
+    transform: scale(1.1);
     background-color: #3B82F6;
-    color: #F9FAFB;
+    border: 1px solid;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
     cursor: pointer;
             
