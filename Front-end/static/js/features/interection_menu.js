@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
    
                                                                             //acima temos a função que capta o login por meio de API.
 
-    open_menu("register_button", "menu_register", "grid", "/register_user")
+    open_menu("register_button", "menu_register", "flex", "/register_user")
     open_inner_option("opt_register_worker01", "register_leader", "flex")
     open_inner_option("opt_register_worker02", "register_operator", "flex")
     close_windows("menu_register",menu_register)
