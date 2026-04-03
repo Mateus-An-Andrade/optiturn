@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OptiTurn</title>
-    <link rel="stylesheet" href="/static/style_main.css">
+    <link rel="stylesheet" href="static/style_main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 
@@ -94,18 +95,17 @@
 
             <br>
 
-            
-            <br>
-            <br>
-
             <label>Função:</label>
             <br>
-                Gestor:<input id="opt_register_worker01" type="radio" name="cadastro_usuario">
-                Operador:<input id="opt_register_worker02" type="radio" name="cadastro_usuario"> 
+            <div class="cadastro_usuario_opt">
+                <button id="opt_register_worker01" class="cadastro_usuario_btn">Gestor</button>
+                <button id="opt_register_worker02" class="cadastro_usuario_btn">Operador</button>
+            </div>
+              
             <br>
 
                 <div class="cadastro_gestor_informacoes inner_menu" id="register_leader">
-                    <Label>Nome:</Label>
+                    <Label>Nome do gestor:</Label>
                     <br>
                     <input type="text" id="name_new_user">
                     <br>
@@ -117,16 +117,25 @@
                     <br>
                     <input type="text" id="shift_gestor">
                     <br>
-                    <label>Senha</label>
+                    <label>Senha:</label>
                     <br>
                     <input type="password" id="password_gestor">
 
                 </div>
 
                 <div class="cadastro_operario_informacoes inner_menu" id="register_operator">
-                    <Label>Nome:</Label>
+                    <Label>Nome do operador:</Label>
                     <br>
                     <input type="text" id="name_new_operator">
+                    <br>
+                    <label>Usuário:</label>
+                    <br>
+                    <input type="text" id="user_op">
+                    <br>
+                    <label>Senha:</label>
+                    <br>
+                    <input type="password" id="password_op">
+
                 </div>
                 
         </div>
@@ -164,12 +173,12 @@
         </div>
 
 
-        <div>
+        <div class="importance_task">
             <label>IMPORTÂNCIA:</label>
             <br>
-            <input type="radio" name="prioridade" value="PRIOR. MAX">PRIORIDADE MÁXIMA |
-            <input type="radio" name="prioridade" value="PRIOR. MED.">PRIORIDADE MÉDIA |
-            <input type="radio" name="prioridade" value="PRIOR. BX">PRIORIDADE BAIXA
+            <button class="priority_btn" name="prioridade">PRIORIDADE MÁXIMA</button>
+            <button class="priority_btn" name="prioridade" >PRIORIDADE MÉDIA</button>
+            <button class="priority_btn" name="prioridade" >PRIORIDADE BAIXA</button>
         </div>
 
         <input type="button" value="REGISTRAR"  id="confirmation_button_activity">
