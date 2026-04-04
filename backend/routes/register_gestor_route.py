@@ -11,6 +11,6 @@ def register_manager():
     password = data.get("password")
     turn = data.get("turn")
 
-    response = register_gestor(name,username,password,turn)
+    response, status = register_gestor(name,username,password,turn)
 
-    return jsonify(response), 201
+    return jsonify(response),status

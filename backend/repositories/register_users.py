@@ -17,4 +17,4 @@ def register_gestor_db(name,new_user,password,turn):
     cursor.close()
     conn.close()
 
-    return ("novo Gestor cadastrado com sucesso")
+    return ("novo Gestor cadastrado com sucesso"),201

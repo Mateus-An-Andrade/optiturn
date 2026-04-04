@@ -7,10 +7,11 @@ user_op = Blueprint("users", __name__)
 def register_operator():
     data = request.get_json()
     print(data)
-  
+    
     name = data.get("name")
     direct_manager = session.get("id")
+    user = data.get("user")
+    password = data.get("password")
 
-    response = register_operator_svc(name,direct_manager)
-
-    return jsonify(response),200    
+    response, status = register_operator_svc(name, user, password, direct_manager)
+    return jsonify(response),status    
