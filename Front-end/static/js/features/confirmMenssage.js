@@ -14,11 +14,11 @@ export async function show_confirmation_menssage(text, time = 3000, menu_in_prod
 
     if (type === "success") {
             iconSuccess.style.display = "block";
-            iconSuccess.style.color = "#10B981";
+            msgBox.style.color = "#10B981";
             iconWrong.style.display = "none";
-        } else {
+        } else if(type === "error") {
             iconSuccess.style.display = "none";
-            iconSuccess.style.color = "#EF4444;"
+            msgBox.style.color = "#EF4444"
             iconWrong.style.display = "block";
         }
 

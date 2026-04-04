@@ -3,7 +3,9 @@ import { registerManager, registerOperator } from "../services/registerUserServi
 export async function featureRegisterUser(data){
 
        if (!data){
-        return { success: false }
+        return {success:false,
+                message: "dados inválidos"
+        }
     }
 
     let response
@@ -16,8 +18,15 @@ export async function featureRegisterUser(data){
         response = await registerOperator(data)
     }
 
+    if(!response.ok){
+         return {
+                success: false,
+                message: response.data.error
+            }
+    }
+
         return {
         success: true,
-        data: response
+        message: response.data.message
     }
 }

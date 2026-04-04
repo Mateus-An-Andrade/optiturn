@@ -38,6 +38,7 @@ export function create_activities(){
         })
             .then(response => response.json())
             .then(data =>
+                console.log("mensagem de retorno do servidor:", data),
                 show_confirmation_menssage("ATIVIDADE CRIADA!", time=3000,menu_activity, "success")
             )
 

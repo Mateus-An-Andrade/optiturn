@@ -43,8 +43,9 @@ export async function viewReport(data) {
                         data.numberIncompleteTasks,
                     ],
                     backgroundColor: [
-                        'rgb(206, 35, 72)',
                         'rgb(34, 197, 94)',
+                        'rgb(206, 35, 72)',
+                        
                     ]
                 }]
             }
