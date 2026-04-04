@@ -1,14 +1,26 @@
-export async function show_confirmation_menssage(text, time = 3000, menu_in_production) {
-    const msgBox = document.getElementById('msgSucess');
+export async function show_confirmation_menssage(text, time = 3000, menu_in_production, type = "success") {
+    const msgBox = document.getElementById('msgSucess_and_wrong');
     const msgTexto = document.getElementById('text_confirmation');
     const inputs = document.querySelectorAll("input")
     let buttons_menu = document.getElementById("buttons_menu")
+    let iconSuccess = document.getElementById("icon_sucess")
+    let iconWrong = document.getElementById("wrong_icon")
 
     msgTexto.textContent = text;
     msgBox.style.display = 'flex'; 
 
     menu_in_production.style.display = "none"
     msgBox.style.opacity = 0
+
+    if (type === "success") {
+            iconSuccess.style.display = "block";
+            iconSuccess.style.color = "#10B981";
+            iconWrong.style.display = "none";
+        } else {
+            iconSuccess.style.display = "none";
+            iconSuccess.style.color = "#EF4444;"
+            iconWrong.style.display = "block";
+        }
 
     setTimeout(() => {
         msgBox.style.transition = 'opacity 0.5s';
@@ -36,7 +48,7 @@ export async function show_confirmation_menssage(text, time = 3000, menu_in_prod
             msgBox.style.opacity = 0;
             setTimeout(() => {
                 msgBox.style.display = 'none';
-                buttons_menu.style.display = 'grid'; // volta o menu principal
+                buttons_menu.style.display = 'flex'; // volta o menu principal
                 menu_in_production.style.display = 'none'; // volta o menu
             }, 500); // espera o fade-out
         }, time);

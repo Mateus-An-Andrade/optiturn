@@ -91,7 +91,10 @@ body{
     width: auto;
     height: auto;
     
-    
+    .nameMenu{
+        text-align: center;
+        row-gap: 1em;
+    }
 }
 
 .botoes_menu{
@@ -260,7 +263,7 @@ body{
     
 }
 
-.mensagem_de_sucesso{
+.mensagem_de_sucesso_e_de_erro{
     display: none; /*mudar para flex*/
     flex-direction: column;
     align-items: center;
@@ -271,6 +274,7 @@ body{
     background-color: #F9FAFB;
     font-size: 2.5rem;
     color:#10B981;
+
 
     img{
         width: 5em;
@@ -287,15 +291,15 @@ body{
     font-size: 1.5rem;
 
 .fechar_janela{
-    height:1em;
-    width: 1em;
+    height: 0.7em;
+    width: 0.7em;
     transition: all 0.3s ease;
     cursor: pointer;
 }
 
 .fechar_janela:hover{
-    height:1.01em;
-    width: 1.01em;
+    height: 0.8em;
+    width: 0.8em;
     rotate: 360deg;
     cursor: pointer;
 }
@@ -374,23 +378,29 @@ body{
 }
 
 .menu_producao{
-    display: none ;  /*mudar para grid*/
-    grid-template-rows: 7em;
-    grid-template-columns: 100%;
-    justify-items: center;
-    padding: 1em;
-    margin-left: 25%;
-    margin-right: 25%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+
+    width: 90%;
+    max-width: 35em;
+    max-height: 90vh;
+
+    padding: 1.5em;
     font-size: large;
-    position: absolute;
-    z-index: 10;
-    width: 36em;
-    height: 32em;
+
     border: 2px solid black;
-    border-color: black;
+    border-radius: 1em;
+
     background-color: #F9FAFB;
     color: black;
-    overflow: auto;
+
 
     .cabeçalho_menu_producao{
         height: 2em;
@@ -401,22 +411,22 @@ body{
     }
 
     .fechar_janela{
-        height:1em;
-        width: 1em;
+        height: 0.7em;
+        width: 0.7em;
         transition: all 0.3s ease;
         cursor: pointer;
     }
 
     .fechar_janela:hover{
-        height:1.01em;
-        width: 1.01em;
+        height: 0.8em;
+        width: 0.8em;
         rotate: 360deg;
         cursor: pointer;
     }
 
     .tarefas_definidas{
         display: none; /*mudar para grid*/
-        width: 100%;
+        width: 90%;
         height: auto;
         grid-template-columns: 50% 50%;
         overflow-y: auto; 
@@ -508,12 +518,13 @@ body{
         width: 100%;
         height: 100%;
         border: 2px solid black;
+        border-radius: 0.5em;
+        padding: 1em;
 
             th, td {
                 text-align: justify;
                 border: 1px solid black;
-                border-top: none;
-                border-left: none ;
+                border:none ;
                 text-align: center;
                 border-collapse: collapse;
 
@@ -531,6 +542,7 @@ body{
         gap: 10px;
         padding: 1.5em;
         width: 100%;
+        text-align: center;
     }
 
     .selecao_operador{
@@ -567,15 +579,15 @@ body{
 
 
     .fechar_janela{
-        height:1em;
-        width: 1em;
+        height: 0.7em;
+        width: 0.7em;
         transition: all 0.3s ease;
         cursor: pointer;
     }
 
     .fechar_janela:hover{
-        height:1.01em;
-        width: 1.01em;
+        height: 0.8em;
+        width: 0.8em;
         rotate: 360deg;
         cursor: pointer;
     }
@@ -583,11 +595,12 @@ body{
         padding: 1em;
         display: flex;
         flex-direction: column;
-        width: 24em;
-        height: 36em;
+        width: auto;
+        height: auto;
         border: 2px solid black;
         border-radius: 2em;
         text-align: center;
+        gap:0.6em;
         
 
         input[type="text"]{
@@ -697,16 +710,23 @@ body{
         margin-bottom: 1em;
     }
 
+    .report_UI{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
     .fechar_janela{
-        height:1em;
-        width: 1em;
+        height: 0.7em;
+        width: 0.7em;
         transition: all 0.3s ease;
         cursor: pointer;
     }
 
     .fechar_janela:hover{
-        height:1.01em;
-        width: 1.01em;
+        height: 0.8em;
+        width: 0.8em;
         rotate: 360deg;
         cursor: pointer;
     }
@@ -717,12 +737,16 @@ body{
         display: grid;
         justify-items: center;
         grid-auto-flow: column;
+        height:auto;
+        width: 50%;
+        padding: 0.5em;
     }
 
    .body_report{
        border: 2px solid;
        border-radius: 1em;
-        height: 60vh;
+        height: auto;
+        width: 50%;
         padding: 0.5em;
    }
 

@@ -38,11 +38,16 @@ export function create_activities(){
         })
             .then(response => response.json())
             .then(data =>
-                console.log("resposta do servidor:",data)
+                show_confirmation_menssage("ATIVIDADE CRIADA!", time=3000,menu_activity, "success")
             )
 
+            .catch(Error=>{
+                console.error("erro do sistema:",Error.message)
+                show_confirmation_menssage(data, time=3000,menu_activity, "error")
+            })
+
             
-       show_confirmation_menssage("ATIVIDADE CRIADA!", time=3000,menu_activity)
+       
     })
 
 

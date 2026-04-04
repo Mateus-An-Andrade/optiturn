@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     register_user()
 
 
-    open_menu("production_button","menu_production","grid","/production_menu")
+    open_menu("production_button","menu_production","flex","/production_menu")
     close_windows("menu_production",menu_production)
     
     open_menu("map_button","map_menu","grid","/map_menu")

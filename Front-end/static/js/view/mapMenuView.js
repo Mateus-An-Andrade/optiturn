@@ -8,19 +8,29 @@ map_button.addEventListener("click", async () => {
     const data_task = await mapService()
 
     buildMap(data_task)
-
+    
 })
 
 export function buildMap(data){
     let time = 0
     let Array_name = []
 
+
+// limpar containers antigos
+    const oldContainers = map_menu.querySelectorAll('.container_frames');
+    oldContainers.forEach(el => el.remove());
+ 
       const mapContainer = document.createElement('div');
         mapContainer.classList.add('container_frames');
         mapContainer.style.display = "grid"
-        mapContainer.style.gridTemplateColumns = "30em 30em 30em";
+        mapContainer.style.overflowX = "auto"
+        mapContainer.style.gridTemplateColumns = "25em 25em 25em 25em";
         mapContainer.style.rowGap = "2em"
+        mapContainer.style.columnGap = "1em"
         map_menu.appendChild(mapContainer)
+        
+
+        
 
     data.forEach(e => {
         if(!Array_name.includes(e.name_Op)){
@@ -31,7 +41,7 @@ export function buildMap(data){
     
 
     Array_name.forEach(frames =>{
-
+     
      //----------------------------------------------------------------------------------------------------\\
      //bloco de criação dos frames dos operadores.   
         let operator_frame_map_tasks = document.createElement("div")
