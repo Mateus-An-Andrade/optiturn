@@ -21,7 +21,7 @@ body{
     .icone_menu_configuracoes{
         width: 2em;
         height: 2em;
-        display: flex;
+        display: none;
         transition: all 0.3s ease;
         cursor: pointer;
     }
@@ -36,7 +36,7 @@ body{
 
 .meun_configuracoes {
     display: none;
-    width: 30.6em;
+    width: auto;
     height: 100vh;
     background-color: #D9D9D9;
     position: fixed;
