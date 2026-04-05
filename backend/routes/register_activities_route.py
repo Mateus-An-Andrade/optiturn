@@ -11,8 +11,8 @@ def create_activity():
     importance = data.get("importance_task")
     created_by = session["id"]
 
-    response = register_activities_svc(title,discreption, importance, created_by)
+    response,status = register_activities_svc(title,discreption, importance, created_by)
 
-    return jsonify(response),200
+    return jsonify(response),status
 
                                                                         #Acima o código faz o recebimento do JSON do front-end e faz a comunicação com o SVC informando o titulo, descrição, importancia e por quem foi criada a tarefa.
