@@ -15,15 +15,30 @@ export function create_activities(){
                                                                                     //acima temos as interações basicas do menu que permite que ele seja aberto para a interação do usuário e a mudança da url do menu.
 
 
-    confirmation_register_button.addEventListener("click",function(){
-        const title_task_created = document.getElementById("title_task_created").value
-        const descreption_task_text = document.getElementById("descreption_task_text").value
-        const importance_task = document.querySelector('input[name="prioridade"]:checked')?.value;
+     
 
 
 
                                                                                     /*acima temos as variaveis que recebem os campos referentes as informações que o gestor vai imputar referente as tarefas criadas, para enviar para o backend*/
 
+    const importance_task = document.querySelectorAll(".priority_btn")
+    let dataImportance = null
+    
+    importance_task.forEach(btn =>{
+                btn.addEventListener("click", function(){
+                dataImportance = btn.textContent.trim()
+                })
+            })
+    confirmation_register_button.addEventListener("click",function(){
+        
+        const title_task_created = document.getElementById("title_task_created").value
+        const descreption_task_text = document.getElementById("descreption_task_text").value
+
+
+        
+
+
+        console.log("tarefa criada:", title_task_created,descreption_task_text,dataImportance)
         fetch(`${API_BASE_URL}/create/activity`,{
             method: "POST",
             headers:{
@@ -33,21 +48,20 @@ export function create_activities(){
             body:JSON.stringify({
                 title_task_created:title_task_created,
                 descreption_task_text: descreption_task_text,
-                importance_task: importance_task
+                importance_task: dataImportance
             })
         })
             .then(response => response.json())
-            .then(data =>
-                console.log("mensagem de retorno do servidor:", data),
-                show_confirmation_menssage("ATIVIDADE CRIADA!", time=3000,menu_activity, "success")
-            )
+            .then(data =>{
+                const realResponse = data
+                console.log(realResponse)
 
-            .catch(Error=>{
-                console.error("erro do sistema:",Error.message)
-                show_confirmation_menssage(data, time=3000,menu_activity, "error")
+                if(realResponse.status === "success"){
+                    show_confirmation_menssage(realResponse.message, time=3000,menu_activity, "success")
+                }else{
+                    show_confirmation_menssage(realResponse.message, time=3000,menu_activity, "error")
+                }
             })
-
-            
        
     })
 
