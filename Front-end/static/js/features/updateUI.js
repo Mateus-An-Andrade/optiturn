@@ -13,13 +13,13 @@ export async function update_UI(){
         const data = await response.json()
 
         let name_gestor = document.getElementById("name_gestor_interface")
-        let turn_gestor = document.getElementById("turn_gestor_interface")
+        let shift_gestor = document.getElementById("turn_gestor_interface")
 
         name_gestor.textContent = data.name
-        turn_gestor.textContent = data.turn
+        shift_gestor.textContent = data.shift
         window.currentUser = data
         sessionStorage.setItem("user", JSON.stringify(data))
-        console.log(data)
+        console.log("esses são os dados da session:",data)
 
 
     }catch (err) {
