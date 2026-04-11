@@ -1,10 +1,19 @@
 from db.connection import get_db_connection
 
-def register_operator_db(name, user, password, direct_manager):
+def register_operator_db(name, user, password, direct_manager,id_enterprise,type_acess,shift_work):
     conn = get_db_connection()
     cursor = conn.cursor()
     
-    cursor.execute('''INSERT INTO operador (name,username,password,direct_manager) VALUES (%s,%s,%s,%s)''', (name, user, password, direct_manager))
+    cursor.execute('''INSERT INTO user_systems(
+                        name,
+                        user_name, 
+                        password,
+                        direct_manager,
+                        id_enterprise,
+                        type_acess,
+                        shift)
+                   
+                        VALUES (%s,%s,%s,%s,%s,%s,%s)''', (name, user, password, direct_manager,id_enterprise,type_acess,shift_work))
 
     conn.commit()
     cursor.close()
