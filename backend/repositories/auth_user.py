@@ -8,9 +8,9 @@ def auth_user_credentials(username,password):
     cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
     cursor.execute('''
-                   SELECT * FROM gestor
+                   SELECT * FROM user_systems
                     WHERE 
-                   username = %s AND password = %s''',
+                   user_name = %s AND password = %s''',
                    (username,password)
                 )
     
