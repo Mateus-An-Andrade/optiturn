@@ -1,13 +1,13 @@
 from repositories.register_activities import register_activities_in_db
 
-def register_activities_svc(title,discreption,importance,created_by):
+def register_activities_svc(title,discreption,importance,created_by,id_enterprise):
     if not all([title,discreption,importance,created_by]):
         return {
         "status": "error",
         "message": "ERRO: M1549145OT. Campos com informações não preenchidas, tente novamente!"
     }, 400
     
-    register_activities_in_db(title,discreption,importance,created_by)
+    register_activities_in_db(title,discreption,importance,created_by,id_enterprise)
 
     return {
             "status": "success",

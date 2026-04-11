@@ -6,12 +6,14 @@ user_act = Blueprint("acts", __name__)
 @user_act.route("/create/activity", methods = ["POST"])
 def create_activity():
     data= request.get_json()
+    print(data)
     title = data.get("title_task_created")
     discreption = data.get("descreption_task_text")
     importance = data.get("importance_task")
     created_by = session["id"]
+    id_enterprise = session["id_enterprise"]
 
-    response,status = register_activities_svc(title,discreption, importance, created_by)
+    response,status = register_activities_svc(title,discreption, importance, created_by,id_enterprise)
 
     return jsonify(response),status
 
