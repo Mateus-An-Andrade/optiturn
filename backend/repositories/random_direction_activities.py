@@ -7,7 +7,7 @@ def random_direction_activities(id_enterprise):
     cursor.execute('''SELECT id_activities, id_enterprise, title FROM activities WHERE in_production IS null AND id_enterprise = %s''', (id_enterprise,))
     tasks= cursor.fetchall()
 
-    cursor.execute('''SELECT id_user, name FROM user_systems WHERE type_acess = 'operator' AND id_enterprise = %s''',(id_enterprise,))
+    cursor.execute('''SELECT id_user, id_enterprise, name FROM user_systems WHERE type_acess = 'operator' AND id_enterprise = %s''',(id_enterprise,))
     operators= cursor.fetchall()
 
     cursor.close()
@@ -17,7 +17,7 @@ def random_direction_activities(id_enterprise):
     return (tasks, operators)
 
 
-def confirmRandomDirect(sorted_data):
+def confirmRandomDirect(sorted_data,id_enterprise):
     conn = get_db_connection()
     cursor = conn.cursor()
 
@@ -25,12 +25,14 @@ def confirmRandomDirect(sorted_data):
         cursor.execute('''INSERT INTO production(
                                     operator_id, 
                                     activity_id,
-                                    status) 
-                                    VALUES (%s,%s,%s)''',
+                                    status,
+                                    id_enterprise) 
+                                    VALUES (%s,%s,%s,%s)''',
                                     (data['operator']['id_op'],
-                                     data['task']['id_task'],"PENDENTE"))
+                                     data['task']['id_task'],"PENDENTE",
+                                     id_enterprise))
         
-        cursor.execute('''INSERT INTO activities (in_production) VALUES ('true')''')
+        cursor.execute(''' UPDATE activities SET in_production = 'true' WHERE id_enterprise = %s AND id_activities = %s''',(id_enterprise,data['task']['id_task']))
 
 
                                                                 

@@ -27,9 +27,10 @@ def randon_direction_act_svc(id_enterprise):
 
     for data_operator in array_operators:
         id_op = data_operator[0]
-        operator_name = data_operator[1]
+        operator_name = data_operator[2]
+        id_enterp = data_operator[1]
 
-        ops_in_work = {"id_op":id_op, "ops_name":operator_name}
+        ops_in_work = {"id_op":id_op, "id_enterp": id_enterp ,"ops_name":operator_name}
         operators_sorted.append(ops_in_work)
 
 #---->b2
@@ -47,8 +48,9 @@ def randon_direction_act_svc(id_enterprise):
     return(direct_order)
 
 
-def confirmDirectionService(sorted_data):
-    confirmRandomDirect(sorted_data)
+def confirmDirectionService(sorted_data,id_enterprise):
+    print(sorted_data)
+    confirmRandomDirect(sorted_data,id_enterprise)
       
 
 

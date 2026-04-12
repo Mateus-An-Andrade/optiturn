@@ -20,8 +20,9 @@ def confirmDirectionSort():
     data = request.get_json()
     confirm = data.get("confirm_production")
     sorted_data= data.get("sorted")
+    id_enterprise = session.get("id_enterprise")
     
-    confirmDirectionService(sorted_data)
+    confirmDirectionService(sorted_data,id_enterprise)
 
     return jsonify(sorted_data),200
 
