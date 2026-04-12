@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify,request
+from flask import Blueprint, jsonify,request,session
 from services.random_direct_atv_svc import randon_direction_act_svc, confirmDirectionService
 
 
@@ -8,8 +8,8 @@ act_random_confirm = Blueprint("confirm_random_direct", __name__)
 
 @act_random.route("/direction/random" , methods = ["POST"])
 def randon_direction_act_route():
-    response = randon_direction_act_svc()
-
+    id_enterprise = session["id_enterprise"]
+    response = randon_direction_act_svc(id_enterprise)
     return jsonify(response),200
 
 

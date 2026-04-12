@@ -2,8 +2,8 @@ from repositories.random_direction_activities import random_direction_activities
 from random import shuffle,choice
 
 
-def randon_direction_act_svc():
-    arrays_direct = random_direction_activities()
+def randon_direction_act_svc(id_enterprise):
+    arrays_direct = random_direction_activities(id_enterprise)
     
     array_task = arrays_direct[0]
     array_operators = arrays_direct[1]
@@ -17,9 +17,10 @@ def randon_direction_act_svc():
 
     for data_task in array_task:
         id = data_task[0]
-        description= data_task[1]
+        id_enterp = data_task[1]
+        description= data_task[2]
         
-        task_dict={"id_task":id, "description":description}
+        task_dict={"id_task":id,"id_enterprise":id_enterp, "description":description}
 
         tasks.append(task_dict)
 #--->b1

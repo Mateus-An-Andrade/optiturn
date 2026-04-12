@@ -1,13 +1,13 @@
 from db.connection import get_db_connection
 
-def random_direction_activities():
+def random_direction_activities(id_enterprise):
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    cursor.execute('''SELECT id_activities,title FROM activities WHERE in_production IS null''')
+    cursor.execute('''SELECT id_activities, id_enterprise, title FROM activities WHERE in_production IS null AND id_enterprise = %s''', (id_enterprise,))
     tasks= cursor.fetchall()
 
-    cursor.execute('''SELECT id_operador, name FROM operador''')
+    cursor.execute('''SELECT id_user, name FROM user_systems WHERE type_acess = 'operator' AND id_enterprise = %s''',(id_enterprise,))
     operators= cursor.fetchall()
 
     cursor.close()
