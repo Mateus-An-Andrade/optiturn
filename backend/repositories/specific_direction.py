@@ -1,13 +1,13 @@
 from db.connection import get_db_connection
 
-def specific_direction():
+def specific_direction(id_enterprise):
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    cursor.execute('''SELECT id_activities,title,descreption,importance FROM activities WHERE in_production IS null''')
+    cursor.execute('''SELECT id_activities,title,descreption,importance, id_enterprise FROM activities WHERE in_production IS null AND id_enterprise = %s''', (id_enterprise,))
     tasks= cursor.fetchall()
 
-    cursor.execute('''SELECT id_operador, name FROM operador''')
+    cursor.execute('''SELECT id_user, id_enterprise, name FROM user_systems WHERE type_acess = 'operator' AND id_enterprise = %s''',(id_enterprise,))
     operators= cursor.fetchall()
 
     cursor.close()
@@ -16,7 +16,7 @@ def specific_direction():
     
     return (tasks, operators)
 
-def confirmSpecifcDirect(sorted_data):
+def confirmSpecifcDirect(sorted_data,id_enterprise):
     conn = get_db_connection()
     cursor = conn.cursor()
 
@@ -25,10 +25,11 @@ def confirmSpecifcDirect(sorted_data):
                                     operator_id, 
                                     activity_id,
                                     status,
-                                    create_date) 
-                                    VALUES (%s,%s,%s,NOW())''',
+                                    create_date,
+                                    id_enterprise) 
+                                    VALUES (%s,%s,%s,NOW(),%s)''',
                                     (data['operator_id'],
-                                     data['task_id'],"PENDENTE"))
+                                     data['task_id'],"PENDENTE",id_enterprise))
         
         cursor.execute('''
                 UPDATE activities 
