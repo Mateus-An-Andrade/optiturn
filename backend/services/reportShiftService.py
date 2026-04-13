@@ -1,21 +1,26 @@
 from repositories.shiftReport import createReportShift
+from datetime import timezone,datetime
+import pytz
 
-def report_service():
-    reportData = createReportShift()
+def report_service(id_enterprise):
+    reportData = createReportShift(id_enterprise)
+    print(reportData)
+    br = pytz.timezone('America/Sao_Paulo')
     
-
     arrayLenOps = []
     arrayLenTasks =[]
     arrayCompleteTasks =[]
     arrayIncompleteTasks = []
 
-    dateTask = None  
+    dateTask =  datetime.now(br)  
 
     for data in reportData:
         idOp= data[0]
         idTask = data[1]
         statusTask = data[2]
-        dateTask= data[3]
+
+       
+        dateTask = dateTask.replace(tzinfo=timezone.utc).astimezone(br)
 
         if statusTask == "CONCLUÍDO":
             arrayCompleteTasks.append(statusTask)
