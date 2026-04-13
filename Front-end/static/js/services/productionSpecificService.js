@@ -17,6 +17,7 @@ export async function directionTaskService(payload) {
     return fetch(`${API_BASE_URL}/direction/specific/confirm`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify(payload)
     })
 }
