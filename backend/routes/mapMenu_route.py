@@ -1,4 +1,4 @@
-from flask import jsonify, request, Blueprint
+from flask import jsonify, request, Blueprint,session
 from services.MapService import dataMap, confirmTaskFinish
 
 map_bp = Blueprint ("map",__name__)
@@ -15,6 +15,7 @@ def map():
 @map_confirm_task.route("/mapConfirm",methods = ["POST"])
 def confirmDataMap():
       id_confirmed = request.get_json()["activity_id"]
-      confirmTaskFinish(id_confirmed)
+      id_enterprise = session["id_enterprise"]
+      confirmTaskFinish(id_confirmed,id_enterprise)
 
       return jsonify("Tarefa Concluida: Relátorio de turnos atualizado")

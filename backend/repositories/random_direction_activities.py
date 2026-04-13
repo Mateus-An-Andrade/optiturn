@@ -26,8 +26,9 @@ def confirmRandomDirect(sorted_data,id_enterprise):
                                     operator_id, 
                                     activity_id,
                                     status,
+                                    create_date,
                                     id_enterprise) 
-                                    VALUES (%s,%s,%s,%s)''',
+                                    VALUES (%s,%s,%s,NOW(),%s)''',
                                     (data['operator']['id_op'],
                                      data['task']['id_task'],"PENDENTE",
                                      id_enterprise))

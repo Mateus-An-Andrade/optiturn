@@ -7,14 +7,15 @@ def queryMap():
     cursor.execute('''
                SELECT 
                    p.operator_id,
-                   o.name,
+                   u.name,
                    p.activity_id,
                    p.status,
                    a.title,
                    a.descreption,
-                   a.importance
+                   a.importance,
+                   u.id_enterprise
                FROM production p
-               JOIN operador o ON p.operator_id = o.id_operador
+               JOIN user_systems u ON p.operator_id = u.id_user
                JOIN activities a ON p.activity_id = a.id_activities
                 WHERE p.status = 'PENDENTE'
            ''')
@@ -33,11 +34,11 @@ def queryMap():
 
 
 
-def updateProduction(id_task):
+def updateProduction(id_task,id_enterprise):
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    cursor.execute(''' UPDATE production SET status = 'CONCLUÍDO' WHERE activity_id = %s''', (id_task,))
+    cursor.execute(''' UPDATE production SET status = 'CONCLUÍDO' WHERE activity_id = %s AND id_enterprise =%s''', (id_task,id_enterprise,))
 
     conn.commit()
     cursor.close()
