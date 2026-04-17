@@ -48,8 +48,9 @@ export async function show_confirmation_menssage(text, time = 3000, menu_in_prod
             msgBox.style.opacity = 0;
             setTimeout(() => {
                 msgBox.style.display = 'none';
-                buttons_menu.style.display = 'flex'; // volta o menu principal
+                buttons_menu.style.display = 'grid'; // volta o menu principal
                 menu_in_production.style.display = 'none'; // volta o menu
+                history.replaceState({},"","/Front-end/main.html")
             }, 500); // espera o fade-out
         }, time);
 }
