@@ -1,6 +1,6 @@
 from db.connection import get_db_connection
 
-def register_operator_db(name, user, password, direct_manager,id_enterprise,type_acess,shift_work):
+def register_operator_db(name, user, password, direct_manager,id_enterprise,type_access,shift_work):
     conn = get_db_connection()
     cursor = conn.cursor()
     
@@ -10,10 +10,10 @@ def register_operator_db(name, user, password, direct_manager,id_enterprise,type
                         password,
                         direct_manager,
                         id_enterprise,
-                        type_acess,
+                        type_access,
                         shift)
                    
-                        VALUES (%s,%s,%s,%s,%s,%s,%s)''', (name, user, password, direct_manager,id_enterprise,type_acess,shift_work))
+                        VALUES (%s,%s,%s,%s,%s,%s,%s)''', (name, user, password, direct_manager,id_enterprise,type_access,shift_work))
 
     conn.commit()
     cursor.close()

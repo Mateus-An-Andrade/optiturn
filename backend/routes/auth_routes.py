@@ -12,10 +12,10 @@ def login():
     username = data.get("username")
     password = data.get("password")
     id_enterprise = 0
-    type_acess = 0
+    type_access = 0
     psycopg2.extras.RealDictCursor
 
-    user = login_user(username,password,id_enterprise,type_acess)
+    user = login_user(username,password,id_enterprise,type_access)
     print("USER TYPE:", type(user))
     print("USER VALUE:", user)
 
@@ -29,14 +29,14 @@ def login():
     session["name"] = user["name"]
     session["shift"] = user["shift"]
     session["id_enterprise"] = user["id_enterprise"]
-    session["type_acess"] = user["type_acess"]
+    session["type_access"] = user["type_access"]
 
     return jsonify({
         "status": "sucess",
         "name": user["name"],
         "shift": user["shift"],
         "id_enterprise": user["id_enterprise"],
-        "type_acess": user["type_acess"]
+        "type_access": user["type_access"]
     }),200
     
 

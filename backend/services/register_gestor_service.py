@@ -1,11 +1,11 @@
 from repositories.register_users import register_gestor_db
 
-def register_gestor(name,username,password,turn,id_enterprise,type_acess):
+def register_gestor(name,username,password,turn,id_enterprise,type_access):
     if not all([name.strip(), username.strip(), password.strip(), turn.strip()]):
         return{"error":"ERRO: M1549145OT. Campos com informações não preenchidas, tente novamente!"},400
     
 
-    register_gestor_db(name,username,password,turn,id_enterprise,type_acess)
+    register_gestor_db(name,username,password,turn,id_enterprise,type_access)
 
     
     return {
