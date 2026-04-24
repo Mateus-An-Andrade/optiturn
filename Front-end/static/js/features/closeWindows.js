@@ -4,7 +4,7 @@ export function close_windows(id, menu_in_production){
     if (window_to_close){
         window_to_close.querySelector(".fechar_janela").addEventListener("click", function(){
             window_to_close.style.display = "none"; 
-            history.replaceState({},"","/Front-end/main.html")
+            history.replaceState({},"","/main.html")
             buttons_menu.style.display = "grid";
             menu_in_production.style.display = "none"
         });
