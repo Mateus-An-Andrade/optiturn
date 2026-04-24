@@ -28,6 +28,9 @@ def report_service(id_enterprise):
         elif statusTask == "PENDENTE":
             arrayIncompleteTasks.append(statusTask)
 
+        elif statusTask == "Em produção":
+            arrayIncompleteTasks.append(statusTask)
+
 
         if idOp not in arrayLenOps:
             arrayLenOps.append(idOp)
