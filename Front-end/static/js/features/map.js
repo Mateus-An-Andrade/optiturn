@@ -67,6 +67,24 @@ export async function completeTask(idTask) {
 }
 
 
+export async function changeStatusMap(idTask) {
+
+    fetch(`${API_BASE_URL}/mapProduction`,{
+             method: "POST",
+             headers: {
+                 "Content-Type": "application/json"
+             },
+                 credentials: "include",
+                 body: JSON.stringify({
+                     activity_id: idTask
+                 })
+             })
+                 .then(response => response.json())
+                 .then(msg =>{
+                     console.log("mensagem do servidor:", msg)
+            })    
+}
+
 //            data_for_map.forEach(name_map => {
 //                if(!operator_frame.includes(name_map.name_operator)){
 //                    operator_frame.push(name_map.name_operator)

@@ -17,7 +17,7 @@ def queryMap():
                FROM production p
                JOIN user_systems u ON p.operator_id = u.id_user
                JOIN activities a ON p.activity_id = a.id_activities
-                WHERE p.status = 'PENDENTE'
+                WHERE p.status IN ('PENDENTE', 'Em produção')
            ''')
     
 
@@ -39,6 +39,19 @@ def updateProduction(id_task,id_enterprise):
     cursor = conn.cursor()
 
     cursor.execute(''' UPDATE production SET status = 'CONCLUÍDO' WHERE activity_id = %s AND id_enterprise =%s''', (id_task,id_enterprise,))
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return("Status OK!")
+
+
+def updateProductionMap(id_task,id_enterprise):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(''' UPDATE production SET status = 'Em produção' WHERE activity_id = %s AND id_enterprise =%s AND status = 'PENDENTE' ''', (id_task,id_enterprise,))
 
     conn.commit()
     cursor.close()

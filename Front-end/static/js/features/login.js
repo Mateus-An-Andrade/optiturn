@@ -8,6 +8,8 @@ const API_BASE_URL =
 
     login_user.addEventListener("submit",async (ev) => {
         ev.preventDefault()
+        const preloader = document.getElementById("preloader");
+        preloader.style.display = "flex";
 
         const username = document.getElementById("username").value 
         const password = document.getElementById("password").value

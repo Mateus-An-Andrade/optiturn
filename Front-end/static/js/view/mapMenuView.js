@@ -137,12 +137,29 @@ export function buildMap(data){
 //-------------------------------------------------------------------------------------------------------\\
     //bloco de interação com os elementos na página
 
-        if (task.task_status === "pendente"|| "PENDENTE"){
+        if(task.task_priority === "PRIORIDADE MÁXIMA"){
+            title_task.style.borderColor = "#b32525"
+            tasks_in_production_description.style.borderColor = "#b32525"
+
+        } else if(task.task_priority === "PRIORIDADE MÉDIA"){
+            title_task.style.borderColor = "#1E40AF"
+            tasks_in_production_description.style.borderColor = "#1E40AF"
+        }
+
+
+        if (task.task_status.toLowerCase() === "pendente"){
             tasks_in_production_description.style.opacity = 0.5
             title_task.style.opacity = 0.5
             button_pause_task.value = "CONTINUAR"
             complete_this_task.style.opacity = 0.5;
             complete_this_task.disabled = true;
+
+        }else if (task.task_status === "Em produção"){
+            tasks_in_production_description.style.opacity = 1
+            title_task.style.opacity = 1
+            button_pause_task.value = "PAUSAR"
+            complete_this_task.style.opacity = 1;
+            complete_this_task.disabled = false;
         }
 
              title_task.addEventListener("click", function(){
@@ -156,6 +173,7 @@ export function buildMap(data){
 
             button_pause_task.addEventListener("click", function() {
                 if (button_pause_task.value === "PAUSAR") {
+                    changeStatusTaskMap("Em produção",task.task_id)
                         button_pause_task.value = "CONTINUAR";
                                     
                         tasks_in_production_description.style.opacity = 0.5
@@ -163,9 +181,10 @@ export function buildMap(data){
 
                         complete_this_task.style.opacity = 0.5;
                         complete_this_task.disabled = true;
-                }else {
+                        
+                }else if(button_pause_task.value === "CONTINUAR")  {
                   button_pause_task.value = "PAUSAR";
-              
+                  changeStatusTaskMap("PENDENTE",task.task_id)
                   complete_this_task.style.opacity = 1;
                   complete_this_task.disabled = false;
               

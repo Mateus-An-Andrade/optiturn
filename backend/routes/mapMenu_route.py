@@ -1,8 +1,9 @@
 from flask import jsonify, request, Blueprint,session
-from services.MapService import dataMap, confirmTaskFinish
+from services.MapService import dataMap, confirmTaskFinish, mapProductionStatus
 
 map_bp = Blueprint ("map",__name__)
 map_confirm_task = Blueprint ("mapConfirm",__name__)
+mapProd = Blueprint("map_production",__name__)
 
 @map_bp.route("/map_menu", methods = ["POST"])
 def map():
@@ -19,3 +20,11 @@ def confirmDataMap():
       confirmTaskFinish(id_confirmed,id_enterprise)
 
       return jsonify("Tarefa Concluida: Relátorio de turnos atualizado")
+
+@mapProd.route("/mapProduction", methods = ["POST"])
+def mapProduction():
+      id_task = request.get_json()["activity_id"]
+      id_enterprise = session["id_enterprise"]
+      mapProductionStatus(id_task,id_enterprise)
+
+      return jsonify("Tarefa atualizada: em produção")

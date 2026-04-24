@@ -1,4 +1,4 @@
-import { map, completeTask } from "../features/map.js"
+import { map, completeTask, changeStatusMap } from "../features/map.js"
 
 export async function mapService(){     
     const data = await map()
@@ -7,9 +7,13 @@ export async function mapService(){
 }
 
 export async function changeStatusTaskMap(status,data) {
-    if(status == "CONCLUIDO",data){
+    if(status === "CONCLUIDO"){
        console.log("id:",data,"tarefa concluida")
         completeTask(data)
+    }
+    else if(status === "Em produção"){
+        console.log("id:",data,"em produção!")
+        changeStatusMap(data)
     }
     
 }

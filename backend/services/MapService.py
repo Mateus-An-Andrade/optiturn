@@ -1,4 +1,4 @@
-from repositories.mapMenu_repositories import queryMap, updateProduction
+from repositories.mapMenu_repositories import queryMap, updateProductionMap,updateProduction
 from flask import session
 
 def dataMap():
@@ -48,7 +48,8 @@ def dataMap():
     return(array_data_map)
 
 
-
+def mapProductionStatus(id_task,id_enterprise):
+    updateProductionMap(id_task,id_enterprise)
 
 def confirmTaskFinish(id_task,id_enterprise):
     updateProduction(id_task,id_enterprise)
