@@ -67,7 +67,7 @@ export async function completeTask(idTask) {
 }
 
 
-export async function changeStatusMap(idTask) {
+export async function changeStatusMap(idTask,status) {
 
     fetch(`${API_BASE_URL}/mapProduction`,{
              method: "POST",
@@ -76,7 +76,8 @@ export async function changeStatusMap(idTask) {
              },
                  credentials: "include",
                  body: JSON.stringify({
-                     activity_id: idTask
+                     activity_id: idTask,
+                     status: status
                  })
              })
                  .then(response => response.json())

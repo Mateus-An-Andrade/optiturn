@@ -172,27 +172,25 @@ export function buildMap(data){
 
 
             button_pause_task.addEventListener("click", function() {
-                if (button_pause_task.value === "PAUSAR") {
+                if (button_pause_task.value === "CONTINUAR") {
                     changeStatusTaskMap("Em produção",task.task_id)
-                        button_pause_task.value = "CONTINUAR";
-                                    
-                        tasks_in_production_description.style.opacity = 0.5
-                        title_task.style.opacity = 0.5
-
-                        complete_this_task.style.opacity = 0.5;
-                        complete_this_task.disabled = true;
+                    complete_this_task.style.opacity = 1;
+                    tasks_in_production_description.style.opacity = 1
+                    title_task.style.opacity = 1
+                    complete_this_task.disabled = false;
+                    button_pause_task.value = "PAUSAR";
                         
-                }else if(button_pause_task.value === "CONTINUAR")  {
-                  button_pause_task.value = "PAUSAR";
-                  changeStatusTaskMap("PENDENTE",task.task_id)
-                  complete_this_task.style.opacity = 1;
-                  complete_this_task.disabled = false;
+                }else if(button_pause_task.value === "PAUSAR")  {
+                    changeStatusTaskMap("PENDENTE",task.task_id)
+                    tasks_in_production_description.style.opacity = 0.5
+                    title_task.style.opacity = 0.5
+                    complete_this_task.style.opacity = 0.5;
+                    complete_this_task.disabled = true;
+                     button_pause_task.value = "CONTINUAR";
+
               
                   //button_redirection_task.style.opacity = 1;
                   //button_redirection_task.disabled = false;
-
-                  tasks_in_production_description.style.opacity = 1
-                  title_task.style.opacity = 1
             }                  
         },
 

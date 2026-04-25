@@ -13,7 +13,11 @@ export async function changeStatusTaskMap(status,data) {
     }
     else if(status === "Em produção"){
         console.log("id:",data,"em produção!")
-        changeStatusMap(data)
+        changeStatusMap(data,status)
+    }
+    else if(status === "PENDENTE"){
+        console.log("id",data,"status alterado para PENDENTE!")
+        changeStatusMap(data,status)
     }
     
 }
