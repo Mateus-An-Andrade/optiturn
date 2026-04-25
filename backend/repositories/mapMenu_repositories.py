@@ -32,7 +32,34 @@ def queryMap():
 
                                                     #acima o algoritmo deve criar uma lista vazia e selecionar tudo da tabela produção, fazer uma junção com os IDs correspondentes em activities e em operador, pegar todo o #resultado e colocar na variavel data_for_map.
 
+#----------------------------------------------------------------------------------------------------------------
+def queryMapOperator(idOperator,idEnterprise):
 
+    conn= get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute('''
+               SELECT 
+                   p.operator_id,
+                   u.name,
+                   p.activity_id,
+                   p.status,
+                   a.title,
+                   a.descreption,
+                   a.importance,
+                   u.id_enterprise
+               FROM production p
+               JOIN user_systems u ON p.operator_id = u.id_user
+               JOIN activities a ON p.activity_id = a.id_activities
+                WHERE p.status IN ('PENDENTE', 'Em produção') AND id_user = %s and u.id_enterprise = %s
+           ''',(idOperator,idEnterprise,))
+    
+    mapOperator = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return (mapOperator)
 
 def updateProduction(id_task,id_enterprise):
     conn = get_db_connection()
