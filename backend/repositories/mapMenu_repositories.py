@@ -1,6 +1,6 @@
 from db.connection import get_db_connection
 
-def queryMap():
+def queryMap(idEnterprise):
     conn= get_db_connection()
     cursor = conn.cursor()
 
@@ -17,12 +17,13 @@ def queryMap():
                FROM production p
                JOIN user_systems u ON p.operator_id = u.id_user
                JOIN activities a ON p.activity_id = a.id_activities
-                WHERE p.status IN ('PENDENTE', 'Em produção')
-           ''')
+                WHERE p.status IN ('PENDENTE', 'Em produção') AND p.id_enterprise = %s
+           ''',(idEnterprise,))
     
 
     data_for_map = cursor.fetchall()
 
+    print(idEnterprise)
 
     cursor.close()
     conn.close()

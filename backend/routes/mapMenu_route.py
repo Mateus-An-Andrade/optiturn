@@ -16,7 +16,8 @@ def map():
             return jsonify(dataOperatorMap)
 
       elif session["type_access"] == "leader":
-            dataForMap = dataMap()
+            idEnterprise = session["id_enterprise"]
+            dataForMap = dataMap(idEnterprise)
             return jsonify(dataForMap)
                                                                                           #Rota de envio de dados ao front-end para criar os quadros de operadores.
 #================================================================================================================

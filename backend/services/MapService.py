@@ -1,11 +1,10 @@
 from repositories.mapMenu_repositories import queryMap, updateProductionMap,updateProduction, queryMapOperator
 from flask import session
 
-def dataMap():
-    data_query = queryMap()
+def dataMap(idEnterprise):
+    data_query = queryMap(idEnterprise)
 
     array_data_map = []
-    array_map_specific_operator = []
 
     for d in data_query:
 
