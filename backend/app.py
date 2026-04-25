@@ -3,6 +3,7 @@ from flask import Flask
 from flask_cors import CORS
 from dotenv import load_dotenv
 from routes.auth_routes import auth_bp
+from routes.logOut import logOut
 from routes.route_main import main_bp
 from routes.register_gestor_route import user_bp
 from routes.register_operator_route import user_op
@@ -51,6 +52,7 @@ def create_app():
 
 app = create_app()
 app.register_blueprint(auth_bp)
+app.register_blueprint(logOut)
 app.register_blueprint(main_bp)
 app.register_blueprint(user_bp)
 app.register_blueprint(user_op)

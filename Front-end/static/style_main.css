@@ -18,30 +18,59 @@ body{
     color: #F9FAFB;
 
 
-    .icone_menu_configuracoes{
+   .config_LogOut{
+        display: flex;
+        width: auto;
+        gap: 2em;
+        height: auto;
+        flex-direction: row-reverse;
+        justify-content: space-around;
+    }
+
+    .icone_log_out{
+        width: 1.8em;
+        height: 1.8em;
+        display: block;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .icone_log_out:hover{
         width: 2em;
         height: 2em;
-        display: none;
+        display: block;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .icone_menu_configuracoes{
+        width: 1.8em;
+        height: 1.8em;
+        display: block;
         transition: all 0.3s ease;
         cursor: pointer;
     }
 
     .icone_menu_configuracoes:hover{
-        width: 2.2em;
-        height: 2.2em;
+        width: 2em;
+        height: 2em;
         transition: all 0.3s ease;
         cursor: pointer;
+        transform: rotate(360deg);
     }
 }
 
 .meun_configuracoes {
     display: none;
-    width: auto;
-    height: 100vh;
-    background-color: #D9D9D9;
+    width: 50vw;
+    height: auto;
+    padding: 1em;
+    background-color: #f9fafb;
+    border: solid 2px black;
+    border-radius: 2em;
     position: fixed;
-    right: 0;
-    top: 0;
+    text-align: initial;
+    transform: translateX(50%);
     
 
     .cabeçalho_menu_configuracoes{
@@ -49,6 +78,7 @@ body{
         grid-template-columns: 10% 80%;
         align-items: center;
         justify-items: center;
+        border-bottom: 1px solid black;
     }
 
     .opcoes_menu_configuracoes{
@@ -60,27 +90,31 @@ body{
         appearance: none;
         border: none;
         font-size: 1rem;
-        width: 20em;
+        width: 90%;
         height: 2em;
         background-color: #ffffff00;
         cursor: pointer;
+        text-align: left;
     }
 
     input[type="button"]:hover{
+        border: solid 1px black;
+        border-radius: 1em;
         cursor: pointer;
         text-decoration: underline;
         cursor: pointer;
     }
 
     .deslogar_sistema{
-        margin-top: 90%;
-        margin-left: 12em;
-        border: 2px solid black !important; 
+        margin-left: 40%;
+        margin-right: 40%;
+        border: 2px solid black !important;
         width: 10em !important;
         height: 2em !important;
         background-color: #fff !important;
         text-decoration: none !important;
         border-radius: 2em;
+        text-align: center!important;
     }
 }
 

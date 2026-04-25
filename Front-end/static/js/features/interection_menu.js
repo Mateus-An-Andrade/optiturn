@@ -1,4 +1,5 @@
 import { open_menu, open_inner_option } from './openWindows.js';
+import { logOut } from './logout.js';
 import { API_BASE_URL } from "./config.js";
 import { close_windows } from './closeWindows.js';
 import { production } from './productionRandom.js';
@@ -35,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     open_menu("shift_change","turn_menu","grid","/report")
     close_windows("turn_menu", turn_menu)
 
+    logOut();
     update_UI();  
     create_activities();      
     production();
