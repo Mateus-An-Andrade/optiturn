@@ -48,8 +48,8 @@ def dataMap():
     return(array_data_map)
 
 
-def mapProductionStatus(id_task,id_enterprise):
-    updateProductionMap(id_task,id_enterprise)
+def mapProductionStatus(id_task,id_enterprise,status):
+    updateProductionMap(id_task,id_enterprise,status)
 
 def confirmTaskFinish(id_task,id_enterprise):
     updateProduction(id_task,id_enterprise)

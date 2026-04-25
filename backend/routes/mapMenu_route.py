@@ -25,6 +25,8 @@ def confirmDataMap():
 def mapProduction():
       id_task = request.get_json()["activity_id"]
       id_enterprise = session["id_enterprise"]
-      mapProductionStatus(id_task,id_enterprise)
+      status= request.get_json()["status"]
+      
+      mapProductionStatus(id_task,id_enterprise,status)
 
-      return jsonify("Tarefa atualizada: em produção")
+      return jsonify("Tarefa atualizada:",status)

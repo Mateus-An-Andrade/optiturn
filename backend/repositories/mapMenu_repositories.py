@@ -47,14 +47,14 @@ def updateProduction(id_task,id_enterprise):
     return("Status OK!")
 
 
-def updateProductionMap(id_task,id_enterprise):
+def updateProductionMap(id_task,id_enterprise,status):
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    cursor.execute(''' UPDATE production SET status = 'Em produção' WHERE activity_id = %s AND id_enterprise =%s AND status = 'PENDENTE' ''', (id_task,id_enterprise,))
+    cursor.execute(''' UPDATE production SET status = %s WHERE activity_id = %s AND id_enterprise = %s ''', (status,id_task,id_enterprise,))
 
     conn.commit()
     cursor.close()
     conn.close()
 
-    return("Status OK!")
+    return("Status alterado!")
