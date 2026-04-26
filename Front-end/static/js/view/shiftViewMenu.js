@@ -24,7 +24,7 @@ export async function viewReport(data) {
         tasksComplete.innerText = data.numberCompleteTasks
         tasksIncomplete.innerText = data.numberIncompleteTasks
         numberOperators.innerText = data.numberOperators
-        //nameReport.innerText = user.name
+        nameReport.innerText = user.name
         kpiTask.innerText = data.kpiTask+"% de eficiência"
         kpiTeam.innerText = "média de "+ data.kpiTeam+" atividades por operador"
 
