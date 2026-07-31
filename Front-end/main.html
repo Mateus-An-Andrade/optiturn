@@ -48,7 +48,7 @@
 <!-- =================================================================================================================== -->
 
     <section class="menu_interativo"id="buttons_menu">
-        <h2 class="nameMenu">Menu principal</h2>
+        <h3 class="nameMenu">Gestão Operacional</h3>
         <br>
         <div class="botoes_menu" >
             
@@ -56,31 +56,31 @@
             <button class="botao_cadastro" id="register_button">
                 <img src="ICONS/registered.png" alt="icone_registro">
                 <br>
-                CADASTROS
+                Cadastros
             </button>
 
             <button class="botao_atividades" id="activity_button">
                 <img src="ICONS/cube.png" alt="icone_atividades">
                 <br>
-                ATIVIDADES
+                Nova Atividade
             </button>
 
             <button class="botao_produção" id="production_button">
                 <img src="ICONS/report.png" alt="icone_produçao">
                 <br>
-                PRODUÇÃO
+                Produção
             </button>
 
             <button class="botao_mapa" id="map_button">
                 <img src="ICONS/map.png" alt="icone_mapa">
                 <br>
-                MAPA
+                Mapa
             </button>
 
             <button class="botao_passagem_de_turno" id="shift_change">
                 <img src="ICONS/report 2.png" alt="icone_relatorio">
                 <br>
-                TURNO
+                Turno
             </button>
 
         </div>
@@ -101,7 +101,7 @@
 
             <br>
 
-            <label>Função:</label>
+           
             <br>
             <div class="cadastro_usuario_opt">
                 <button id="opt_register_worker01" class="cadastro_usuario_btn">Gestor</button>
@@ -163,7 +163,7 @@
     <section class="menu_atividades" id="menu_activities">
 
         <div class="cabeçalho_menu_atividades">
-            <p>ATIVIDADES</p>
+            <p>Criar nova atividade</p>
             <img src="ICONS/close.png" alt="icone_fechar_janela" class="fechar_janela" >
         </div>
 
@@ -184,9 +184,9 @@
         <div class="importance_task">
             <label>IMPORTÂNCIA:</label>
             <br>
-            <button class="priority_btn" name="prioridade">PRIORIDADE MÁXIMA</button>
-            <button class="priority_btn" name="prioridade" >PRIORIDADE MÉDIA</button>
-            <button class="priority_btn" name="prioridade" >PRIORIDADE BAIXA</button>
+            <button class="priority_btn" id="max_priority" name="prioridade">PRIORIDADE MÁXIMA</button>
+            <button class="priority_btn"id="medium_priority" name="prioridade" >PRIORIDADE MÉDIA</button>
+            <button class="priority_btn" id="low_priority" name="prioridade" >PRIORIDADE BAIXA</button>
         </div>
 
         <input type="button" value="REGISTRAR"  id="confirmation_button_activity">
