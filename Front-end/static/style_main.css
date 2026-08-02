@@ -403,7 +403,7 @@ body{
     }
 
     input[type="button"] {
-        width: 6.92em;
+        width: auto;
         height: 2.1em;
         border: 1px solid;
         border-radius: 5em;
