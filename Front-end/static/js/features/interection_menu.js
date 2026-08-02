@@ -20,20 +20,20 @@ document.addEventListener("DOMContentLoaded", function () {
    
                                                                             //acima temos a função que capta o login por meio de API.
 
-    open_menu("register_button", "menu_register", "flex", "/register_user")
+    open_menu("register_button", "menu_register", "flex")
     open_inner_option("opt_register_worker01", "register_leader", "flex")
     open_inner_option("opt_register_worker02", "register_operator", "flex")
     close_windows("menu_register",menu_register)
     register_user()
 
 
-    open_menu("production_button","menu_production","flex","/production_menu")
+    open_menu("production_button","menu_production","flex")
     close_windows("menu_production",menu_production)
     
-    open_menu("map_button","map_menu","grid","/map_menu")
+    open_menu("map_button","map_menu","grid")
     close_windows("map_menu", map_menu) 
 
-    open_menu("shift_change","turn_menu","grid","/report")
+    open_menu("shift_change","turn_menu","grid")
     close_windows("turn_menu", turn_menu)
 
     logOut();
