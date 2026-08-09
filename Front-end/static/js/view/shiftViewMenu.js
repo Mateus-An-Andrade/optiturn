@@ -26,7 +26,7 @@ export async function viewReport(data) {
         numberOperators.innerText = data.numberOperators
         nameReport.innerText = user.name
         kpiTask.innerText = data.kpiTask+"% de eficiência"
-        kpiTeam.innerText = "média de "+ data.kpiTeam+" atividades por operador"
+        kpiTeam.innerText = "média de "+ data.kpiTeam+" demanda(s) por operador"
 
         const formattedDate = new Date(data.dateReport).toLocaleDateString("pt-BR")
 
