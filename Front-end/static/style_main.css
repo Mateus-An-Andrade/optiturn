@@ -608,8 +608,19 @@ body{
     }
 
     .selecao_operador{
-        width: 1em;
-        height: 1em;
+        width: auto;
+        height: auto;
+        border-radius: 1em;
+        border: 1px solid black;
+        margin: 0.5em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+    }
+    .selecao_operador:hover{
+        background-color: #3B82F6;
+        transform: scale(1.1);
+        transition: all 0.3s ease;
     }
 
     .confirmacao_direcionamento{

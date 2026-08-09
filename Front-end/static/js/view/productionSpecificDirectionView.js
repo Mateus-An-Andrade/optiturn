@@ -63,18 +63,21 @@ import {show_confirmation_menssage} from "../features/confirmMenssage.js"
 
             dt.ops.forEach(obj => {
                 console.log("dados dos operadores:", obj.name_op)
-                containerNameOps.append(obj.name_op)
-
+               
                 
-                const checkBox = document.createElement("input")
-                checkBox.type = "checkbox"
-                checkBox.classList.add("selecao_operador")
-                checkBox.dataset.id = obj.id_op
+                const button = document.createElement("button")
+                button.classList.add("selecao_operador")
+                button.dataset.id = obj.id_op
+                button.innerText = obj.name_op
 
-                containerNameOps.appendChild(checkBox)
+                containerNameOps.appendChild(button)
 
-                                                                            //loop acima pega os dados dos operadores e adiciona eles a tela para fazer o direcionamento especifico das tarefas.
-            })
+            button.addEventListener("click", function() {
+                button.classList.toggle("active");
+
+            });
+                                                                                        //loop acima pega os dados dos operadores e adiciona eles a tela para fazer o direcionamento especifico das tarefas.
+         })
 
 
             dt.tasks.forEach(task =>{
@@ -86,20 +89,22 @@ import {show_confirmation_menssage} from "../features/confirmMenssage.js"
         createTable(tasksBackend[currentTaskIndex])
 
         confirmation_button_direction.addEventListener("click", function(){
-            show_confirmation_menssage("Tarefa direcionada!", 3000, menu_production)
-            const checkBox = document.querySelectorAll(".selecao_operador")
+            const button = document.querySelectorAll(".selecao_operador")
             const selectedOps = []
 
-                checkBox.forEach(cb => {
-                    if(cb.checked){
-                        selectedOps.push(cb.dataset.id)
-                    }
-                })
+            button.forEach(btn => {
+                if (btn.classList.contains("active")) {
+                    selectedOps.push(btn.dataset.id)
+                }
+            })
 
                 if(selectedOps.length === 0){
                     alert("Selecione pelo menos um operador!")
                     return
                 }
+            
+            show_confirmation_menssage("Demanda direcionada!", 3000, menu_production)
+
 
                 // ✅ payload correto (ARRAY)
                 const payload = selectedOps.map(opId => ({
