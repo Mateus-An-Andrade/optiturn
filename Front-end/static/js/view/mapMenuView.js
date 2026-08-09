@@ -137,19 +137,17 @@ export function buildMap(data){
 //-------------------------------------------------------------------------------------------------------\\
     //bloco de interação com os elementos na página
 
-        if(task.task_priority === "PRIORIDADE MÁXIMA"){
+        if(task.task_priority === "ALTA"){
             title_task.style.borderColor = "#bb4343"
             tasks_in_production_description.style.borderColor = "#b32525"
 
-        } else if(task.task_priority === "PRIORIDADE MÉDIA"){
+        } else if(task.task_priority === "MÉDIA"){
             title_task.style.borderColor = "#f1f732"
             tasks_in_production_description.style.borderColor = "#f1f732"
-        }
-
-        
-        } else{
+        }else{
             title_task.style.borderColor = "#3257cf"
             tasks_in_production_description.style.borderColor = "#3257cf"
+        } 
         
 
 
