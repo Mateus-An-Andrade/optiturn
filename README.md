@@ -1,80 +1,150 @@
+# 🚀 OptiTurn
 
-🚀 ProdEx
+> ** OptiTurn (agora chamado ProdEx: Production Execution)** é uma plataforma web desenvolvida para centralizar, organizar e acompanhar demandas operacionais, permitindo maior controle sobre atividades, responsáveis e andamento dos processos.
 
-Sistema web para gestão de operações e execução de tarefas em ambientes logísticos e produtivos, com foco em controle de fluxo, produtividade e visibilidade em tempo real.
+---
 
-📌 Sobre o projeto
+# 📖 Sobre o Projeto
 
-O ProdEx foi desenvolvido para otimizar o gerenciamento de tarefas operacionais, permitindo acompanhar e controlar todo o ciclo de execução dentro de processos logísticos ou produtivos.
+O **ProdEx** foi desenvolvido com base na minha experiência de trabalho no setor de insumos do **Mercado Livre**, observando na prática a necessidade de uma ferramenta mais organizada para acompanhar demandas operacionais.
 
-A aplicação garante organização e rastreabilidade das atividades, desde o estado pendente até em produção e concluído, promovendo maior eficiência e controle operacional.
+Apesar dessa inspiração profissional, o projeto foi criado **totalmente por iniciativa pessoal**, como parte do meu portfólio de Engenharia de Software, com o objetivo de aplicar conhecimentos em desenvolvimento Full Stack, arquitetura de software e modelagem de processos.
 
-⚙️ Funcionalidades
+A aplicação permite registrar, distribuir e acompanhar atividades em tempo real, proporcionando mais organização, transparência e rastreabilidade das operações.
 
+---
 
-📋 Gestão de tarefas operacionais;
+# 🎯 Objetivos
 
-🔄 Controle de status: Pendente/ Em produção /Concluído;
+* Centralizar o gerenciamento de demandas.
+* Organizar o fluxo operacional da equipe.
+* Acompanhar o andamento das atividades.
+* Facilitar a distribuição de responsabilidades.
+* Melhorar a comunicação entre os envolvidos.
+* Fornecer maior visibilidade sobre as operações.
 
-👤 Controle de acesso por tipo de usuário (ex: operador e Gestor);
+---
 
-📊 Interface visual para acompanhamento do fluxo;
+# ✨ Funcionalidades
 
-🔐 Isolamento de dados por contexto (empresa/usuário);
+## 🔐 Autenticação
 
+* Login de usuários
+* Controle de acesso por perfil
+* Sessões autenticadas
 
-🧠 Objetivo
+---
 
-Melhorar a organização do fluxo de trabalho;
+## 📋 Gestão de Demandas
 
-Aumentar a produtividade operacional;
+* Criação de demandas operacionais
+* Atualização de status
+* Definição de prioridade
+* Atribuição de responsáveis
+* Consulta de demandas
 
-Reduzir erros manuais;
+---
 
-Fornecer visibilidade clara das tarefas em execução;
+## 📊 Acompanhamento
 
+* Visualização das demandas em andamento
+* Controle do progresso das atividades
+* Organização por status
 
-🏗️ Arquitetura
+---
 
-O sistema segue uma estrutura organizada por camadas:
+## 👥 Gestão de Usuários
 
-Front-end → Interface e interação do usuário
+* Diferentes níveis de acesso
+* Controle de permissões
+* Associação de usuários às demandas
 
-Back-end (Flask) → Regras de negócio e controle de estados
+---
 
-Service Layer → Processamento das regras
+## 📑 Criação automática de relatório de turnos
 
-Repository Layer → Comunicação com banco de dados
+* Indicadores de produtividade
+* Produtividade geral
+* Demandas por operadores
+* Operadores disponíveis
 
+---
 
-🛠️ Tecnologias utilizadas:
-Python;
+# 🛠️ Tecnologias Utilizadas
 
-Flask;
+### Front-end
 
-HTML / CSS / JavaScript;
+* HTML5
+* CSS3
+* JavaScript
 
-SQL (banco de dados relacional).
+### Back-end
 
-🔄 Fluxo de execução:
+* Python
+* Flask
 
-1-Tarefa é criada como pendente;
+### Banco de Dados
 
-2-Usuário inicia → muda para 'em produção';
+* Supabase
 
-3-Usuário confirma que finalizou → status concluído;
+### Ferramentas
 
-4-Sistema atualiza interface e registra no banco.
+* Jinja2
+* Git
+* GitHub
+* JSON
 
-🎯 Diferenciais
+### Deploy
 
-💡 Foco em operações reais (logística e produção);
+* Front-end: Vercel
+* Back-end: Render
 
-⚡ Interface simples e objetiva;
+---
 
-🧩 Estrutura preparada para escalabilidade.
+# 🏗️ Arquitetura
 
+O ProdEx foi estruturado seguindo princípios de separação de responsabilidades entre interface, lógica de negócio e persistência de dados, facilitando sua manutenção e evolução.
 
-🚧 Status do projeto
+---
 
-🟡 Em produção
+# 💼 Possíveis Aplicações
+
+O sistema pode ser utilizado em diferentes contextos, como:
+
+* Gestão de demandas operacionais.
+* Controle de atividades internas.
+* Organização de equipes.
+* Acompanhamento de projetos.
+* Distribuição de tarefas.
+* Monitoramento de processos administrativos.
+
+---
+
+# 📚 Aprendizados
+
+Durante o desenvolvimento do ProdEx foram aplicados conhecimentos em:
+
+* Engenharia de Software
+* Desenvolvimento Full Stack
+* Modelagem de banco de dados
+* Arquitetura MVC
+* CRUD
+* Autenticação de usuários
+* Controle de permissões
+* Organização de código
+* Versionamento com Git
+* Desenvolvimento de sistemas voltados ao ambiente corporativo
+
+---
+
+# 👨‍💻 Desenvolvedor
+
+**Mateus Andrade**
+
+Estudante de Engenharia de Software, com foco em desenvolvimento Full Stack e criação de soluções para otimização de processos empresariais.
+
+---
+
+# 📄 Licença
+
+Este projeto foi desenvolvido para fins de estudo, portfólio e demonstração de competências técnicas.
