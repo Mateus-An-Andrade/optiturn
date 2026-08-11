@@ -72,10 +72,16 @@ import {show_confirmation_menssage} from "../features/confirmMenssage.js"
 
                 containerNameOps.appendChild(button)
 
-            button.addEventListener("click", function() {
-                button.classList.toggle("active");
+           button.addEventListener("click", function() {
 
+            const buttons = containerNameOps.querySelectorAll(".selecao_operador");
+
+            buttons.forEach(btn => {
+                btn.classList.remove("active");
             });
+
+            this.classList.add("active");
+        });
                                                                                         //loop acima pega os dados dos operadores e adiciona eles a tela para fazer o direcionamento especifico das tarefas.
          })
 
@@ -92,10 +98,11 @@ import {show_confirmation_menssage} from "../features/confirmMenssage.js"
             const button = document.querySelectorAll(".selecao_operador")
             const selectedOps = []
 
-            button.addEventListener("click", function() {
-                button.forEach(btn => btn.classList.remove("active"));
-                this.classList.add("active");
-            });
+            button.forEach(btn => {
+                    if (btn.classList.contains("active")) {
+                        selectedOps.push(btn.dataset.id)
+                    }
+                });
 
                 if(selectedOps.length === 0){
                     alert("Selecione pelo menos um operador!")
