@@ -92,11 +92,10 @@ import {show_confirmation_menssage} from "../features/confirmMenssage.js"
             const button = document.querySelectorAll(".selecao_operador")
             const selectedOps = []
 
-            button.forEach(btn => {
-                if (btn.classList.contains("active")) {
-                    selectedOps.push(btn.dataset.id)
-                }
-            })
+            button.addEventListener("click", function() {
+                button.forEach(btn => btn.classList.remove("active"));
+                this.classList.add("active");
+            });
 
                 if(selectedOps.length === 0){
                     alert("Selecione pelo menos um operador!")

@@ -45,6 +45,6 @@ def report_service(id_enterprise):
              "dateReport": dateTask,
              "numberCompleteTasks": len(arrayCompleteTasks),
              "numberIncompleteTasks": len(arrayIncompleteTasks),
-             "kpiTeam": utilizationTeam,
-             "kpiTask": round(utilizationTasks, 2)
+             "kpiTeam": round(utilizationTeam,2),
+             "kpiTask": round(utilizationTasks,2)
              })
