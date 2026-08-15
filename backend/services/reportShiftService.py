@@ -11,7 +11,8 @@ def report_service(id_enterprise):
     arrayLenTasks =[]
     arrayCompleteTasks =[]
     arrayIncompleteTasks = []
-    titleDemand = []
+    titleDemandComplete=[]
+    titleDemandIncomplete=[]
 
     dateTask =  datetime.now()  
 
@@ -19,19 +20,22 @@ def report_service(id_enterprise):
         idOp= data[0]
         idTask = data[1]
         statusTask = data[2]
-        titleDemand.append(data[4])
+        titleDemand = data[4]
 
        
         dateTask = dateTask.replace(tzinfo=timezone.utc).astimezone()
 
         if statusTask == "CONCLUÍDO":
             arrayCompleteTasks.append(statusTask)
+            titleDemandComplete.append(titleDemand)
 
         elif statusTask == "PENDENTE":
             arrayIncompleteTasks.append(statusTask)
+            titleDemandIncomplete.append(titleDemand)
 
         elif statusTask == "Em produção":
             arrayIncompleteTasks.append(statusTask)
+            titleDemandIncomplete.append(titleDemand)
 
 
         if idOp not in arrayLenOps:
@@ -42,6 +46,8 @@ def report_service(id_enterprise):
     utilizationTeam = (len(arrayCompleteTasks)/len(arrayLenOps)) if len(arrayLenOps) > 0 else 0
     utilizationTasks = ((len(arrayCompleteTasks)/len(arrayLenTasks))*100) if len(arrayLenTasks) > 0 else 0
 
+    print("tarefas completas:", titleDemandComplete)
+    print("tarefas incompletas:", titleDemandIncomplete)
     return ({"numberOperators": len(arrayLenOps),
              "numberTasksCreated": len(arrayLenTasks),
              "dateReport": dateTask,
