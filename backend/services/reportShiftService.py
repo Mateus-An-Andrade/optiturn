@@ -4,13 +4,14 @@ from datetime import timezone,datetime
 
 def report_service(id_enterprise):
     reportData = createReportShift(id_enterprise)
-    print(reportData)
+    print("dados de relatorio:",reportData)
 
     
     arrayLenOps = []
     arrayLenTasks =[]
     arrayCompleteTasks =[]
     arrayIncompleteTasks = []
+    titleDemand = []
 
     dateTask =  datetime.now()  
 
@@ -18,6 +19,7 @@ def report_service(id_enterprise):
         idOp= data[0]
         idTask = data[1]
         statusTask = data[2]
+        titleDemand.append(data[4])
 
        
         dateTask = dateTask.replace(tzinfo=timezone.utc).astimezone()
@@ -46,5 +48,6 @@ def report_service(id_enterprise):
              "numberCompleteTasks": len(arrayCompleteTasks),
              "numberIncompleteTasks": len(arrayIncompleteTasks),
              "kpiTeam": round(utilizationTeam,2),
-             "kpiTask": round(utilizationTasks,2)
+             "kpiTask": round(utilizationTasks,2),
+             "titleDemand": titleDemand
              })
