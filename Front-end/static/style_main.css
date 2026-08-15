@@ -775,6 +775,21 @@ body{
     margin: 1em;
     height: 100%;
 
+    .containerDataReport{
+        display: grid;
+        grid-template-columns: 80% 20%;
+        width: auto;
+        height: auto;
+    }
+
+    .reportTasks{
+        width: auto;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
     .cabeçalho_menu_turno{
         display: grid;
         grid-template-columns: 90% 10%;
@@ -805,8 +820,6 @@ body{
     }
 
     .head_report{
-        border: 1px solid;
-        border-radius: 1em;
         display: grid;
         justify-items: center;
         grid-auto-flow: column;
@@ -819,7 +832,7 @@ body{
        border: 1px solid;
        border-radius: 1em;
         height: auto;
-        width: 50%;
+        width: auto;
         padding: 0.5em;
    }
 
@@ -834,9 +847,10 @@ body{
    .operators_in_work,.number_of_tasks,.task_complete,.task_pending{
         border: 1px solid;
         border-radius: 1em;
-        width: 70%;
-        height: 90%;
+        width: auto;
+        height: auto;
         text-align: center;
+        padding: 0.2em;
    }
 
 
