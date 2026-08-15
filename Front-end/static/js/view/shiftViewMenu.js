@@ -11,6 +11,11 @@ const user = JSON.parse(sessionStorage.getItem("user"))
 const nameReport = document.getElementById("responsible_report")
 const kpiTeam = document.getElementById("data_report_KPI_team")
 const kpiTask = document.getElementById("data_report_KPI_task")
+let containerReportDetailsTask = document.querySelector(".reportTasks");
+let containerConcluidas = document.querySelector("#lista-concluidas");
+let containerPendentes = document.querySelector("#lista-pendentes");
+let completeDemandTitle = []
+let incompleteDemandTitle = []
 
 
 button.addEventListener("click", async () => {
@@ -27,6 +32,22 @@ export async function viewReport(data) {
         nameReport.innerText = user.name
         kpiTask.innerText = data.kpiTask+"% de eficiência"
         kpiTeam.innerText = "média de "+ data.kpiTeam+" demanda(s) por operador"
+        completeDemandTitle = data.titleComplete
+        incompleteDemandTitle = data.titleIncomplete
+
+        completeDemandTitle.forEach(title => {
+           let taskTitleComplete = document.createElement("li")
+            taskTitleComplete.textContent = title
+
+            containerConcluidas.append(taskTitleComplete);
+        });
+
+        incompleteDemandTitle.forEach(title => {
+           let taskTitleInComplete = document.createElement("li")
+            taskTitleInComplete.textContent = title
+
+            containerPendentes.append(taskTitleInComplete);
+        });
 
         const formattedDate = new Date(data.dateReport).toLocaleDateString("pt-BR")
 
