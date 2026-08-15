@@ -6,22 +6,26 @@ def createReportShift(id_enterprise):
 
     cursor.execute('''
         SELECT 
-            operator_id, 
-            activity_id, 
-            status, 
-            create_date
-        FROM production
-        WHERE id_enterprise = %s
-        AND create_date >= (
+            p.operator_id, 
+            p.activity_id, 
+            p.status, 
+            p.create_date,
+            a.title AS activity_title
+        FROM production p 
+        INNER JOIN activities a ON p.activity_id = a.id_activities
+        WHERE p.id_enterprise = %s
+        AND a.id_enterprise = %s 
+        AND p.create_date >= (
             (CURRENT_TIMESTAMP AT TIME ZONE 'America/Sao_Paulo')::date AT TIME ZONE 'America/Sao_Paulo'
         )
-        AND create_date < (
+
+        AND p.create_date < (
             ((CURRENT_TIMESTAMP AT TIME ZONE 'America/Sao_Paulo')::date + INTERVAL '1 day') AT TIME ZONE 'America/Sao_Paulo'
         )
-    ''',(id_enterprise,)
+
+    ''',(id_enterprise,id_enterprise)
     )
     report_data = cursor.fetchall()
 
     cursor.close()
-    print(report_data)
     return (report_data)
