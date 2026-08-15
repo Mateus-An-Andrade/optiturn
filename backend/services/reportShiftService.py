@@ -4,7 +4,6 @@ from datetime import timezone,datetime
 
 def report_service(id_enterprise):
     reportData = createReportShift(id_enterprise)
-    print("dados de relatorio:",reportData)
 
     
     arrayLenOps = []
@@ -46,8 +45,6 @@ def report_service(id_enterprise):
     utilizationTeam = (len(arrayCompleteTasks)/len(arrayLenOps)) if len(arrayLenOps) > 0 else 0
     utilizationTasks = ((len(arrayCompleteTasks)/len(arrayLenTasks))*100) if len(arrayLenTasks) > 0 else 0
 
-    print("tarefas completas:", titleDemandComplete)
-    print("tarefas incompletas:", titleDemandIncomplete)
     return ({"numberOperators": len(arrayLenOps),
              "numberTasksCreated": len(arrayLenTasks),
              "dateReport": dateTask,
@@ -55,5 +52,6 @@ def report_service(id_enterprise):
              "numberIncompleteTasks": len(arrayIncompleteTasks),
              "kpiTeam": round(utilizationTeam,2),
              "kpiTask": round(utilizationTasks,2),
-             "titleDemand": titleDemand
+             "titleComplete": titleDemandComplete,
+             "titleIncomplete": titleDemandIncomplete
              })
