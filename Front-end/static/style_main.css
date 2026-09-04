@@ -339,17 +339,22 @@ body{
     grid-template-columns: auto;
     width: 100%;
     grid-template-rows: auto;
-    justify-items: end;
+    justify-items: flex-start;
     font-size: 1.5rem;
-    grid-auto-flow: column;
+    grid-auto-flow: row;
     align-items: center;
-
+    gap: 0.5em;
+    margin-left:1em;
+    
+}
 
 .fechar_janela{
     height: 0.7em;
     width: 0.7em;
     transition: all 0.3s ease;
     cursor: pointer;
+    position: absolute;
+    margin-left: 90%;
 }
 
 .fechar_janela:hover{
@@ -359,37 +364,56 @@ body{
     cursor: pointer;
 }
 
-    
-}
-
 .menu_atividades{
     display: none;
     flex-direction: column;
     align-items: center;
-    gap: 1em;
 
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -45%);
 
-    width: auto;
-    max-width: 35em;
-    max-height: 90vh;
+    width: 100%;
+    height: auto;
 
-    padding: 1.5em;
+    padding: 1em;
     font-size: medium;
 
-    border: 2px solid black;
-    border-radius: 1em;
+
 
     background-color: #F9FAFB;
     color: black;
 
-    overflow-y: hidden;
+    overflow-y: auto;
     overflow-x: hidden;
     
 
+    .demandsButtons{
+        height:auto;
+        width: auto;
+        padding: 0.5em;
+        border: 1px solid black;
+        border-radius: 0.5em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background-color: #fff;
+    }
+    .demandsButtons:hover{
+        padding: 0.6em;
+        transition: all 0.3s ease;
+        background-color: #3b83f68b;
+    }
+
+    .nameMenu{
+        display: flex;  
+        justify-content: center;
+      }
+
+    #periodicDemandMenuCreate{
+        display: none;
+        flex-direction: column;
+    }
 
      label{
         font-size: 1rem;
@@ -406,7 +430,40 @@ body{
         width: auto;
         height: 2.1em;
         border: 1px solid;
-        border-radius: 5em;
+        border-radius: 0.5em;
+        cursor: pointer;
+    }
+
+    #confirmation_button_activity{
+        width: 10em;
+        height: auto;
+        padding: 0.5em;
+        margin: 2%;
+        position: relative;
+        margin: auto;
+        margin-top: 2%;
+    }
+
+    .confirmButtons{
+        width: 100%;
+        height:auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #isPermanent{
+        width: auto;
+        height: auto;
+        padding: 0.5em;
+        margin: 2%;
+        position: relative;
+        margin: auto;
+        margin-top: 3%;
+        padding: 0.5em;
+        border-radius: 0.5em;
+        position: relative;
+        border: 1px solid;
         cursor: pointer;
     }
 
@@ -421,6 +478,56 @@ body{
         text-align: center;
         width: 100%;
     }
+
+    #permanentDemandMenu{
+        display: none;
+        width: 95%;
+        height: auto;
+        padding: 1%;
+        border-radius: 1em;
+
+         table{
+            background-color: #F9FAFB;
+            width: 100%;
+            text-align: center;
+        }
+
+        tr {
+            display: table-row !important;
+             width: auto;
+        }
+        th {
+            display: table-cell !important;
+            width: auto;
+            background-color: #a1a4aa;
+        }
+         td {
+            display: table-cell !important;
+            width: auto;
+            cursor: pointer;
+            border:1px solid #a1a4aa;
+            transition: all 0.3s ease;
+        }
+         td:hover{
+            display: table-cell !important;
+            width: auto;
+            cursor: pointer;
+            border:1px solid #a1a4aa;
+            padding: 0.5em;
+            transition: all 0.3s ease;
+        }
+    }
+
+        .demandItem{
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 1em;
+            font-size: large;
+            background-color: #f9fafb;
+        }
+
     .priority_btn{
             width: 12em;
             height: 2.1em;
@@ -429,7 +536,7 @@ body{
             cursor: pointer;
         }
         #max_priority{
-                background-image: linear-gradient(rgb(214, 208, 208),rgb(215, 59, 24))
+                background-image: linear-gradient(rgb(214, 208, 208),rgba(215, 59, 24, 0.859))
             }
         #medium_priority{
                 background-image: linear-gradient(rgb(214, 208, 208),rgb(215, 164, 24))

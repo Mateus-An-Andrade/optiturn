@@ -161,13 +161,16 @@
 
 
     <section class="menu_atividades" id="menu_activities">
+        
+        <img src="ICONS/close.png" alt="icone_fechar_janela" class="fechar_janela">
 
         <div class="cabeçalho_menu_atividades">
-            <p>Criar nova demanda</p>
-            <img src="ICONS/close.png" alt="icone_fechar_janela" class="fechar_janela" >
+            <button class="demandsButtons" id="permanentDemandButton">Demandas Permanentes</button>
+            <button class="demandsButtons" id="periodicDemandButton">Criar nova demanda</button>
         </div>
 
-        <div class="info_menu_atividades">
+        <div class="createDemand" id="periodicDemandMenuCreate">
+            <h3 class="nameMenu">Criar Nova demanda:</h3>
             <label>TÍTULO:</label>
             <br>
             <input type="text" id="title_task_created">
@@ -178,18 +181,48 @@
             <br>
             <textarea placeholder=" descrição da demanda" id="descreption_task_text"></textarea>
 
+            <div class="importance_task">
+                <label>PRIORIDADE:</label>
+                <br>
+                <button class="priority_btn" id="max_priority" name="prioridade">ALTA</button>
+                <button class="priority_btn"id="medium_priority" name="prioridade" >MÉDIA</button>
+                <button class="priority_btn" id="low_priority" name="prioridade" >BAIXA</button>
+            </div>
+
+            <div class="confirmButtons">
+                <button id="isPermanent" class="isPermanent">Salvar como demanda Permanente?</button>
+                <input type="button" value="Criar demanda"  id="confirmation_button_activity">
+            </div>
         </div>
 
 
-        <div class="importance_task">
-            <label>PRIORIDADE:</label>
-            <br>
-            <button class="priority_btn" id="max_priority" name="prioridade">ALTA</button>
-            <button class="priority_btn"id="medium_priority" name="prioridade" >MÉDIA</button>
-            <button class="priority_btn" id="low_priority" name="prioridade" >BAIXA</button>
-        </div>
+        <div id="permanentDemandMenu">
 
-        <input type="button" value="Criar demanda"  id="confirmation_button_activity">
+            <table id="tableDemand">
+                <thead >
+                        <tr>
+                            <th class="infoDemands demandItem ">Título</th>
+                
+                            <th class="infoDemands demandItem">Resumo</th>
+                
+                            <th class="infoDemands demandItem ">Importância</th>
+                        </tr>
+                </thead>
+
+                <tbody >
+                    <tr>
+                        <td class="demandTitle demandItem">teste</td>
+                
+                         <td class="demandDescription demandItem">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, debitis libero? Hic nemo architecto iste odit veniam sed atque.</td>
+                
+                        <td class="demandImportance demandItem"> ALTA</td>
+                        
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+        </div>
     </section>
 
 <!-- =================================================================================================================== -->

@@ -13,7 +13,7 @@ export function open_menu(id_btn,id_menu, displayType = "grid"){
 }
 
 
-export function open_inner_option(id_btn,id_menu, displayType = "grid", group_class = "inner_menu"){
+export function open_inner_option(id_btn,id_menu, displayType = "grid", group_class = "inner_menu",idMenuHidden){
     const button_menu = document.getElementById(id_btn)
     const menu_in_work = document.getElementById(id_menu)
 
@@ -23,6 +23,10 @@ export function open_inner_option(id_btn,id_menu, displayType = "grid", group_cl
         })
 
         menu_in_work.style.display = displayType
+
+        if (idMenuHidden) {
+            document.getElementById(idMenuHidden).style.display = "none";
+        }
     })
 }
 
