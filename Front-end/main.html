@@ -197,31 +197,36 @@
 
 
         <div id="permanentDemandMenu">
-
-            <table id="tableDemand">
-                <thead >
-                        <tr>
-                            <th class="infoDemands demandItem ">Título</th>
-                
-                            <th class="infoDemands demandItem">Resumo</th>
-                
-                            <th class="infoDemands demandItem ">Importância</th>
-                        </tr>
-                </thead>
-
-                <tbody >
-                    <tr>
-                        <td class="demandTitle demandItem">teste</td>
-                
-                         <td class="demandDescription demandItem">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, debitis libero? Hic nemo architecto iste odit veniam sed atque.</td>
-                
-                        <td class="demandImportance demandItem"> ALTA</td>
-                        
-                    </tr>
+            <div class="permanentDemandMenuContainer">
+                <table id="tableDemand">
+                    <thead >
+                            <tr>
+                                <th class="infoDemands demandItem">Título</th>
                     
-                </tbody>
-            </table>
+                                <th class="infoDemands demandItem">Resumo</th>
+                    
+                                <th class="infoDemands demandItem">Importância</th>
 
+                                <th class="infoDemands demandItem"> Subir produção?</th>
+                            </tr>
+                    </thead>
+
+                    <tbody >
+                        <tr>
+                            <td class="demandTitle demandItem">teste</td>
+                    
+                            <td class="demandDescription demandItem">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, debitis libero? Hic nemo architecto iste odit veniam sed atque.</td>
+                    
+                            <td class="demandImportance demandItem">ALTA</td>
+
+                            <td class="demandSelection demandItem"><input type="checkbox" name="upProduction" class="upProduction"></td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+             <div class="containerConfirmUpProduction"> <button id="ConfirmUpProduction">Subir (<span id="numberTasks"></span>) tarefas para produção?</button> </div>
         </div>
     </section>
 
