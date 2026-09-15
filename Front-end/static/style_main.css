@@ -506,17 +506,25 @@ body{
         }
          td {
             display: table-cell !important;
+            border:1px solid #a1a4aa;
+            border-top:none;
+            border-right: none;
+            border-left: none;
             width: auto;
             cursor: pointer;
-            border:1px solid #a1a4aa;
+            padding: 0.2em;
             transition: all 0.3s ease;
+            font-size: medium;
         }
          td:hover{
             display: table-cell !important;
+            border:1px solid #a1a4aa;
+            border-top:none;
+            border-right: none;
+            border-left: none;
             width: auto;
             cursor: pointer;
-            border:1px solid #a1a4aa;
-            padding: 0.5em;
+            padding: 0.3em;
             transition: all 0.3s ease;
         }
     }
