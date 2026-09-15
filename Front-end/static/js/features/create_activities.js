@@ -81,10 +81,11 @@ export function create_activities(dataDemand){
             oldContainers.forEach(el => el.remove());
 
             const tableContainer = document.createElement("div");
+            const containerConfirmationProduction = document.createElement("div")
             tableContainer.classList.add('permanentDemandMenuContainer');
 
             tableContainer.style.display = "grid";
-            tableContainer.style.backgroundColor = "black";
+            tableContainer.style.marginBottom= "5%"
 
             const table = document.createElement("table")
             const tableHead = document.createElement("thead")
@@ -150,7 +151,19 @@ export function create_activities(dataDemand){
             table.appendChild(tableBody);
 
             tableContainer.appendChild(table);
+            containerConfirmationProduction.classList.add("containerConfirmUpProduction")
+
+            const buttonConfirmationProduction = document.createElement("button")
+            buttonConfirmationProduction.id = "ConfirmUpProduction"
+            buttonConfirmationProduction.textContent = "SUBIR () PARA PRODUÇÃO?"
+
+            containerConfirmationProduction.appendChild(buttonConfirmationProduction)
+            
+
+
             permanentDemandMenu.appendChild(tableContainer);
+            permanentDemandMenu.appendChild(containerConfirmationProduction)
+
 
                                                                     //Criação dos elementos da tabela.
             
