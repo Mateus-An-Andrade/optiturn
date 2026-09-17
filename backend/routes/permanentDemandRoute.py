@@ -12,9 +12,9 @@ def permanentDemandFunction():
     description = data.get("description")
     importance = data.get("importance")
     createdBy = data.get("createdBy")
-    idEnterprise = data.get("idEnterprise")
+    idEnterprise = session.get("id_enterprise")
     PermanentDemand = data.get("PermanentDemand")
-
+    
     response = permanentDemandService(title,description,importance,createdBy,idEnterprise,PermanentDemand)
 
     return jsonify(response)
