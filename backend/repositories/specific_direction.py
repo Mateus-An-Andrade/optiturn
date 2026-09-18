@@ -28,14 +28,14 @@ def confirmSpecifcDirect(sorted_data,id_enterprise):
                                     create_date,
                                     id_enterprise) 
                                     VALUES (%s,%s,%s,NOW(),%s)''',
-                                    (data['operator_id'],
-                                     data['task_id'],"PENDENTE",id_enterprise))
+                                    (data['idOperatorDirect'],
+                                     data['idDemand'],"PENDENTE",id_enterprise))
         
         cursor.execute('''
                 UPDATE activities 
                 SET in_production = true 
                 WHERE id_activities = %s
-            ''', (data['task_id'],))
+            ''', (data['idDemand'],))
 
         conn.commit()
 
