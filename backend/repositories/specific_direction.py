@@ -4,7 +4,7 @@ def specific_direction(id_enterprise):
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    cursor.execute('''SELECT id_activities,title,descreption,importance, id_enterprise FROM activities WHERE in_production IS null AND id_enterprise = %s''', (id_enterprise,))
+    cursor.execute('''SELECT id_activities,title,descreption,importance, id_enterprise FROM activities WHERE (in_production IS NULL OR in_production = FALSE) AND id_enterprise = %s''', (id_enterprise,))
     tasks= cursor.fetchall()
 
     cursor.execute('''SELECT id_user, id_enterprise, name FROM user_systems WHERE type_access = 'operator' AND id_enterprise = %s''',(id_enterprise,))
