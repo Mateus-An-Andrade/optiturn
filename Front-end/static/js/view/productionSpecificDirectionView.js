@@ -1,139 +1,98 @@
 import { featureDirectionTask } from "../features/productionSpecific.js"
+
 import {show_confirmation_menssage} from "../features/confirmMenssage.js"
 
-    export async function renderSpecificTasks(data) {
-    let containerNameOps = document.getElementById("operators_in_work")
-    const containerTable = document.querySelector(".tarefa_para_direcionamento")
-    const containerDirection = document.querySelector(".direcionamento_por_operador")
-    const containerConfirmation = document.querySelector(".confirmacao_direcionamento")
-    const confirmation_button_direction = document.getElementById("confirmation_button_direction")
 
+    export async function renderSpecificTasks(dataForProduction) {
+        const specific_directionButton = document.getElementById("specific_direction")
+        const containerDirection = document.getElementById("directionOperatorFrame")
+        const confirmation_button_direction = document.getElementById("confirmation_button_direction")
 
-    function createTable(task){
-    containerTable.innerHTML = ""
-    const table = document.createElement("table")
-    table.classList.add("tabela_de_tarefa")
-    table.id = "tableTaskSpecificDirection"
+        let demands = []
+        let arrayOps = []
 
-        // linha de título
-        const trTitle = document.createElement("tr")
+        let arrayDirectDemand =[]
 
-        const thTitleTask = document.createElement("th")
-        thTitleTask.classList.add("titulo_tarefa")
-        thTitleTask.textContent = task.title
-
-        const thImportance = document.createElement("th")
-        thImportance.classList.add("titulo_importancia")
-        thImportance.textContent = "IMPORTÂNCIA"
-
-        trTitle.appendChild(thTitleTask)
-        trTitle.appendChild(thImportance)
-
-
-    // linha de descrição
-        const trDescription = document.createElement("tr")
-
-        const tdDescription = document.createElement("td")
-        tdDescription.id = "text_description_task_table"
-        tdDescription.textContent = task.description_task
-
-        const tdImportance = document.createElement("td")
-        tdImportance.textContent = task.importance
-
-        trDescription.appendChild(tdDescription)
-        trDescription.appendChild(tdImportance)
-
-        table.appendChild(trTitle)
-        table.appendChild(trDescription)
-
-        containerTable.appendChild(table)
-        console.log("Criando tabela", task)
-        containerDirection.appendChild(containerTable)
-        containerConfirmation.style.display = "block"
-        containerNameOps.style.display = "block"
-        containerDirection.style.display = "block"
-
-                                                            //função de criação dinamica da tabela de tarefas retornadas do backend.
-    }
-
-    let tasksBackend = []
-
-        data.forEach(dt => {
-            console.log("operadores:",dt.ops)
-
-            dt.ops.forEach(obj => {
-                console.log("dados dos operadores:", obj.name_op)
-               
-                
-                const button = document.createElement("button")
-                button.classList.add("selecao_operador")
-                button.dataset.id = obj.id_op
-                button.innerText = obj.name_op
-
-                containerNameOps.appendChild(button)
-
-           button.addEventListener("click", function() {
-
-            const buttons = containerNameOps.querySelectorAll(".selecao_operador");
-
-            buttons.forEach(btn => {
-                btn.classList.remove("active");
-            });
-
-            this.classList.add("active");
-        });
-                                                                                        //loop acima pega os dados dos operadores e adiciona eles a tela para fazer o direcionamento especifico das tarefas.
-         })
-
-
-            dt.tasks.forEach(task =>{
-            tasksBackend.push(task)
-            })
+        dataForProduction.forEach(data => {
+            arrayOps.push(...data.ops)
+            demands.push(...data.tasks)
         });
 
-        let currentTaskIndex = 0;
-        createTable(tasksBackend[currentTaskIndex])
+            containerDirection.style.display = "flex"
 
-        confirmation_button_direction.addEventListener("click", function(){
-            const button = document.querySelectorAll(".selecao_operador")
-            const selectedOps = []
+            demands.forEach(element =>{
 
-            button.forEach(btn => {
-                    if (btn.classList.contains("active")) {
-                        selectedOps.push(btn.dataset.id)
-                    }
-                });
+    //==========================================================================================================
+                const hr = document.createElement("hr")
+                const demandContainer = document.createElement("div")
+                    demandContainer.classList.add("demandContainer")
 
-                if(selectedOps.length === 0){
-                    alert("Selecione pelo menos um operador!")
-                    return
-                }
             
-            show_confirmation_menssage("Demanda direcionada!", 3000, menu_production)
+                const titleDemand = document.createElement("div")
+                        titleDemand.classList.add("titleDemand")
+                        titleDemand.textContent = element.title
+    
+                const descriptionDemand = document.createElement("div")
+                        descriptionDemand.classList.add("descriptionDemand")
+                        descriptionDemand.textContent = element.description_task
+                        descriptionDemand.append(hr)
+                
+                const operatorsToWork = document.createElement("div")
+                    operatorsToWork.classList.add("operatorsToWork")
 
+                    
+                        arrayOps.forEach(operator =>{
+                            const buttonsOperators = document.createElement("button")
+                                 buttonsOperators.classList.add("operatorSelect")
+                                 buttonsOperators.textContent = operator.name_op
+                            operatorsToWork.append(buttonsOperators)
 
-                // ✅ payload correto (ARRAY)
-                const payload = selectedOps.map(opId => ({
-                    operator_id: opId,
-                    task_id: tasksBackend[currentTaskIndex].id_task
-                }))
+                            buttonsOperators.addEventListener("click",function(){
+                                const everyButtons =  operatorsToWork.querySelectorAll(".operatorSelect")
 
-                console.log("Payload enviado:", payload)
+                                everyButtons.forEach(button =>{
+                                    if(button === buttonsOperators){
+                                        button.style.opacity = "1"
+                                        button.style.pointerEvents = "none"
+                                        arrayDirectDemand.push(
+                                            
+                                                    {
+                                                        idDemand:element.id_task, 
+                                                        idOperatorDirect:operator.id_op
+                                                    })
 
-                // ✅ chama UMA vez só
-                featureDirectionTask(payload)
-            // avança para a próxima task
-            currentTaskIndex++
-            if(currentTaskIndex < tasksBackend.length){
-                createTable(tasksBackend[currentTaskIndex])
-            } else {
-                alert("Todas as tasks foram direcionadas!")
-                containerTable.innerHTML = ""
-                containerNameOps.innerHTML = ""
-                containerConfirmation.style.display = "none"
-            }
- 
-        })
+                                        console.log("tarefa direcionada:",arrayDirectDemand)
+                                    }else{
+                                        button.disabled = true
+                                        button.style.opacity = "0.4"
+                                    }
+                                })
+                            })
+                        })
+
+                containerDirection.append(demandContainer)
+        
+                demandContainer.append(titleDemand,descriptionDemand,operatorsToWork,hr)
+
+                                                                //criação de elementos na tela,aqui é criada toda a div de demandas e operadores de acordo com o que chega do back-end.
+
+//==============================================================================================================
+
+                    titleDemand.addEventListener("click",function(){
+                        if (descriptionDemand.style.display === "none") {
+                            descriptionDemand.style.display = "flex"
+                            operatorsToWork.style.display = "flex"
+                        } else {
+                            descriptionDemand.style.display = "none"
+                            operatorsToWork.style.display = "none"
+                        }
+                    })
+            })
+
+            confirmation_button_direction.addEventListener("click",function(){
+                featureDirectionTask(arrayDirectDemand)
+                show_confirmation_menssage("TAREFA ENVIADA AO SERVIDOR",3000,menu_production)
+            })
         
     }   
 
