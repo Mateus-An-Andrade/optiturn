@@ -77,6 +77,9 @@ export function create_activities(dataDemand){
 
         .then(response => response.json())
         .then(data => {
+
+
+// Bloco VIEW da função  ===============================================>
             const oldContainers = permanentDemandMenu.querySelectorAll('.permanentDemandMenuContainer');
             oldContainers.forEach(el => el.remove());
 
@@ -114,6 +117,8 @@ export function create_activities(dataDemand){
 
             tableHead.append(tableHeadRow);
                                                         //Criação de textos que vão no cabeçalho da tabela e inserção dos mesmos no elemento head da tabela.
+
+            let countChoice = 0
             data.forEach((e, index) =>{
                 const tableRow = document.createElement("tr") //1
 
@@ -127,7 +132,24 @@ export function create_activities(dataDemand){
                 checkBox.type = "checkbox"//2.1
                 checkBox.classList = "upProduction"//2.1
                 checkBox.dataset.index = index//2.1
-            
+                
+                //2.2
+                    checkBox.addEventListener("change",()=>{
+                        if(checkBox.checked){
+                            selectDemands.push(e)
+                            countChoice++;
+                        }else{
+                            countChoice--
+                            selectDemands = selectDemands.filter(demand => demand !== e);
+                        }
+
+                        
+                        console.log("tarefas selecionadas:",selectDemands)
+
+                        const textTasks = countChoice === 1 ? "TAREFA" : "TAREFAS";
+                        buttonConfirmationProduction.textContent =`SUBIR (${countChoice}) ${textTasks} PARA PRODUÇÃO?`;
+                    })
+                                    
 
                 tdTitle.textContent = e[0]; //3
                 tdDescription.textContent = e[1];//3
@@ -135,7 +157,12 @@ export function create_activities(dataDemand){
                 tdSelection.appendChild(checkBox)
 
 
-                                                        //Loop que percorre os dados retornados do servidor indexando cada linha pelo checkbox: Para cada dado retornado: 1-crie uma nova linha, 2-crie esses elementos nas linhas criadas, 2.1- criação do checkbox, definição da sua classe e indicação de index 3- pegue esses indices e coloque os dados deles nos dados correspondentes das linhas    
+                                                        //Loop que percorre os dados retornados do servidor indexando cada linha pelo checkbox: Para cada dado retornado: 
+                                                        // 1-crie uma nova linha, 
+                                                        // 2-crie esses elementos nas linhas criadas, 
+                                                            // 2.1- criação do checkbox, definição da sua classe e indicação de index, 
+                                                            //2.2- bloco de configuração das seleções do usuário para enviar para produção, 
+                                                        // 3- pegue esses indices e coloque os dados deles nos dados correspondentes das linhas    
 
                 tableRow.appendChild(tdTitle);
                 tableRow.appendChild(tdDescription);
@@ -163,15 +190,28 @@ export function create_activities(dataDemand){
 
             permanentDemandMenu.appendChild(tableContainer);
             permanentDemandMenu.appendChild(containerConfirmationProduction)
+//                                     <========================================================================
+
+                                                    /*Fetch que recupera do backend as demandas permanentes ou ciclica. Ao clicar em demandas permanentes ele já recebe do servidor todas as que são cadastradas com o status True de demandas permanentes.*/
+
+            let selectDemands = []
+            buttonConfirmationProduction.addEventListener("click",()=>{
+                fetch(`${API_BASE_URL}/create/upDemand`,{
+                    method: "POST",
+                    headers:{
+                            'Content-type': 'application/json',
+                    },
+                    credentials: "include",
+                    body: JSON.stringify(selectDemands)
+                })
+                show_confirmation_menssage("Demandas criadas!",  time=3000,menu_activity, "success")
+            })
+
+        })
+                                                     
+//Bloco Route da função ==================================================>
 
 
-                                                                    //Criação dos elementos da tabela.
-            
-            console.log("esses são os dados",data)})
-
-
-
-                                            /*Fetch que recupera do backend as demandas permanentes ou ciclica. Ao clicar em demandas permanentes ele já recebe do servidor todas as que são cadastradas com o status True de demandas permanentes.*/
 
     })
 
