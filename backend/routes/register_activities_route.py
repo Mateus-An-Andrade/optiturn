@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify,request,session
-from services.register_activities_svc import register_activities_svc
+from services.register_activities_svc import register_activities_svc, upDemandFixedSVC
 
 user_act = Blueprint("acts", __name__)
+actFixed = Blueprint("fixedActs", __name__)
 
 @user_act.route("/create/activity", methods = ["POST"])
 def create_activity():
@@ -17,4 +18,14 @@ def create_activity():
 
     return jsonify(response),status
 
-                                                                        #Acima o código faz o recebimento do JSON do front-end e faz a comunicação com o SVC informando o titulo, descrição, importancia e por quem foi criada a tarefa.
+                                                                        #Acima o código faz o recebimento do JSON do front-end e faz a comunicação com o SVC informando o titulo, descrição, importancia e por quem foi criada a tarefa isso para demandas períodicas.
+
+@actFixed.route("/create/upDemand", methods = ["POST"])
+def fixedDemandsUp():
+    dataFixedReturn = request.get_json()
+    leaderUpDemand = session["id"]
+    id_enterprise = session["id_enterprise"]
+
+    upDemandFixedSVC(dataFixedReturn,id_enterprise,leaderUpDemand)
+
+    return dataFixedReturn
