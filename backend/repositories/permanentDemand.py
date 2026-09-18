@@ -20,8 +20,6 @@ def permanentDemand(title,description,importance,createdBy,idEnterprise,Permanen
     result = cursor.fetchall()
     cursor.close()
     conn.close()
-    print("esse é o resultado:", result)
-    print("esse é o id da empresa:",idEnterprise)
     return (result)
 
                                                                  #Query que busca na base de dados as demandas que são "permanentes" ou ciclicas ou diárias, que devem ser realizadas todos os dias ou que não podem deixar de ser realizada
